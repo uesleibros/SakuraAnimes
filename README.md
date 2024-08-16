@@ -1,6 +1,8 @@
-# Sakura Animes
-
-Maior rede de streaming para animes do Brasil.
+<div align="center">
+  <img src="/public/logo.png" width="100" />
+  <h2>Sakura Animes</h2>
+  <p>Maior rede de streaming do Brasil para Otakus de plantão.</p>
+</div>
 
 ## Qual o intuito desse projeto?
 
