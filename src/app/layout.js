@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Sakura Animes",
-  description: "Está cansado de ter entrar em sites com anúncios e de qualidade baixa? Então largue tudo e venha conhecer nossa plataforma n° 1 de streaming.",
+  description: "Está cansado de ter que entrar em sites com anúncios e de qualidade baixa? Então largue tudo e venha conhecer nossa plataforma n° 1 de streaming.",
 };
 
 export default function RootLayout({ children }) {
