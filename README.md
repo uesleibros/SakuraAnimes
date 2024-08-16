@@ -1,7 +1,23 @@
 <div align="center">
   <img src="/public/logo.png" width="100" />
-  <h2>Sakura Animes</h2>
-  <p>Maior rede de streaming do Brasil para Otakus de plantão.</p>
+
+  ### Sakura Animes
+
+  A melhor plataformande streaming do Brasil para Otakus de carteirinha.
+
+  [![License: Apache License 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0)
+  [![Development Status](https://img.shields.io/badge/development%20status-Initial%20Stage-red?style=flat-square)](https://github.com/orgs/BedrockFrontiers/projects/1) \
+  [![Stars](https://img.shields.io/github/stars/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/BedrockFrontiers/stargazers)
+  [![Code Size](https://img.shields.io/github/languages/code-size/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes)
+  [![Contributors](https://img.shields.io/github/contributors/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/graphs/contributors)
+  [![Issues](https://img.shields.io/github/issues/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/issues) \
+  [![Pull Requests](https://img.shields.io/github/issues-pr/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/pulls)
+  [![Commit Activity](https://img.shields.io/github/commit-activity/t/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/commits/main)
+  [![Last Commit](https://img.shields.io/github/last-commit/uesleibros/SakuraAnimes?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/commits/main) \
+  [![Made with Love](https://img.shields.io/badge/made%20with-love-pink?style=flat-square)](https://github.com/uesleibros/SakuraAnimes/graphs/contributors)
+
+  ---
+
 </div>
 
 ## Qual o intuito desse projeto?
