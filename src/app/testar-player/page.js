@@ -7,7 +7,7 @@ export default function TestarPlayer() {
     <main className="min-h-screen">
       <Script 
         src="/lib/playerjs.js"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         onLoad={() => {
           var player = new Playerjs({ id:"player", file:"https://raw.githubusercontent.com/nicaksks/EnmaAi/main/assets/one-piece-movie-13/001.m3u8", title: "One Piece Gold: O Filme" });
         }}
