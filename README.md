@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/logo.png" width="100" />
+  <img src="/public/logo.png" width="100" alt="Sakura Animes" />
 
   ### Sakura Animes
 
