@@ -1,40 +1,23 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sakura Animes
 
-## Getting Started
+Maior rede de streaming para animes do Brasil.
 
-First, run the development server:
+## Qual o intuito desse projeto?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Basicamente, Sakura Animes é uma plataforma de streaming com foco principal em animes, seu grande diferencial é que ele não utiliza um banco de dados próprio, digamos que é "imprestado" de alguns outros sites populares como: 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Anroll](https://anroll.net/)
+- [Animefire](https://animefire.plus/)
+- [MyAnimeList](https://myanimelist.net/)
+- [Anilist](https://anilist.co/)
+- [Aniwave](https://aniwave.to/home)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+> Todos os devidos créditos para os sites, sem eles, nosso projeto nunca existiria.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Qual foi a maior motivação para começar esse projeto?
 
-## Learn More
+Eu particularmente amo assistir animes, ler mangás e light novels, sempre que quero ver um anime em lançamento ou algum antigo, sempre tem sites que faltam e outros que tem, tendo que ficar se movimentando em círculos migrando de um site ao outro. Então me veio na cabeça uma idéia, juntar todos os sites em um só, tornando tudo bem mais fácil e interessante.
 
-To learn more about Next.js, take a look at the following resources:
+## É um projeto com fins lucrativos?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-=======
-# SakuraAnimes
->>>>>>> 635f1f92ecbf59b5ca46d75d1bada2032a1238f9
+A resposta é não, eu não pretendo monetizar encima desse projeto, esses sites contém anúncios justamente por serem o ganha pão de quem fez, monetizar nisso seria completamente injusto com os donos do site que trabalharam tão arduamente para desenvolvê-lo.
