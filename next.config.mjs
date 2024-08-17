@@ -2,10 +2,11 @@
 const nextConfig = {
 	images: {
 		remotePatterns: [
-			{
-				hostname: "img.odcdn.com.br",
-			}
-		]
+      {
+        protocol: "https",
+        hostname: "**"
+      }
+    ]
 	}
 };
 

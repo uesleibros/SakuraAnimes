@@ -1,10 +1,12 @@
 "use client";
 
 import Script from "next/script";
+import Header from "@/components/Header";
+
 export default function TestarPlayer() {
   
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-zinc-950">
       <Script 
         src="/lib/playerjs.js"
         strategy="afterInteractive"
@@ -12,11 +14,9 @@ export default function TestarPlayer() {
           var player = new Playerjs({ id:"player", file:"https://raw.githubusercontent.com/nicaksks/EnmaAi/main/assets/one-piece-movie-13/001.m3u8", title: "One Piece Gold: O Filme" });
         }}
       />
-      <header className="px-10 py-5 border-b shadow-sm">
-        <h2 className="font-bold text-2xl text-pink-400">Sakura Animes — Testar Player</h2>
-      </header>
-      <div>
-        <div id="player"></div>
+      <Header />
+      <div className="mt-10">
+        <div className="w-[600px] h-[600px] mx-auto" id="player"></div>
       </div>
     </main>
   );
