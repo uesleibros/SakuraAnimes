@@ -42,7 +42,11 @@ export default function AssistirEpisodio({params}) {
 				  src="/lib/playerjs.js"
 				  strategy="afterInteractive"
 				  onReady={() => {
-				  	var player = new Playerjs({ id:"player", file:`/api/streaming/anroll/${slug}/${episodio}/media.m3u8`, title: `${anime.title} | Episódio ${episodio}` });
+				  	var player = new Playerjs({ 
+				  		id:"player", 
+				  		file:`/api/streaming/anroll/${slug}/${episodio}/media.m3u8`, 
+				  		title: `${anime.title} | Episódio ${episodio}`
+				  	});
 				  }}
 				/>
 			)}
