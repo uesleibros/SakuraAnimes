@@ -142,7 +142,7 @@ export default function VerAnime({params}) {
 							<div className="mt-10">
 								<div>
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
-									<div className="grid grid-cols-1 sm:grid-cols-5 gap-10 mt-10">
+									<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
 										{episodios.map((episodio, index) => (
 										  <div className="w-full sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
 										    <div className="mb-2">
