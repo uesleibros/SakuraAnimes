@@ -11,9 +11,9 @@ export default function classificacaoIndicativaCor(numero) {
 		case 13:
 			return "bg-amber-400";
 		case 14:
-			return "bg-orange-500";
+			return "bg-orange-600";
 		case 15:
-			return "bg-orange-500";
+			return "bg-orange-600";
 		case 16:
 			return "bg-red-600";
 		case 17:
