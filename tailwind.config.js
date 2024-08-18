@@ -10,10 +10,10 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /bg-(blue|green|purple|pink|red|amber|yellow)-(400|500|600|800|900)/,
+      pattern: /bg-(blue|green|orange|purple|pink|red|amber|yellow)-(400|500|600|800|900)/,
     },
     {
-      pattern: /text-(blue|green|purple|pink|red|amber|yellow)-(400|500|600|800|900)/,
+      pattern: /text-(blue|green|orange|purple|pink|red|amber|yellow)-(400|500|600|800|900)/,
     },
   ],
   theme: {
