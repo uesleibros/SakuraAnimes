@@ -182,7 +182,7 @@ export default function VerAnime({params}) {
 								</div>
 							</div>
 						) : (
-							<Spinner className="mt-10" />
+							<Spinner className={`mt-10 ${anime.type === "movie" && "invisible"}`} />
 						)}
 					</div>
 				) : (
