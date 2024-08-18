@@ -2,6 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/react";
+import {FaCirclePlay} from "react-icons/fa6";
 import Header from "@/components/Header";
 import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
@@ -32,18 +33,24 @@ export default function Home() {
           { animesRecentes ? (
             <div className="grid grid-cols-1 sm:grid-cols-5 gap-10 mt-5">
               {animesRecentes.map((animeRecente, index) => (
-                <div className="w-[250px] sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
+                <div className="w-full sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
                   <div className="mb-2">
                     <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.n_episodio}`}>
-                      <div className="relative w-[250px] sm:w-[200px] h-[120.5px]">
+                      <div className="relative w-full sm:w-[200px] h-[200px] sm:h-[120.5px]">
                         <CustomImage 
-                          className="w-full h-full" src={`${animeRecente.episode.thumbnail}`} 
+                          className="w-full h-full" 
+                          src={`${animeRecente.episode.thumbnail}`} 
                           width={250}
                           height={50}
                           priority={true}
                           placeholderImage="/capa-ne.jpg"
                           alt={`${animeRecente.episode.anime.titulo}`} 
                         />
+                        <div className="absolute top-0 bg-black bg-opacity-50 w-full h-full">
+                          <div>
+                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
+                          </div>
+                        </div>
                         <div className="absolute w-full top-0 p-2 flex justify-between items-center">
                           { animeRecente.episode.anime.dub > 0 ? (
                             <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
@@ -62,12 +69,6 @@ export default function Home() {
           ) : (
             <div className="mt-5"><Spinner /></div>
           )}
-        </div>
-        <div className="mt-10">
-          <div>
-            <h2 className="text-xl font-bold">ÚLTIMOS ANIMES ADICIONADOS</h2>
-          </div>
-          <p className="mt-5">em breve (se pá amanhã)</p>
         </div>
       </div>
     </main>

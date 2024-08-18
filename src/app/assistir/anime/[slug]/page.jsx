@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import {FaPlay} from "react-icons/fa6";
+import {FaPlay, FaCirclePlay} from "react-icons/fa6";
 import {Divider, Spinner} from "@nextui-org/react";
 import Header from "@/components/Header";
 import CustomImage from "@/components/CustomImage";
@@ -32,6 +32,7 @@ export default function VerAnime({params}) {
 			if (data.length > 0) {
 				if (data[0].slug === slug) {
 					setAnime(data[0]);
+					document.title = data[0].title;
 					await pegarEpisodiosAnime(data[0]);
 				}
 			}
@@ -39,6 +40,17 @@ export default function VerAnime({params}) {
 
 		pegarDadosAnime();
 	}, []);
+
+	function generosFormato(nome) {
+		switch (nome) {
+			case "acao":
+				return "ação";
+			case "comedia":
+				return "comédia";
+			default:
+				return nome;
+		}
+	}
 
 	return (
 		<main className="min-h-screen bg-zinc-950">
@@ -86,9 +98,9 @@ export default function VerAnime({params}) {
 									</div>
 								</div>
 								{anime.extra_data?.generos && (
-									<div className="flex items-center gap-2 mb-5">
+									<div className="grid grid-cols-4 sm:w-[380px] items-center gap-5 mb-5 mt-3">
 										{anime.extra_data.generos.split(",").map((genero, index) => (
-											<div key={index} className="pointer-events-none font-bold bg-gray-900 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(genero)}</div>
+											<div key={index} className="pointer-events-none font-bold bg-gray-900 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(generosFormato(genero))}</div>
 										))}
 									</div>
 								)}
@@ -109,7 +121,7 @@ export default function VerAnime({params}) {
 						</div>
 						<div className="mt-3 flex items-center gap-2">
 							<div className="w-[max-content]">
-								<p className="font-bold text-xs">{anime.type === "movie" ? (anime.extra_data.data_movie.duracao ? anime.extra_data.data_movie.duracao : "não calculado") : (anime.extra_data.duracao ? anime.extra_data.duracao : "não calculado")}</p>
+								<p className="font-bold text-xs w-[max-content]">{anime.type === "movie" ? (anime.extra_data.data_movie.duracao.length > 1 ? anime.extra_data.data_movie.duracao : "não calculado") : (anime.extra_data.duracao.length > 1 ? anime.extra_data.duracao : "não calculado")}</p>
 							</div>
 							<div className="w-full">
 								<Divider />
@@ -132,20 +144,26 @@ export default function VerAnime({params}) {
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
 									<div className="grid grid-cols-1 sm:grid-cols-5 gap-10 mt-10">
 										{episodios.map((episodio, index) => (
-										  <div className="w-[250px] sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
+										  <div className="w-full sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
 										    <div className="mb-2">
 										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.n_episodio}`}>
-										        <div className="relative w-[250px] sm:w-[200px] h-[120.5px]">
+										        <div className="relative w-full sm:w-[200px] h-[200px] sm:h-[120.5px]">
 										          <CustomImage 
-										            className="w-full h-full" src={`${episodio.thumbnail}`} 
+										            className="w-full h-full" 
+										            src={`${episodio.thumbnail}`} 
 										            width={250}
 										            height={50}
 										            priority={true}
 										            placeholderImage="/capa-ne.jpg"
 										            alt={`${episodio.titulo}`} 
 										          />
+										          <div className="absolute top-0 bg-black bg-opacity-50 w-full h-full">
+										          	<div>
+										          		<FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
+										          	</div>
+										          </div>
 										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-										            { anime.extra_data.dub > 0 ? (
+										            { anime.extra_datadub > 0 ? (
 										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
 										            ) : (
 										              <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
@@ -161,7 +179,7 @@ export default function VerAnime({params}) {
 								</div>
 							</div>
 						) : (
-							<Spinner />
+							<Spinner className="mt-10" />
 						)}
 					</div>
 				) : (
