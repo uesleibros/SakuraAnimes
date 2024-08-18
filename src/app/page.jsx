@@ -31,12 +31,12 @@ export default function Home() {
             <h2 className="text-xl font-bold">ÚLTIMOS LANÇAMENTOS</h2>
           </div>
           { animesRecentes ? (
-            <div className="grid grid-cols-1 sm:grid-cols-5 gap-10 mt-5">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
               {animesRecentes.map((animeRecente, index) => (
-                <div className="w-full sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
+                <div className="w-full sm:w-[250px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
                   <div className="mb-2">
                     <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.n_episodio}`}>
-                      <div className="relative w-full sm:w-[200px] h-[200px] sm:h-[120.5px]">
+                      <div className="relative w-full sm:w-[250px] h-[200px] sm:h-[150.5px]">
                         <CustomImage 
                           className="w-full h-full" 
                           src={`${animeRecente.episode.thumbnail}`} 

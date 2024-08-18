@@ -1,18 +1,8 @@
 "use client";
 
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarMenuToggle,
-  NavbarMenuItem,
-  NavbarMenu,
-  NavbarContent,
-  NavbarItem,
-  Input,
-  Spinner
-} from "@nextui-org/react";
-import { useState, useCallback } from "react";
-import { FaSearch, FaPlay } from "react-icons/fa";
+import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Input, Spinner} from "@nextui-org/react";
+import {useState, useCallback} from "react";
+import {FaSearch, FaPlay} from "react-icons/fa";
 import Image from "next/image";
 import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
@@ -44,7 +34,7 @@ export default function Header() {
     }
 
     setListaAnimes(data);
-  }, 10), [debounce]);
+  }, 400), [debounce]);
 
   const handleChangeValue = (e) => {
     const query = e.target.value;
@@ -58,7 +48,7 @@ export default function Header() {
 
   return (
     <div className="relative">
-      <Navbar className="bg-zinc-800" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar className="bg-zinc-800 justify-start pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>

@@ -129,7 +129,7 @@ export default function VerAnime({params}) {
 						</div>
 						{anime.extra_data?.calendar_anime && (
 							<div className="mt-3 bg-pink-500 p-2">
-								<h3 className="text-center text-zinc-950 font-semibold">Acompanhe novos episódios todo(a) <strong>{dias[anime.extra_data.calendar_anime.day - 1]}</strong>.</h3>
+								<h3 className="text-center text-zinc-950 font-semibold">Acompanhe novos episódios todo(a) <strong>{dias[anime.extra_data.calendar_anime.day]}</strong>.</h3>
 							</div>
 						)}
 						{anime.type === "movie" && (
