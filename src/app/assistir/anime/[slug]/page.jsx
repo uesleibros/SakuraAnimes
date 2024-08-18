@@ -147,7 +147,7 @@ export default function VerAnime({params}) {
 										  <div className="w-full sm:w-[200px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
 										    <div className="mb-2">
 										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.n_episodio}`}>
-										        <div className="relative w-full sm:w-[200px] h-[200px] sm:h-[120.5px]">
+										        <div className="relative w-full sm:w-[250px] h-[200px] sm:h-[150.5px]">
 										          <CustomImage 
 										            className="w-full h-full" 
 										            src={`${episodio.thumbnail}`} 
