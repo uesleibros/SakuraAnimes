@@ -68,7 +68,7 @@ export default function Header() {
           <NavbarBrand>
             <Link href="/">
               <div className="flex items-center gap-1 group relative">
-                <Image className="filter group-hover:contrast-0 group-hover:brightness-100 transition-colors duration-300" src="/logo.png" width={20} height={20} alt="Sakura Animes" />
+                <Image className="filter group-hover:brightness-0 group-hover:invert transition-colors duration-300" src="/logo.png" width={20} height={20} alt="Sakura Animes" />
                 <h3 className="text-pink-500 group-hover:text-white transition-colors duration-300 font-bold">Sakura Animes</h3>
               </div>
             </Link>
