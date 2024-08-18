@@ -44,7 +44,7 @@ export default function Header() {
     }
 
     setListaAnimes(data);
-  }, 300), [debounce]);
+  }, 10), [debounce]);
 
   const handleChangeValue = (e) => {
     const query = e.target.value;
