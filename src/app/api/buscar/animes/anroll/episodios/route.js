@@ -10,6 +10,7 @@ export async function GET(request) {
 
 	const { data } = await res.json();
 	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`);
+	data.forEach((i) => i.anime.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`);
 
 	return Response.json({ data });
 }

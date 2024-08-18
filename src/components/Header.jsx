@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <div className="relative">
-      <Navbar className="bg-zinc-800 justify-start pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar className="bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -75,12 +75,13 @@ export default function Header() {
           </NavbarBrand>
           <NavbarItem className="ml-5">
             <Input
+              autoComplete="off"
+              className="w-[300px]"
               type="text"
               size="sm"
               color="default"
               placeholder="Digite sua obra..."
               variant="underlined"
-              isClearable={true}
               onChange={handleChangeValue}
               value={value}
               startContent={<FaSearch className="text-zinc-500" />}
@@ -96,7 +97,6 @@ export default function Header() {
               color="default"
               placeholder="Digite sua obra..."
               variant="underlined"
-              isClearable={true}
               onChange={handleChangeValue}
               value={value}
               startContent={<FaSearch className="text-zinc-500" />}
@@ -104,13 +104,15 @@ export default function Header() {
           </NavbarMenuItem>
           <NavbarMenuItem>
             {value.length > 3 && (
-              <AnimeList listaAnimes={listaAnimes} />
+              <div className="z-[9999]">
+                <AnimeList listaAnimes={listaAnimes} />
+              </div>
             )}
           </NavbarMenuItem>
         </NavbarMenu>
       </Navbar>
       {value.length > 3 && (
-        <div className="invisible transition ease-in-out delay-150 sm:visible absolute z-50 w-[800px] max-w-[800px] left-[20%] min-h-[10.32rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
+        <div className="invisible transition ease-in-out delay-150 sm:visible absolute z-[9999] w-[800px] max-w-[800px] left-[16rem] min-h-[10.32rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
           <AnimeList listaAnimes={listaAnimes} />
         </div>
       )}

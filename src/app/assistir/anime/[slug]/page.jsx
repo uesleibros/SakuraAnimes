@@ -146,25 +146,25 @@ export default function VerAnime({params}) {
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
 									<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
 										{episodios.map((episodio, index) => (
-										  <div className="w-full sm:w-[200px] transition-transform duration-300 hover:scale-105" key={index}>
+										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>
 										    <div className="mb-2">
 										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.n_episodio}`}>
-										        <div className="relative w-full sm:w-[250px] h-[200px] sm:h-[150.5px]">
-										          <CustomImage 
-										            className="w-full h-full" 
-										            src={`${episodio.thumbnail}`} 
-										            width={250}
-										            height={50}
-										            priority={true}
-										            quality={100}
-										            placeholderImage="/capa-ne.jpg"
-										            alt={`${episodio.titulo}`} 
-										          />
-										          <div className="absolute top-0 bg-black bg-opacity-50 w-full h-full">
-										          	<div>
-										          		<FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
-										          	</div>
-										          </div>
+										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
+			                        <CustomImage 
+			                          className="w-full h-full rounded-sm object-cover" 
+			                          src={`${episodio.thumbnail}`} 
+			                          width={1200}
+			                          height={1200}
+			                          priority={true}
+			                          quality={100}
+			                          placeholderImage={`${episodio.anime.thumbnail}`}
+			                          alt={`${episodio.anime.titulo}`} 
+			                        />
+			                        <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
+			                          <div>
+			                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
+			                          </div>
+			                        </div>
 										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
 										            { anime.extra_datadub > 0 ? (
 										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
@@ -176,6 +176,7 @@ export default function VerAnime({params}) {
 										        </div>
 										      </Link>
 										    </div>
+										    <p className="truncate font-semibold text-[10px] uppercase text-zinc-400 -mt-1 w-full">{episodio.anime.titulo}</p>
 										  </div>
 										))}
 									</div>

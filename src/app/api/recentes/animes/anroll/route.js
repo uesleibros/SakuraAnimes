@@ -12,6 +12,7 @@ export async function GET() {
 	const data = extractData(await res.text());
 	const catalog = JSON.parse(data)?.props;
 	catalog.pageProps.data.data_releases.forEach((i) => i.episode.thumbnail = `https://static.anroll.net/images/animes/screens/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`);
+	catalog.pageProps.data.data_releases.forEach((i) => i.episode.anime.thumbnail = `https://static.anroll.net/images/animes/capas/${i.episode.anime.slug_serie}.jpg`);
 
 	return Response.json(catalog.pageProps);
 }
