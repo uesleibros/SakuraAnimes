@@ -15,21 +15,40 @@ export default function Header() {
 	const [value, setValue] = useState("");
 	const [listaAnimes, setListaAnimes] = useState(null);
 
-	async function handleChangeValue(e) {
-		setListaAnimes(null);
-		if (e.target.value.trim().length > 3) {
-			const res = await fetch(`/api/buscar/animes/anroll?q=${e.target.value.trim()}`);
-			const data = await res.json();
-
-			if (!res.ok) {
-				setListaAnimes(null);
-				return;
-			}
-
-			setListaAnimes(data);
-		}
+	function debounce(fn, delay) {
+    let timeoutId;
+    return function(...args) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
 	}
 
+	function handleChangeValue(e) {
+    const value = e.target.value.trim();
+    if (value.length > 3) {
+      debounceFetchAnimes(value);
+    } else {
+    setListaAnimes(null);
+    }
+  }
+
+const debounceFetchAnimes = debounce(async (query) => {
+  setListaAnimes(null);
+  const res = await fetch(`/api/buscar/animes/anroll?q=${query}`);
+  const data = await res.json();
+
+  if (!res.ok) {
+    setListaAnimes(null);
+    return;
+  }
+
+  setListaAnimes(data);
+}, 300);
+	
 	return (
 		<div className="relative">
 			<Navbar className="bg-zinc-800" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
