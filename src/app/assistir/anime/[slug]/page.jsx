@@ -138,7 +138,7 @@ export default function VerAnime({params}) {
 							</div>
 						)}
 
-						{(episodios && anime.type === "anime") ? (
+						{(episodios) ? (
 							<div className="mt-10">
 								<div>
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
@@ -180,9 +180,7 @@ export default function VerAnime({params}) {
 								</div>
 							</div>
 						) : (
-							{anime.type !== "movie" && (
-								<Spinner className="mt-10" />
-							)}
+							<Spinner className="mt-10" />
 						)}
 					</div>
 				) : (
