@@ -154,6 +154,7 @@ export default function VerAnime({params}) {
 										            width={250}
 										            height={50}
 										            priority={true}
+										            quality={100}
 										            placeholderImage="/capa-ne.jpg"
 										            alt={`${episodio.titulo}`} 
 										          />
