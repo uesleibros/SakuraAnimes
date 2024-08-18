@@ -17,8 +17,8 @@ export default function AssistirEpisodio({params}) {
 			  }}
 			/>
 			<Header />
-			<div className="mt-10">
-				<div className="w-[700px] h-[700px] mx-auto" id="player"></div>
+			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
+				<div id="player"></div>
 			</div>
 		</main>
 	);
