@@ -35,7 +35,7 @@ export default function Header() {
 
   const debounceFetchAnimes = useCallback(debounce(async (query) => {
     setListaAnimes(null);
-    const res = await fetch(`/api/buscar/animes/anroll?q=${query}`);
+    const res = await fetch(`/api/buscar/animes/anroll?q=${query.trim()}`);
     const data = await res.json();
 
     if (!res.ok) {
@@ -47,7 +47,7 @@ export default function Header() {
   }, 300), [debounce]);
 
   const handleChangeValue = (e) => {
-    const query = e.target.value.trim();
+    const query = e.target.value;
     setValue(query);
     if (query.length > 3) {
       debounceFetchAnimes(query);
