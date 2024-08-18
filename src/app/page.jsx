@@ -114,7 +114,7 @@ export default function Home() {
             {animesPopulares ? (
               <div className="flex space-x-1 items-center items-center w-full h-[380px] gap-10">
                 {animesPopulares.map((popular, index) => (
-                  <Link key={index} href={`/assistir/anime/${popular.anrollURL}`} className="w-[220px] h-[max-content] flex-shrink-0 relative group">
+                  <Link key={index} href={`/assistir/anime/${toSlug(popular.title)}`} className="w-[220px] h-[max-content] flex-shrink-0 relative group">
                     <div className="w-full h-[323px] relative">
                       <div className="w-full h-full">
                         <CustomImage
