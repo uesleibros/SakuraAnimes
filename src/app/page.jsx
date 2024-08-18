@@ -33,7 +33,7 @@ export default function Home() {
           { animesRecentes ? (
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
               {animesRecentes.map((animeRecente, index) => (
-                <div className="w-full sm:w-[250px] transition-transform duration-300 hover:-translate-y-2 hover:scale-105" key={index}>
+                <div className="w-full sm:w-[250px] transition-transform duration-300 hover:scale-105" key={index}>
                   <div className="mb-2">
                     <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.n_episodio}`}>
                       <div className="relative w-full sm:w-[250px] h-[200px] sm:h-[150.5px]">
