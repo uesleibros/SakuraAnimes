@@ -8,7 +8,3 @@ body {
   box-sizing: border-box;
   color: white;
 }
-
-.turn-white {
-  filter: contrast(0) brightness(100);
-}
