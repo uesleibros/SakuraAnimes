@@ -22,7 +22,7 @@ export default function VerAnime({params}) {
 			const {data} = await res.json();
 
 			if (data.length > 0) {
-				if (data.anime.slug_serie === slug)
+				if (data[0].anime.slug_serie === slug)
 					setEpisodios(data);
 			}
 		}
