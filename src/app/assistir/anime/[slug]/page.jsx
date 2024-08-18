@@ -21,8 +21,10 @@ export default function VerAnime({params}) {
 			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${anime.id}`);
 			const {data} = await res.json();
 
-			if (data.length > 0)
-				setEpisodios(data);
+			if (data.length > 0) {
+				if (data.anime.slug_serie === slug)
+					setEpisodios(data);
+			}
 		}
 
 		async function pegarDadosAnime() {
