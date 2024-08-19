@@ -8,3 +8,11 @@ body {
   box-sizing: border-box;
   color: white;
 }
+
+.slick-slide > div {
+  margin-inline: 7px;
+}
+
+.slick-prev:before, .slick-next:before {
+  line-height: 0 !important;
+}

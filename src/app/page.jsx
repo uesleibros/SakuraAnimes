@@ -8,10 +8,31 @@ import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
 import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
 import toSlug from "@/utils/toSlug";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Home() {
   const [animesRecentes, setAnimesRecentes] = useState(null);
   const [animesPopulares, setAnimesPopulares] = useState(null);
+  const settings = {
+    infinite: false,
+    slidesToShow: 6,
+    speed: 500,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          arrows: false,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          initialSlide: 0
+        }
+      },
+    ]
+  };
 
   useEffect(() => {
     async function pegarEpisodiosRecemAdicionados() {
@@ -91,7 +112,12 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="mt-5"><Spinner /></div>
+            <div className="mt-5">
+              <Spinner />
+              <p className="text-xs w-[350px] mt-2">
+                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
+                </p>
+            </div>
           )}
         </div>
         <div className="mt-10">
@@ -110,11 +136,11 @@ export default function Home() {
           <div>
             <h2 className="text-xl font-bold">MAIS POPULARES</h2>
           </div>
-          <div className="overflow-x-auto">
+          <div className="mt-5">
             {animesPopulares ? (
-              <div className="flex space-x-1 items-center items-center w-full h-[380px] gap-10">
+              <Slider {...settings} className="w-full h-[380px]">
                 {animesPopulares.map((popular, index) => (
-                  <Link key={index} href={`/assistir/anime/${toSlug(popular.title)}`} className="w-[220px] h-[max-content] flex-shrink-0 relative group">
+                  <Link key={index} href={`/assistir/anime/${toSlug(popular.title)}`} className="w-[240px] h-[max-content] relative group">
                     <div className="w-full h-[323px] relative">
                       <div className="w-full h-full">
                         <CustomImage
@@ -147,10 +173,35 @@ export default function Home() {
                     </div>
                   </Link>
                 ))}
-              </div>
+              </Slider>
             ) : (
-              <Spinner className="mt-5" />
+              <div>
+                <Spinner />
+                <p className="text-xs w-[350px] mt-2">
+                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
+                </p>
+              </div>
             )}
+          </div>
+        </div>
+        <div className="mt-20 w-full mx-auto">
+          <div className="w-full mx-auto">
+            <CustomImage
+              className="mx-auto pointer-events-none select-none"
+              src="/anya/familia.avif"
+              width={300}
+              height={300}
+              quality={100}
+              alt="Anya com sua família"
+            />
+            <h3 className="font-semibold text-xl w-[480px] mx-auto text-center -mt-5">
+              Ainda está procurando algo pra assistir? Confira o nosso anime da casa
+            </h3>
+            <div className="mx-auto text-center mt-6">
+              <Link href="/assistir/anime/spy-x-family" className="relative border border-pink-500 transition-colors hover:border-pink-600 uppercase font-bold py-2 px-10">
+                Ver Anime
+              </Link>
+            </div>
           </div>
         </div>
       </div>

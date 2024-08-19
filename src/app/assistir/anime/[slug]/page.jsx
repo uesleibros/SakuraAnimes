@@ -13,6 +13,7 @@ import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
 	const [episodios, setEpisodios] = useState(null);
+	const [error, setError] = useState(false);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 	const { slug } = params;
 
@@ -21,9 +22,14 @@ export default function VerAnime({params}) {
 			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${anime.id}`);
 			const {data} = await res.json();
 
+			if (!res.ok)
+				setError(true);
+
 			if (data.length > 0) {
 				if (data[0].anime.slug_serie === slug)
 					setEpisodios(data);
+			} else {
+				setError(true);
 			}
 		}
 
@@ -31,12 +37,17 @@ export default function VerAnime({params}) {
 			const res = await fetch(`/api/buscar/animes/anroll?q=${slug}`);
 			const {data} = await res.json();
 
+			if (!res.ok)
+				setError(true);
+
 			if (data.length > 0) {
 				if (data[0].slug === slug) {
 					setAnime(data[0]);
 					document.title = data[0].title;
 					await pegarEpisodiosAnime(data[0]);
 				}
+			} else {
+				setError(true);
 			}
 		}
 
@@ -187,7 +198,12 @@ export default function VerAnime({params}) {
 						)}
 					</div>
 				) : (
-					<Spinner />
+					<div>
+						<Spinner />
+						<p className="text-xs w-[350px] mt-2">
+							Caso demore para carregar o componente, provavelmente o conteúdo que você está tentando acessar não existe.
+						</p>
+					</div>
 				)}
 			</div>
 		</main>

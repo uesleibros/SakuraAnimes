@@ -60,7 +60,12 @@ export default function AssistirEpisodio({params}) {
 						<div className="mt-10" id="player"></div>
 					</div>
 				) : (
-					<Spinner />
+					<div>
+						<Spinner />
+						<p className="text-xs w-[350px] mt-2">
+							Caso demore para carregar o componente, provavelmente o conteúdo que você está tentando acessar não existe.
+						</p>
+					</div>
 				)}
 			</div>
 		</main>
