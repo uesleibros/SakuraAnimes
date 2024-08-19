@@ -16,7 +16,7 @@ export default function Home() {
   const [animesRecentes, setAnimesRecentes] = useState(null);
   const [animesPopulares, setAnimesPopulares] = useState(null);
   const settings = {
-    infinite: false,
+    infinite: true,
     slidesToShow: 6,
     speed: 500,
     initialSlide: 0,
