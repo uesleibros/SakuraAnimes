@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {FaCirclePlay} from "react-icons/fa6";
 import {Spinner} from "@nextui-org/react";
+import {DiscussionEmbed} from "disqus-react";
 import Image from "next/image";
 import Script from "next/script";
 import Link from "next/link";
@@ -13,6 +14,8 @@ export default function AssistirEpisodio({params}) {
 	const [anime, setAnime] = useState(null);
 	const {slug, episodio} = params;
 	const [episodios, setEpisodios] = useState(null);
+
+	const disqusShortname = "animesroll2";
 
 	useEffect(() => {
 		async function pegarDadosAnime() {
@@ -59,29 +62,22 @@ export default function AssistirEpisodio({params}) {
 				  onReady={() => {
 				  	var player = new Playerjs({ 
 				  		id:"player", 
-				  		file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`, 
-				  		title: `${anime.title}`
+				  		file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`,
 				  	});
 				  }}
 				/>
 			)}
+
 			<div className="max-[640px]:min-h-screen">
 				{(anime && episodios) ? (
 					<div>
-						<div className="w-full [&&]:!h-[450px]">
-							<div id="player"></div>
+						<div className="w-full !h-[500px]">
+							<div className="!h-full" id="player"></div>
 						</div>
-						<div className="mx-auto max-w-[1240px] w-full -mt-20">
+						<div className="mx-auto max-w-[1240px] w-full mt-10">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">
 								<div>
 									<Link href={`/assistir/anime/${anime.slug}`} className="font-semibold text-md transition-colors text-pink-500 hover:text-white hover:underline">{anime.title}</Link>
-									{anime.extra_data?.generos && (
-										<div className="flex flex-wrap sm:w-[380px] items-center gap-3 mb-5 mt-3">
-											{anime.extra_data.generos.split(",").map((genero, index) => (
-												<div key={index} className="pointer-events-none font-bold bg-gray-900 flex-shrink-0 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(generosFormato(genero))}</div>
-											))}
-										</div>
-									)}
 									<div className={`pointer-events-none bg-opacity-80 font-bold ${classificacaoIndicativaCor(anime.censorship)} w-[max-content] rounded-lg px-2 py-1 text-xs my-auto`}>{anime.censorship == "0" ? "Livre" : "PG-" + anime.censorship}</div>
 									<h1 className="text-xl font-bold mt-3">EPISÓDIO {episodios.n_episodio}</h1>
 									<p className="text-sm w-full sm:w-[600px] text-zinc-400">{anime.synopsis}</p>
@@ -159,6 +155,23 @@ export default function AssistirEpisodio({params}) {
 									)}
 								</div>
 							</div>
+							<div className="mt-5 p-[16px] overflow-hidden">
+								<p className="font-semibold text-sm mb-2">Sessão de comentários da Anroll</p>
+								<div className="bg-zinc-900 p-10 rounded-lg">
+									<DiscussionEmbed
+						        shortname={disqusShortname}
+						        config={
+						        	{
+						        		url: `https://www.anroll.net/anime/${anime.slug}/episodio-${episodios.n_episodio}`,
+						        		title: `Assistir ${anime.title} - Episódio ${episodios.n_episodio} Online em HD - Anroll`,
+						        		identifier: `${episodios.id_series_episodios}`,
+						        		language: "pt_BR",
+						        		colorScheme: "dark"
+						        	}
+						        }
+						      />
+					      </div>
+				      </div>
 						</div>
 					</div>
 				) : (
