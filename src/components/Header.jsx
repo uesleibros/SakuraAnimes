@@ -33,7 +33,6 @@ export default function Header() {
       return;
     }
 
-    setQuery('');
     setListaAnimes(data);
   }, 400), [debounce]);
 
