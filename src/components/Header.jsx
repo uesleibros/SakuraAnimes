@@ -111,7 +111,7 @@ export default function Header() {
           </NavbarMenuItem>
         </NavbarMenu>
         {value.length > 3 && (
-          <div className="invisible transition ease-in-out delay-150 bottom-[-481px] sm:visible absolute z-[9999] w-[800px] max-w-[800px] left-[16rem] min-h-[10.32rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
+          <div className="invisible transition ease-in-out delay-150 bottom-[-481px] sm:visible absolute z-[9999] w-[800px] max-w-[800px] left-[16rem] min-h-[30rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
             <AnimeList listaAnimes={listaAnimes} />
           </div>
         )}
