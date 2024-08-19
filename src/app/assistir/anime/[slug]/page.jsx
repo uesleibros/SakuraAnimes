@@ -32,9 +32,13 @@ export default function VerAnime({params}) {
 		pegarDadosAnime();
 	}, [slug]);
 
-	const carregarMaisEpisodios = useCallback(async (animeId, pageId) => {
-		if (isLoadingMore || !animeId) return;
+	const carregarMaisEpisodios = useCallback(async (pageId) => {
+		if (isLoadingMore || !anime) return;
 
+		if (anime.type === "movie") {
+			setReachTotalPages(true);
+			return;
+		}
 		setIsLoadingMore(true);
 
 		try {
@@ -52,7 +56,7 @@ export default function VerAnime({params}) {
 		} finally {
 			setIsLoadingMore(false);
 		}
-	}, [isLoadingMore]);
+	}, [isLoadingMore, anime]);
 
 	useEffect(() => {
 		const onscroll = () => {
@@ -62,7 +66,7 @@ export default function VerAnime({params}) {
 			const isReachBottom = scrolledTo > document.body.scrollHeight - 500;
 
 			if (isReachBottom && page !== anime.page) {
-				carregarMaisEpisodios(anime.id, page);
+				carregarMaisEpisodios(page);
 			}
 		};
 
@@ -166,7 +170,7 @@ export default function VerAnime({params}) {
 							</div>
 						)}
 
-						{episodios && (
+						{episodios.length > 0 && (
 							<div className="mt-10">
 								<div>
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
