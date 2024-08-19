@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <>
-      <Navbar position="sticky" className="bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar position="sticky" className="z-[9999] bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
