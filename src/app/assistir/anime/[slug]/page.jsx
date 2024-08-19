@@ -21,7 +21,7 @@ export default function VerAnime({params}) {
 	useEffect(() => {
 		async function pegarDadosAnime() {
 			const res = await fetch(`/api/buscar/animes/anroll?q=${slug}`);
-			const { data } = await res.json();
+			const {data} = await res.json();
 
 			if (data.length > 0 && data[0].slug === slug) {
 				setAnime(data[0]);
@@ -42,8 +42,8 @@ export default function VerAnime({params}) {
 		setIsLoadingMore(true);
 
 		try {
-			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${animeId}&page=${pageId}`);
-			const { data } = await res.json();
+			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${anime.id}&page=${pageId}`);
+			const {data} = await res.json();
 
 			if (res.ok && data.length > 0) {
 				setEpisodios((prevEpisodios) => [...prevEpisodios, ...data]);
@@ -79,6 +79,7 @@ export default function VerAnime({params}) {
 	const formatosDosGenros = new Map([
 		["acao", "ação"],
 		["comedia", "comédia"],
+		["ficcao-cientifica", "ficção-científica"]
 	]);
 
 	function generosFormato(nome) {
