@@ -1,16 +1,18 @@
 export async function GET(request) {
 	const id = request.nextUrl.searchParams.get("id");
+	const page = request.nextUrl.searchParams.get("page");
 
-	if (!id)
-		return Response.json({ error: "missing id." }, { status: 401 });
+	if (!id && !page)
+		return Response.json({ error: "missing id or page." }, { status: 401 });
 
-	const res = await fetch(`https://apiv3-prd.anroll.net/animes/${id}/episodes?page=1&order=asc`, {
+	const res = await fetch(`https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=asc`, {
 		cache: "no-store"
 	});
 
 	const { data } = await res.json();
 	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`);
 	data.forEach((i) => i.anime.thumbnail = `https://static.anroll.net/images/animes/capas/${i.anime.slug_serie}.jpg`);
+	data.forEach((i) => i.page = page);
 
 	return Response.json({ data });
 }

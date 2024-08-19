@@ -3,7 +3,6 @@
 import {useEffect, useState} from "react";
 import {Spinner} from "@nextui-org/react";
 import Script from "next/script";
-import Header from "@/components/Header";
 
 export default function AssistirEpisodio({params}) {
 	const [anime, setAnime] = useState(null);
@@ -36,7 +35,7 @@ export default function AssistirEpisodio({params}) {
 	}, []);
 	
 	return (
-		<main className="min-h-screen bg-zinc-950">
+		<main>
 			{anime && (
 				<Script 
 				  src="/lib/playerjs.js"
@@ -50,7 +49,6 @@ export default function AssistirEpisodio({params}) {
 				  }}
 				/>
 			)}
-			<Header />
 			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
 				{anime ? (
 					<div>

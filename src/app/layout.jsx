@@ -1,5 +1,7 @@
 import {Montserrat} from "next/font/google";
 import {NextUIProvider} from "@nextui-org/react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });
@@ -38,9 +40,11 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className={`dark ${font.className}`}>
+      <body className={`dark ${font.className} min-h-screen bg-zinc-950`}>
         <NextUIProvider>
+          <Header />
           {children}
+          <Footer />
         </NextUIProvider>
       </body>
     </html>

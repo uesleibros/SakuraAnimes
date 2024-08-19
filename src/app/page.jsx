@@ -3,7 +3,6 @@
 import {useEffect, useState, useRef } from "react";
 import {Spinner} from "@nextui-org/react";
 import {FaCirclePlay} from "react-icons/fa6";
-import Header from "@/components/Header";
 import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
 import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
@@ -55,8 +54,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-zinc-950">
-      <Header />
+    <main>
       <div className="px-[16px] pb-10 mx-auto max-w-[1240px] w-full mt-10">
         <div className="mb-10">
           <Link href="/assistir/anime/vtuber-nandaga-haishin-kiri-wasuretara-densetsu-ni-natteta">
@@ -194,7 +192,7 @@ export default function Home() {
               quality={100}
               alt="Anya com sua família"
             />
-            <h3 className="font-semibold text-xl w-[480px] mx-auto text-center -mt-5">
+            <h3 className="font-semibold text-xl w-[480px] max-w-full mx-auto text-center -mt-5">
               Ainda está procurando algo pra assistir? Confira o nosso anime da casa
             </h3>
             <div className="mx-auto text-center mt-6">

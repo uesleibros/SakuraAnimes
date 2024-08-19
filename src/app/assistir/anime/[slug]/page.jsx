@@ -1,9 +1,8 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect, useState, useCallback} from "react";
 import {FaPlay, FaCirclePlay} from "react-icons/fa6";
 import {Divider, Spinner} from "@nextui-org/react";
-import Header from "@/components/Header";
 import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
 import toTitleCase from "@/utils/toTitleCase";
@@ -12,61 +11,78 @@ import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
-	const [episodios, setEpisodios] = useState(null);
-	const [error, setError] = useState(false);
+	const [page, setPage] = useState(1);
+	const [reachTotalPages, setReachTotalPages] = useState(false);
+	const [isLoadingMore, setIsLoadingMore] = useState(false);
+	const [episodios, setEpisodios] = useState([]);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
-	const { slug } = params;
+	const {slug} = params;
 
 	useEffect(() => {
-		async function pegarEpisodiosAnime(anime) {
-			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${anime.id}`);
-			const {data} = await res.json();
-
-			if (!res.ok)
-				setError(true);
-
-			if (data.length > 0) {
-				if (data[0].anime.slug_serie === slug)
-					setEpisodios(data);
-			} else {
-				setError(true);
-			}
-		}
-
 		async function pegarDadosAnime() {
 			const res = await fetch(`/api/buscar/animes/anroll?q=${slug}`);
-			const {data} = await res.json();
+			const { data } = await res.json();
 
-			if (!res.ok)
-				setError(true);
-
-			if (data.length > 0) {
-				if (data[0].slug === slug) {
-					setAnime(data[0]);
-					document.title = data[0].title;
-					await pegarEpisodiosAnime(data[0]);
-				}
-			} else {
-				setError(true);
+			if (data.length > 0 && data[0].slug === slug) {
+				setAnime(data[0]);
+				document.title = data[0].title;
 			}
 		}
 
 		pegarDadosAnime();
-	}, []);
+	}, [slug]);
+
+	const carregarMaisEpisodios = useCallback(async (animeId, pageId) => {
+		if (isLoadingMore || !animeId) return;
+
+		setIsLoadingMore(true);
+
+		try {
+			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${animeId}&page=${pageId}`);
+			const { data } = await res.json();
+
+			if (res.ok && data.length > 0) {
+				setEpisodios((prevEpisodios) => [...prevEpisodios, ...data]);
+				setPage(pageId + 1);
+			} else {
+				setReachTotalPages(true);
+			}
+		} catch (error) {
+			console.error("Erro ao carregar mais episódios:", error);
+		} finally {
+			setIsLoadingMore(false);
+		}
+	}, [isLoadingMore]);
+
+	useEffect(() => {
+		const onscroll = () => {
+			if (!anime || isLoadingMore || reachTotalPages) return;
+
+			const scrolledTo = window.scrollY + window.innerHeight;
+			const isReachBottom = scrolledTo > document.body.scrollHeight - 500;
+
+			if (isReachBottom && page !== anime.page) {
+				carregarMaisEpisodios(anime.id, page);
+			}
+		};
+
+		window.addEventListener("scroll", onscroll);
+		return () => {
+			window.removeEventListener("scroll", onscroll);
+		};
+	}, [anime, page, isLoadingMore, carregarMaisEpisodios, reachTotalPages]);
+
+	const formatosDosGenros = new Map([
+		["acao", "ação"],
+		["comedia", "comédia"],
+	]);
 
 	function generosFormato(nome) {
-		switch (nome) {
-			case "acao":
-				return "ação";
-			case "comedia":
-				return "comédia";
-			default:
-				return nome;
-		}
+		return formatosDosGenros.get(nome) || nome;
 	}
 
 	return (
-		<main className="min-h-screen bg-zinc-950">
+		<main>
 			{anime?.type === "movie" && (
 				<Script 
 				  src="/lib/playerjs.js"
@@ -76,7 +92,6 @@ export default function VerAnime({params}) {
 				  }}
 				/>
 			)}
-			<Header />
 			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
 				{anime ? (
 					<div>
@@ -111,7 +126,7 @@ export default function VerAnime({params}) {
 									</div>
 								</div>
 								{anime.extra_data?.generos && (
-									<div className="flex flex-wrap sm:w-[380px] items-center gap-5 mb-5 mt-3">
+									<div className="flex flex-wrap sm:w-[380px] items-center gap-3 mb-5 mt-3">
 										{anime.extra_data.generos.split(",").map((genero, index) => (
 											<div key={index} className="pointer-events-none font-bold bg-gray-900 flex-shrink-0 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(generosFormato(genero))}</div>
 										))}
@@ -151,7 +166,7 @@ export default function VerAnime({params}) {
 							</div>
 						)}
 
-						{(episodios) ? (
+						{episodios && (
 							<div className="mt-10">
 								<div>
 									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
@@ -177,7 +192,7 @@ export default function VerAnime({params}) {
 			                          </div>
 			                        </div>
 										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-										            { anime.extra_datadub > 0 ? (
+										            { anime.extra_data.dub > 0 ? (
 										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
 										            ) : (
 										              <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
@@ -193,8 +208,6 @@ export default function VerAnime({params}) {
 									</div>
 								</div>
 							</div>
-						) : (
-							<Spinner className={`mt-10 ${anime.type === "movie" && "invisible"}`} />
 						)}
 					</div>
 				) : (
@@ -205,6 +218,11 @@ export default function VerAnime({params}) {
 						</p>
 					</div>
 				)}
+				{isLoadingMore && (
+          <div className="flex items-center justify-center mt-5">
+            <Spinner size="lg" />
+          </div>
+        )}
 			</div>
 		</main>
 	);
