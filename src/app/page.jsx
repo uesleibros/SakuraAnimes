@@ -77,7 +77,7 @@ export default function Home() {
               {animesRecentes.map((animeRecente, index) => (
                 <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>
                   <div className="mb-2">
-                    <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.n_episodio}`}>
+                    <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.generate_id}`}>
                       <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
                         <CustomImage 
                           className="w-full h-full rounded-lg object-cover" 

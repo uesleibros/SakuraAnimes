@@ -179,7 +179,7 @@ export default function VerAnime({params}) {
 										{episodios.map((episodio, index) => (
 										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>
 										    <div className="mb-2">
-										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.n_episodio}`}>
+										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.generate_id}`}>
 										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
 			                        <CustomImage 
 			                          className="w-full h-full rounded-lg object-cover" 

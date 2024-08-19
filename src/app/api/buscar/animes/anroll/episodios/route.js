@@ -3,7 +3,7 @@ export async function GET(request) {
 	const page = request.nextUrl.searchParams.get("page");
 
 	if (!id && !page)
-		return Response.json({ error: "missing id or page." }, { status: 401 });
+		return Response.json({ error: "missing id or page." }, { status: 404 });
 
 	const res = await fetch(`https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=asc`, {
 		cache: "no-store"
