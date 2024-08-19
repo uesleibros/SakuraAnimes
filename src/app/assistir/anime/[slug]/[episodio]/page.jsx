@@ -71,7 +71,7 @@ export default function AssistirEpisodio({params}) {
 			<div className="max-[640px]:min-h-screen">
 				{(anime && episodios) ? (
 					<div>
-						<div className="w-full !h-[600px]">
+						<div className="w-full !h-[550px]">
 							<div className="!h-full" id="player"></div>
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-10">
