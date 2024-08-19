@@ -71,10 +71,10 @@ export default function AssistirEpisodio({params}) {
 			<div className="max-[640px]:min-h-screen">
 				{(anime && episodios) ? (
 					<div>
-						<div className="w-full !h-[530px]">
+						<div className="w-full !h-[510px]">
 							<div className="!h-full" id="player"></div>
 						</div>
-						<div className="mx-auto max-w-[1240px] w-full mt-5">
+						<div className="mx-auto max-w-[1240px] w-full mt-2">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">
 								<div>
 									<Link href={`/assistir/anime/${anime.slug}`} className="font-semibold text-md transition-colors text-pink-500 hover:text-white hover:underline">{anime.title}</Link>
