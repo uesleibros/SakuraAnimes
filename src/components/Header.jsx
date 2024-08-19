@@ -47,8 +47,8 @@ export default function Header() {
   };
 
   return (
-    <div className="relative">
-      <Navbar className="bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <>
+      <Navbar position="sticky" className="bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -80,7 +80,7 @@ export default function Header() {
               type="text"
               size="sm"
               color="default"
-              placeholder="Digite sua obra..."
+              placeholder="Pesquise seu anime..."
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
@@ -95,7 +95,7 @@ export default function Header() {
               type="text"
               size="sm"
               color="default"
-              placeholder="Digite sua obra..."
+              placeholder="Pesquise seu anime..."
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
@@ -116,7 +116,7 @@ export default function Header() {
           <AnimeList listaAnimes={listaAnimes} />
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -125,6 +125,9 @@ const AnimeList = ({ listaAnimes }) => {
     return (
       <div className="p-5 mx-auto">
         <Spinner />
+        <p className="text-xs w-[350px] mt-2">
+          Caso demore para carregar o componente, provavelmente a obra que você está buscando não existe.
+        </p>
       </div>
     );
   }

@@ -111,9 +111,9 @@ export default function VerAnime({params}) {
 									</div>
 								</div>
 								{anime.extra_data?.generos && (
-									<div className="grid grid-cols-4 sm:w-[380px] items-center gap-5 mb-5 mt-3">
+									<div className="flex flex-wrap sm:w-[380px] items-center gap-5 mb-5 mt-3">
 										{anime.extra_data.generos.split(",").map((genero, index) => (
-											<div key={index} className="pointer-events-none font-bold bg-gray-900 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(generosFormato(genero))}</div>
+											<div key={index} className="pointer-events-none font-bold bg-gray-900 flex-shrink-0 w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">{toTitleCase(generosFormato(genero))}</div>
 										))}
 									</div>
 								)}
@@ -162,7 +162,7 @@ export default function VerAnime({params}) {
 										      <Link href={`/assistir/anime/${episodio.anime.slug_serie}/${episodio.n_episodio}`}>
 										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
 			                        <CustomImage 
-			                          className="w-full h-full rounded-sm object-cover" 
+			                          className="w-full h-full rounded-lg object-cover" 
 			                          src={`${episodio.thumbnail}`} 
 			                          width={1200}
 			                          height={1200}

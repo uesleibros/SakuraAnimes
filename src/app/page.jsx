@@ -82,7 +82,7 @@ export default function Home() {
                     <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.n_episodio}`}>
                       <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
                         <CustomImage 
-                          className="w-full h-full rounded-sm object-cover" 
+                          className="w-full h-full rounded-lg object-cover" 
                           src={`${animeRecente.episode.thumbnail}`} 
                           width={1200}
                           height={1200}
