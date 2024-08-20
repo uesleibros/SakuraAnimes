@@ -42,19 +42,9 @@ export default function AssistirEpisodio({params}) {
 
 		pegarDadosAnime();
 	}, [episodio, slug]);
-
-	const formatosDosGenros = new Map([
-		["acao", "ação"],
-		["comedia", "comédia"],
-		["ficcao-cientifica", "ficção-científica"]
-	]);
-
-	function generosFormato(nome) {
-		return formatosDosGenros.get(nome) || nome;
-	}
 	
 	return (
-		<main>
+		<main className="min-h-screen">
 			{(anime && episodios) && (
 				<Script 
 				  src="/lib/playerjs.js"
@@ -68,7 +58,7 @@ export default function AssistirEpisodio({params}) {
 				/>
 			)}
 
-			<div className="max-[640px]:min-h-screen">
+			<div>
 				{(anime && episodios) ? (
 					<div>
 						<div className="w-full !h-[510px]">

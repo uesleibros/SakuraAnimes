@@ -8,6 +8,7 @@ import Link from "next/link";
 import toTitleCase from "@/utils/toTitleCase";
 import Script from "next/script";
 import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
+import generosFormato from "@/utils/generosFormato";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
@@ -76,18 +77,8 @@ export default function VerAnime({params}) {
 		};
 	}, [anime, page, isLoadingMore, carregarMaisEpisodios, reachTotalPages]);
 
-	const formatosDosGenros = new Map([
-		["acao", "ação"],
-		["comedia", "comédia"],
-		["ficcao-cientifica", "ficção-científica"]
-	]);
-
-	function generosFormato(nome) {
-		return formatosDosGenros.get(nome) || nome;
-	}
-
 	return (
-		<main>
+		<main className="min-h-screen">
 			{anime?.type === "movie" && (
 				<Script 
 				  src="/lib/playerjs.js"

@@ -1,17 +1,28 @@
 "use client";
 
+import {useRouter} from "next/navigation";
 import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Input, Spinner} from "@nextui-org/react";
-import {useState, useCallback} from "react";
+import {useState, useEffect, useCallback} from "react";
 import {FaSearch, FaPlay} from "react-icons/fa";
 import Image from "next/image";
 import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
+import { RiDiceLine } from "react-icons/ri";
 import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [value, setValue] = useState("");
   const [listaAnimes, setListaAnimes] = useState(null);
+  const router = useRouter();
+
+  async function irParaAnimeAleatorio() {
+    const res = await fetch("/api/random/anime/anroll");
+    const {data} = await res.json();
+
+    router.push(`/assistir/anime/${data.slug_serie}`);
+    setIsMenuOpen(false);
+  }
 
   const debounce = useCallback((fn, delay) => {
     let timeoutId;
@@ -48,7 +59,7 @@ export default function Header() {
 
   return (
     <>
-      <Navbar position="sticky" className="z-[9999] bg-zinc-800 sm:justify-start sm:pl-[46px]" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar position="sticky" className="z-[9999] bg-zinc-800" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -89,7 +100,23 @@ export default function Header() {
           </NavbarItem>
         </NavbarContent>
 
+        <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          <NavbarItem>
+            <div>
+              <RiDiceLine onClick={irParaAnimeAleatorio} className="transition-colors cursor-pointer text-zinc-400 hover:text-white" size={30} />
+            </div>
+          </NavbarItem>
+        </NavbarContent>
+
         <NavbarMenu>
+          <NavbarMenuItem>
+            <NavbarItem className="mb-3">
+              <div onClick={irParaAnimeAleatorio} className="cursor-pointer group flex items-center gap-2">
+                <RiDiceLine className="transition-colors text-zinc-400 group-hover:text-white" size={30} />
+                <p className="transition-colors text-zinc-400 group-hover:text-white">Anime aleatório</p>
+              </div>
+            </NavbarItem>
+          </NavbarMenuItem>
           <NavbarMenuItem>
             <Input
               type="text"
@@ -104,7 +131,7 @@ export default function Header() {
           </NavbarMenuItem>
           <NavbarMenuItem>
             {value.length > 3 && (
-              <div className="z-[9999] pb-10">
+              <div className="z-[9999] pb-20">
                 <AnimeList listaAnimes={listaAnimes} />
               </div>
             )}
