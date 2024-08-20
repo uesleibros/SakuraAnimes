@@ -17,7 +17,7 @@ export default function Header() {
   const router = useRouter();
 
   async function irParaAnimeAleatorio() {
-    const res = await fetch("/api/random/anime/anroll");
+    const res = await fetch("/api/aleatorio/anime/anroll");
     const {data} = await res.json();
 
     router.push(`/assistir/anime/${data.slug_serie}`);
