@@ -57,8 +57,8 @@ export default function Footer() {
       <Divider />
       <div>
         <p className="text-sm font-semibold flex flex-col">
-          <Link className="transition-colors w-[max-content] hover:text-zinc-300 text-[9px]" href="https://github.com/uesleibros/SakuraAnimes">GitHub</Link>
-          © Sakura Animes — Sem fins lucrativos. 
+          <Link className="transition-colors w-[max-content] hover:text-zinc-300 text-[9px]" href="https://github.com/uesleibros/velvet">GitHub</Link>
+          © Velvet — Sem fins lucrativos. 
         </p>
         <p className="text-xs font-semibold text-zinc-500 w-[600px] max-w-full mt-1">Somos uma plataforma que visa reunir todos os melhores servidores de animes em um só lugar.</p>
       </div>
