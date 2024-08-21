@@ -57,6 +57,10 @@ export default function Header() {
     }
   };
 
+  function handleAnimeClick() {
+    setIsMenuOpen(false);
+  }
+
   return (
     <>
       <Navbar position="sticky" className="z-[9999] bg-zinc-800" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -130,16 +134,16 @@ export default function Header() {
             />
           </NavbarMenuItem>
           <NavbarMenuItem>
-            {value.length > 3 && (
+            {(value.length > 3 && isMenuOpen) && (
               <div className="z-[9999] pb-20">
-                <AnimeList listaAnimes={listaAnimes} />
+                <AnimeList listaAnimes={listaAnimes} onAnimeClick={handleAnimeClick} />
               </div>
             )}
           </NavbarMenuItem>
         </NavbarMenu>
         {value.length > 3 && (
           <div className="invisible transition ease-in-out delay-150 bottom-[-480px] sm:visible absolute z-[9999] w-[800px] max-w-[800px] left-[13rem] min-h-[30rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
-            <AnimeList listaAnimes={listaAnimes} />
+            <AnimeList listaAnimes={listaAnimes} onAnimeClick={handleAnimeClick} />
           </div>
         )}
       </Navbar>
@@ -147,7 +151,7 @@ export default function Header() {
   );
 }
 
-const AnimeList = ({ listaAnimes }) => {
+const AnimeList = ({ listaAnimes, onAnimeClick }) => {
   if (!listaAnimes) {
     return (
       <div className="p-5 mx-auto">
@@ -162,7 +166,7 @@ const AnimeList = ({ listaAnimes }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-5 p-5">
       {listaAnimes.data.map((anime, index) => (
-        <Link href={`/assistir/anime/${anime.slug}`} className="w-full max-w-full transition-colors transition-transform hover:translate-x-4 hover:bg-zinc-700 bg-zinc-800 rounded-lg shadow-sm p-2" key={index}>
+        <Link href={`/assistir/anime/${anime.slug}`} className="w-full max-w-full transition-colors transition-transform hover:translate-x-4 hover:bg-zinc-700 bg-zinc-800 rounded-lg shadow-sm p-2" key={index} onClick={onAnimeClick}>
           <div className="flex gap-2">
             <CustomImage
               className="rounded"
