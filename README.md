@@ -5,7 +5,6 @@
 
   [![License: Apache License 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0)
   [![Development Status](https://img.shields.io/badge/development%20status-Initial%20Stage-red?style=flat-square)](https://github.com/orgs/uesleibros/velvet) \
-  [![Stars](https://img.shields.io/github/stars/uesleibros/velvet?style=flat-square)](https://github.com/uesleibros/velvet/stargazers)
   [![Code Size](https://img.shields.io/github/languages/code-size/uesleibros/velvet?style=flat-square)](https://github.com/uesleibros/velvet)
   [![Contributors](https://img.shields.io/github/contributors/uesleibros/velvet?style=flat-square)](https://github.com/uesleibros/velvet/graphs/contributors)
   [![Issues](https://img.shields.io/github/issues/uesleibros/velvet?style=flat-square)](https://github.com/uesleibros/velvet/issues) \
