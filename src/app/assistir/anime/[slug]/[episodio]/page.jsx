@@ -67,7 +67,7 @@ export default function AssistirEpisodio({params}) {
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">
 								<div>
-									<Link href={`/assistir/anime/${anime.slug}`} className="font-semibold text-md transition-colors text-pink-500 hover:text-white hover:underline">{anime.title}</Link>
+									<Link href={`/assistir/anime/${anime.slug}`} className="font-semibold text-md transition-colors text-blue-500 hover:text-white hover:underline">{anime.title}</Link>
 									<div className={`pointer-events-none bg-opacity-80 font-bold ${classificacaoIndicativaCor(anime.censorship)} w-[max-content] rounded-lg px-2 py-1 text-xs my-auto`}>{anime.censorship == "0" ? "Livre" : "PG-" + anime.censorship}</div>
 									<h1 className="text-xl font-bold mt-3">EPISÓDIO {episodios.n_episodio}</h1>
 									<p className="text-sm w-full sm:w-[600px] text-zinc-400">{anime.synopsis}</p>
