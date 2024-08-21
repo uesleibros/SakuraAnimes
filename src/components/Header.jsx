@@ -84,7 +84,7 @@ export default function Header() {
             <Link href="/">
               <div className="flex items-center gap-1 group relative">
                 <Image className="filter group-hover:brightness-0 group-hover:invert" src="/logo.png" width={30} height={30} alt="Velvet" />
-                <h3 className="text-blue-500 group-hover:text-white font-bold">Sakura Animes</h3>
+                <h3 className="text-blue-500 group-hover:text-white font-bold">velvet</h3>
               </div>
             </Link>
           </NavbarBrand>
