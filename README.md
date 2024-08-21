@@ -1,8 +1,6 @@
 <div align="center">
   <img src="/public/logo.png" width="100" alt="Velvet" />
 
-  ### Velvet
-
   A melhor plataformande streaming do Brasil para Otakus de carteirinha.
 
   [![License: Apache License 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0)
