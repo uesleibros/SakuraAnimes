@@ -68,8 +68,8 @@ export default function Header() {
           <NavbarBrand>
             <Link href="/">
               <div className="flex items-center gap-1">
-                <Image src="/logo.png" width={20} height={20} alt="Sakura Animes" />
-                <h3 className="text-pink-500 font-bold">Sakura Animes</h3>
+                <Image src="/logo.png" width={30} height={30} alt="Velvet" />
+                <h3 className="text-blue-500 font-bold">velvet</h3>
               </div>
             </Link>
           </NavbarBrand>
@@ -79,8 +79,8 @@ export default function Header() {
           <NavbarBrand>
             <Link href="/">
               <div className="flex items-center gap-1 group relative">
-                <Image className="filter group-hover:brightness-0 group-hover:invert" src="/logo.png" width={20} height={20} alt="Sakura Animes" />
-                <h3 className="text-pink-500 group-hover:text-white font-bold">Sakura Animes</h3>
+                <Image className="filter group-hover:brightness-0 group-hover:invert" src="/logo.png" width={30} height={30} alt="Velvet" />
+                <h3 className="text-blue-500 group-hover:text-white font-bold">Sakura Animes</h3>
               </div>
             </Link>
           </NavbarBrand>
