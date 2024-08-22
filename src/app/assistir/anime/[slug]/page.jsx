@@ -126,12 +126,12 @@ export default function VerAnime({params}) {
 
 	return (
 		<main className="min-h-screen">
-			{anime?.type === "Movie" && (
+			{(anime?.type === "Movie" && animeAnroll) && (
 				<Script 
 				  src="/lib/playerjs.js"
 				  strategy="afterInteractive"
 				  onReady={() => {
-				  	var player = new Playerjs({ id:"player", file:`/api/streaming/anroll/${slug}/media.m3u8` });
+				  	var player = new Playerjs({ id:"player", file:`/api/streaming/anroll/${animeAnroll.slug}/media.m3u8` });
 				  }}
 				/>
 			)}
