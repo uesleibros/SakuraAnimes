@@ -146,8 +146,8 @@ export default function Header() {
           </div>
         )}
       </Navbar>
-      <div className="w-full min-h-[30px] bg-blue-500 i">
-        <p className="text-tiny text-black text-center">Estamos migrando de serviços, anteriormente, usavamos o AnROLL para as buscas de animes e listagens, porém, tendo visto que não era a melhor forma, foi decidido optar por usar o AniList e MyAnimeList especificadamente para o setor de informações do anime. Entenda que como estamos no processo de migração e configuração das rotas, podem ter bugs e coisas sem funcionar.</p>
+      <div className="w-full min-h-[30px] bg-blue-500 p-4">
+        <p className="text-tiny font-semibold text-black text-center">Estamos migrando de serviços, anteriormente, usavamos o AnROLL para as buscas de animes e listagens, porém, tendo visto que não era a melhor forma, foi decidido optar por usar o AniList e MyAnimeList especificadamente para o setor de informações do anime. Entenda que como estamos no processo de migração e configuração das rotas, podem ter bugs e coisas sem funcionar.</p>
       </div>
     </>
   );
