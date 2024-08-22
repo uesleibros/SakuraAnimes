@@ -54,7 +54,7 @@ export default function VerAnime({params}) {
 			if (res.ok) {
 				const {data} = await res.json();
 
-				if (Object.keys(data).length > 0) {
+				if (data.length > 0) {
 					setAnimeStaff(data);
 					await pegarDadosAnimeAtores();
 				}
@@ -67,7 +67,7 @@ export default function VerAnime({params}) {
 			if (res.ok) {
 				const {data} = await res.json();
 
-				if (Object.keys(data).length > 0) {
+				if (data.length > 0) {
 					setAnimeActors(data);
 				}
 			}
