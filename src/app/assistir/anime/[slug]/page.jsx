@@ -126,7 +126,7 @@ export default function VerAnime({params}) {
 
 	return (
 		<main className="min-h-screen">
-			{(anime?.type === "Movie" && animeAnroll) && (
+			{(anime?.type === "Movie") && (
 				<Script 
 				  src="/lib/playerjs.js"
 				  strategy="afterInteractive"
