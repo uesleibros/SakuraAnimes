@@ -145,6 +145,7 @@ export default function VerAnime({params}) {
 									width={1200}
 									height={1200}
 									quality={100}
+								  alt={`${anime.title}`}
 								/>
 						</div>
 						<div className="flex relative z-10 flex-col gap-4">
@@ -155,6 +156,7 @@ export default function VerAnime({params}) {
 									width={1200}
 									height={1200}
 									quality={100}
+									alt={`${anime.title}`}
 								/>
 							</div>
 							<div>
@@ -228,7 +230,7 @@ export default function VerAnime({params}) {
 								<Divider />
 								<div className="flex flex-col gap-2">
 									{anime.external.map((external, index) => (
-										<Link className="text-sm transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${external.url}`}>
+										<Link className="text-sm transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${external.url}`} key={index}>
 											<FaLink />
 											{external.name}
 										</Link>
@@ -239,7 +241,7 @@ export default function VerAnime({params}) {
 									<h3 className="font-semibold text-sm">Aberturas</h3>
 									<ul className="flex flex-col gap-1 mt-2">
 										{anime.theme.openings.map((opening, index) => (
-											<li className="text-xs">{opening}</li>
+											<li className="text-xs" key={index}>{opening}</li>
 										))}
 										{anime.theme.openings.length === 0 && <li className="text-xs">Sem aberturas.</li>}
 									</ul>
@@ -249,7 +251,7 @@ export default function VerAnime({params}) {
 									<h3 className="font-semibold text-sm">Encerramentos</h3>
 									<ul className="flex flex-col gap-1 mt-2">
 										{anime.theme.endings.map((ending, index) => (
-											<li className="text-xs">{ending}</li>
+											<li className="text-xs" key={index}>{ending}</li>
 										))}
 										{anime.theme.endings.length === 0 && <li className="text-xs">Sem encerramentos.</li>}
 									</ul>
