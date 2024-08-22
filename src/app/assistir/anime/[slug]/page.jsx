@@ -160,7 +160,7 @@ export default function VerAnime({params}) {
 								/>
 							</div>
 							<div>
-								<div className="flex items-center gap-5">
+								<div className="flex max-[640px]:flex-col items-center gap-5">
 									<div>
 										<h2 className="font-bold text-3xl">{anime.title}</h2>
 									</div>
