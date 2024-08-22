@@ -57,7 +57,7 @@ export default function Home() {
     <main>
       <div className="px-[16px] pb-10 mx-auto max-w-[1240px] w-full mt-10">
         <div className="mb-10">
-          <Link href="/assistir/anime/vtuber-nandaga-haishin-kiri-wasuretara-densetsu-ni-natteta">
+          <Link href="/assistir/anime/54284">
             <CustomImage
               className="max-[640px]:h-[160px]"
               src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/cr/desktop_large/31752e60-b3f4-415b-95a4-496903d66a68.png"
@@ -119,7 +119,7 @@ export default function Home() {
           )}
         </div>
         <div className="mt-10">
-          <Link href="/assistir/anime/hazurewaku-no-joutai-ljou-skill-de-saikyou-ni-natta-ore-ga-subete-wo-juurin-suru-made">
+          <Link href="/assistir/anime/57892">
             <CustomImage
               className="max-[640px]:h-[160px]"
               src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/cr/desktop_large/30033c32-049b-4618-8dcd-0a27d0601135.png"
