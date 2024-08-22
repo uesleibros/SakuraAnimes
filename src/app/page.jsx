@@ -138,7 +138,7 @@ export default function Home() {
             {animesPopulares ? (
               <Slider {...settings} className="w-full h-[380px]">
                 {animesPopulares.map((popular, index) => (
-                  <Link key={index} href={`/assistir/anime/${toSlug(popular.title)}`} className="w-[240px] h-[max-content] relative group">
+                  <Link key={index} href={`/assistir/anime/${popular.mal_id}`} className="w-[240px] h-[max-content] relative group">
                     <div className="w-full h-[323px] relative">
                       <div className="w-full h-full">
                         <CustomImage
