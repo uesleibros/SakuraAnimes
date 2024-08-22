@@ -260,7 +260,7 @@ export default function VerAnime({params}) {
 								<h3 className="font-semibold text-sm">Equipe</h3>
 								{animeStaff ? (
 									<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-										{animeStaff.slice(0, Math.min(animeStaff, 12)).map((staff, index) => (
+										{animeStaff.slice(0, Math.min(animeStaff.length, 12)).map((staff, index) => (
 											<Card className="max-w-[400px] h-full" key={index}>
 									      <CardHeader className="flex gap-3">
 									        <Image
