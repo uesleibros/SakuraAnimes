@@ -183,12 +183,12 @@ const AnimeList = ({ listaAnimes, onAnimeClick }) => {
               <p className="text-gray-400 truncate text-sm w-full">{anime.synopsis}</p>
               <div className="mt-3 flex items-center gap-2">
                 <div className="pointer-events-none bg-opacity-80 font-bold bg-blue-600 w-[max-content] rounded-lg px-2 py-1 text-xs">
-                  {anime.type === "TV" ? "Anime" : "Filme"}
+                  {anime.type}
                 </div>
                 <div className="pointer-events-none bg-opacity-80 font-bold bg-green-600 w-[max-content] rounded-lg px-2 py-1 text-xs">
                   {anime.aired.prop.from.year ? anime.aired.prop.from.year : "Não lançado"}
                 </div>
-                {(anime.type === "TV" && anime.episodes) && (
+                {(anime.type !== "Movie" && anime.episodes) && (
                   <div className="pointer-events-none bg-opacity-80 font-bold bg-black w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">
                     <FaPlay /> {anime.episodes}
                   </div>
