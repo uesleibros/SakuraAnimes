@@ -135,9 +135,9 @@ export default function VerAnime({params}) {
 				  }}
 				/>
 			)}
-			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
+			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full relative">
 				{anime ? (
-					<div>
+					<div className="relative">
 						<div className="absolute left-0 top-0 z-0 w-full inset-0 h-[400px]">
 							<Image
 									className="w-full h-full object-cover blur brightness-50"
