@@ -179,7 +179,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Gêneros</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
 										{anime.genres.map((genre, index) => (
 											<p className="text-xs" key={index}>{genre.name}{(index < anime.genres.length - 1) && ","}</p>
 										))}
@@ -190,7 +190,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Classificação Indicativa</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
 										<p className="text-xs">{anime.rating}</p>
 									</div>
 								</div>
@@ -199,7 +199,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Produtores</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
 										{anime.producers.map((producer, index) => (
 											<p className="text-xs" key={index}>{producer.name}{(index < anime.producers.length - 1) && ","}</p>
 										))}
@@ -210,7 +210,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Licensiadores</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
 										{anime.licensors.map((licensor, index) => (
 											<p className="text-xs" key={index}>{licensor.name}{(index < anime.licensors.length - 1) && ","}</p>
 										))}
@@ -221,7 +221,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Estudios</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
 										{anime.studios.map((studio, index) => (
 											<p className="text-xs" key={index}>{studio.name}{(index < anime.studios.length - 1) && ","}</p>
 										))}
