@@ -259,7 +259,7 @@ export default function VerAnime({params}) {
 								<Divider />
 								<h3 className="font-semibold text-sm">Equipe</h3>
 								{animeStaff ? (
-									<div className="grid grid-cols-2 sm:grid-cols-3 items-center gap-4">
+									<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
 										{animeStaff.slice(0, 12).map((staff, index) => (
 											<Card className="max-w-[400px] h-full" key={index}>
 									      <CardHeader className="flex gap-3">
@@ -308,7 +308,7 @@ export default function VerAnime({params}) {
 								<Divider />
 								<h3 className="font-semibold text-sm">Personagens Principais</h3>
 								{animeActors ? (
-									<div className="grid grid-cols-2 sm:grid-cols-3 items-center gap-4">
+									<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
 										{animeActors
 								      .filter((actor) => actor.role === "Main")
 								      .map((actor, index) => (
