@@ -43,9 +43,9 @@ export default function VerAnime({params}) {
 
 				if (data.length > 0 && data[0].title.includes(title)) {
 					setAnimeAnroll(data[0]);
-					await pegarDadosAnimeStaff();
 				}
 			}
+			await pegarDadosAnimeStaff();
 		}
 
 		async function pegarDadosAnimeStaff() {
