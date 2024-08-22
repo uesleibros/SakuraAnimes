@@ -137,7 +137,8 @@ export default function VerAnime({params}) {
 			)}
 			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
 				{anime ? (
-					<div>	
+					<div>
+						<div className="relative h-[400px]">
 						<div className="absolute left-0 top-0 z-0 w-full inset-0 h-[400px]">
 							<Image
 									className="w-full h-full object-cover blur brightness-50"
@@ -147,6 +148,7 @@ export default function VerAnime({params}) {
 									quality={100}
 								  alt={`${anime.title}`}
 								/>
+						</div>
 						</div>
 						<div className="flex relative z-10 flex-col gap-4">
 							<div className="max-w-[224.45px] max-h-[323.28px]">
