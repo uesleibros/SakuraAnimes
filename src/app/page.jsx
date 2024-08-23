@@ -219,16 +219,18 @@ export default function Home() {
                       <p className="font-semibold text-[8px]">{popularSaindo.title_english}</p>
 
                       <div className="mt-3">
-                        <p className="font-semibold text-xs text-zinc-400">{popularSaindo.episodes} Episódios</p>
+                        <p className="font-semibold text-xs text-zinc-400">{popularSaindo.episodes ? popularSaindo.episodes : '?'} Episódios</p>
                         <p className="font-semibold text-xs text-zinc-400 mt-3">{popularSaindo.airing ? "Não finalizado" : "Finalizado"}</p>
                       </div>
-                      <div className="absolute bottom-0 left-0 w-full">
-                        <Link href={`${popularSaindo.trailer.url}`}>
-                          <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
-                            Ver Trailer
-                          </p>
-                        </Link>
-                      </div>
+                      {popularSaindo.trailer.url && (
+                        <div className="absolute bottom-0 left-0 w-full">
+                          <Link href={`${popularSaindo.trailer.url}`}>
+                            <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
+                              Ver Trailer
+                            </p>
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   </Link>
                 ))}
