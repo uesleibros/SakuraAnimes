@@ -9,9 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import toTitleCase from "@/utils/toTitleCase";
 import Script from "next/script";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
@@ -26,26 +23,6 @@ export default function VerAnime({params}) {
 	const [episodios, setEpisodios] = useState([]);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 	const {slug} = params;
-
-	const settings = {
-	  infinite: false,
-	  speed: 500,
-	  slidesToShow: 6,
-	  slidesToScroll: 1,
-	  centerMode: true,
-	  responsive: [
-	    {
-	      breakpoint: 640,
-	      settings: {
-	        slidesToShow: 2,
-	        arrows: false,
-	        autoplay: true,
-	        autoplaySpeed: 2000,
-	        initialSlide: 0
-	      }
-	    },
-	  ]
-	};
 
 	useEffect(() => {
 		async function pegarDadosAnime() {
@@ -442,8 +419,7 @@ export default function VerAnime({params}) {
 						<div className="mt-3">
 							<h2 className="text-xl font-bold">RELAÇÕES</h2>
 							{animeRelacoes ? (
-								<div className="mt-5 w-full">
-									<Slider {...settings} className="w-full h-[380px]">
+								<div className="mt-5 w-full grid grid-cols-1 sm:grid-cols-4 gap-5">
 		                {animeRelacoes.relations.edges.map((relacao, index) => (
 		                  <Link key={index} href={`/assistir/anime/${relacao.node.idMal}`} className="w-[240px] h-[max-content] relative group">
 		                    <div className="w-full h-[323px] relative">
@@ -479,7 +455,6 @@ export default function VerAnime({params}) {
 		                    </div>
 		                  </Link>
 		                ))}
-		              </Slider>
 								</div>
 							) : (
 								<Spinner className="mt-3" />
