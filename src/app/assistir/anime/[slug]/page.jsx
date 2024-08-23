@@ -28,7 +28,7 @@ export default function VerAnime({params}) {
 	const {slug} = params;
 
 	const settings = {
-	  infinite: false,
+	  infinite: true,
 	  speed: 500,
 	  slidesToShow: 6,
 	  responsive: [
@@ -440,7 +440,7 @@ export default function VerAnime({params}) {
 						<div className="mt-3">
 							<h2 className="text-xl font-bold">RELAÇÕES</h2>
 							{animeRelacoes ? (
-								<div className="mt-5 w-full slider-container">
+								<div className="mt-5 w-full">
 									<Slider {...settings} className="w-full h-[380px]">
 		                {animeRelacoes.relations.edges.map((relacao, index) => (
 		                  <Link key={index} href={`/assistir/anime/${relacao.node.idMal}`} className="w-[240px] h-[max-content] relative group">
