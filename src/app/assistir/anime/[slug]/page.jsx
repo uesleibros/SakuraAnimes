@@ -69,33 +69,33 @@ export default function VerAnime({params}) {
 		async function pegarDadosAnimeRecomendados(id) {
 			const query = `
 				query ($id: Int) {
-			    Media(idMal: $id, type: ANIME) {
-			      recommendations {
-			        edges {
-			          node {
-				          mediaRecommendation {
-				            idMal
-				            title {
-				              romaji
-				              english
-				              native
-				            }
-				            duration
-				            episodes
-				            status
-				            coverImage {
-				              large
-				              medium
-				            }
-				            trailer {
-				              site
-				              id
-				            }
-				          }
-				        }
-			        }
-			      }
-			    }
+		    Media(idMal: $id, type: ANIME) {
+		        recommendations {
+		          edges {
+		            node {
+		              mediaRecommendation {
+		                idMal
+		                title {
+		                  romaji
+		                  english
+		                  native
+		                }
+		                duration
+		                episodes
+		                status
+		                coverImage {
+		                  large
+		                  medium
+		                }
+		                trailer {
+		                  site
+		                  id
+		                }
+		              }
+		            }
+		          }
+		        }
+		      }
 			  }
 			`;
 
