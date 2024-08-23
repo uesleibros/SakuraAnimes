@@ -440,7 +440,7 @@ export default function VerAnime({params}) {
 						</div>
 						<div className="mt-3">
 							<h2 className="text-xl font-bold">RELAÇÕES</h2>
-							{(animeRelacoes && (animeRelacoes.relations.edges.length > 4)) ? (
+							{animeRelacoes ? (
 								<div className="mt-5 w-full slider-container">
 									<Slider {...settings} className="w-full h-[380px]">
 		                {animeRelacoes.relations.edges.map((relacao, index) => (
