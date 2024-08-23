@@ -28,7 +28,7 @@ export default function VerAnime({params}) {
 	const {slug} = params;
 
 	const settings = {
-	  infinite: true,
+	  infinite: false,
 	  speed: 500,
 	  initialSlide: 0,
 	  slidesToShow: 6,
