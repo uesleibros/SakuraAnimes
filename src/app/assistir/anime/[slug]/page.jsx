@@ -9,13 +9,16 @@ import Image from "next/image";
 import Link from "next/link";
 import toTitleCase from "@/utils/toTitleCase";
 import Script from "next/script";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
 	const [animeAnroll, setAnimeAnroll] = useState(null);
 	const [animeStaff, setAnimeStaff] = useState(null);
 	const [animeActors, setAnimeActors] = useState(null);
-	const [animeRelacoes, setAnimeRelacoes] = useState(null);
+	const [animeRecomendados, setAnimeRecomendados] = useState(null);
 	const [page, setPage] = useState(1);
 	const [maisDetalhes, setMaisDetalhes] = useState(false);
 	const [reachTotalPages, setReachTotalPages] = useState(false);
@@ -23,6 +26,25 @@ export default function VerAnime({params}) {
 	const [episodios, setEpisodios] = useState([]);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 	const {slug} = params;
+
+	const settings = {
+    infinite: true,
+    slidesToShow: 6,
+    speed: 500,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          arrows: false,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          initialSlide: 0
+        }
+      },
+    ]
+  };
 
 	useEffect(() => {
 		async function pegarDadosAnime() {
@@ -38,37 +60,39 @@ export default function VerAnime({params}) {
 
 					setAnime(data);
 					await pegarDadosAnimeAnroll(data.title);
-					await pegarDadosAnimeRelacoes(data.mal_id);
+					await pegarDadosAnimeRecomendados(data.mal_id);
 					document.title = data.title;
 				}
 			}
 		}
 
-		async function pegarDadosAnimeRelacoes(id) {
+		async function pegarDadosAnimeRecomendados(id) {
 			const query = `
 				query ($id: Int) {
 			    Media(idMal: $id, type: ANIME) {
 			      relations {
 			        edges {
 			          node {
-			            idMal
-			            title {
-			              romaji
-			              english
-			              native
-			            }
-			            duration
-                  episodes
-                  status
-			            coverImage {
-			              large
-			              medium
-			            }
-			            trailer {
-			            	id
-			            	site
-			            }
-			          }
+				          mediaRecommendation {
+				            idMal
+				            title {
+				              romaji
+				              english
+				              native
+				            }
+				            duration
+				            episodes
+				            status
+				            coverImage {
+				              large
+				              medium
+				            }
+				            trailer {
+				              site
+				              id
+				            }
+				          }
+				        }
 			        }
 			      }
 			    }
@@ -85,7 +109,7 @@ export default function VerAnime({params}) {
 			});
 
 			const {data} = await res.json();
-			setAnimeRelacoes(data.Media);
+			setAnimeRecomendados(data.Media);
 		}
 
 		async function pegarDadosAnimeAnroll(title) {
@@ -417,35 +441,36 @@ export default function VerAnime({params}) {
 							</h3>
 						</div>
 						<div className="mt-3">
-							<h2 className="text-xl font-bold">RELAÇÕES</h2>
-							{animeRelacoes ? (
-								<div className="mt-5 w-full h-[380px] flex items-center overflow-x-scroll gap-4">
-		                {animeRelacoes.relations.edges.map((relacao, index) => (
-		                  <Link key={index} href={`/assistir/anime/${relacao.node.idMal}`} className="w-[240px] h-[max-content] relative group flex-shrink-0">
+							<h2 className="text-xl font-bold">RECOMENDADOS</h2>
+							{animeRecomendados ? (
+								<div className="mt-5">
+									<Slider {...settings} className="w-full h-[380px]">
+		                {animeRecomendados.relations.edges.map((recomendado, index) => (
+		                  <Link key={index} href={`/assistir/anime/${recomendado.node.mediaRecommendation.idMal}`} className="w-[240px] h-[max-content] relative group flex-shrink-0">
 		                    <div className="w-full h-[323px] relative">
 		                      <div className="w-full h-full">
 		                        <Image
 		                          className="w-full h-full"
-		                          src={`${relacao.node.coverImage.large}`}
+		                          src={`${recomendado.node.mediaRecommendation.coverImage.large}`}
 		                          width={1200}
 		                          height={1200}
 		                          quality={100}
-		                          alt={`${relacao.node.title.romaji}`}
+		                          alt={`${recomendado.node.mediaRecommendation.title.romaji}`}
 		                        />
 		                      </div>
-		                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{relacao.node.title.romaji}</p>
+		                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{recomendado.node.mediaRecommendation.title.romaji}</p>
 		                    </div>
 		                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-		                      <p className="font-semibold text-xs">{relacao.node.title.romaji} <span className="text-[10px]">({relacao.node.title.native})</span></p>
-		                      <p className="font-semibold text-[8px]">{relacao.node.title.english}</p>
+		                      <p className="font-semibold text-xs">{recomendado.node.mediaRecommendation.title.romaji} <span className="text-[10px]">({recomendado.node.mediaRecommendation.title.native})</span></p>
+		                      <p className="font-semibold text-[8px]">{recomendado.node.mediaRecommendation.title.english}</p>
 
 		                      <div className="mt-3">
-		                        <p className="font-semibold text-xs text-zinc-400">{relacao.node.episodes ? relacao.node.episodes : '?'} Episódios</p>
-		                        <p className="font-semibold text-xs text-zinc-400 mt-3">{relacao.node.status !== "FINISHED" ? "Não finalizado" : "Finalizado"}</p>
+		                        <p className="font-semibold text-xs text-zinc-400">{recomendado.node.mediaRecommendation.episodes ? recomendado.node.mediaRecommendation.episodes : '?'} Episódios</p>
+		                        <p className="font-semibold text-xs text-zinc-400 mt-3">{recomendado.node.mediaRecommendation.status !== "FINISHED" ? "Não finalizado" : "Finalizado"}</p>
 		                      </div>
-		                      {relacao.node.trailer && (
+		                      {recomendado.node.mediaRecommendation.trailer && (
 		                      	<div className="absolute bottom-0 left-0 w-full">
-		                      	  <Link href={`https://${relacao.node.trailer.site}/watch?v=${relacao.node.trailer.id}`}>
+		                      	  <Link href={`https://${recomendado.node.mediaRecommendation.trailer.site}/watch?v=${recomendado.node.mediaRecommendation.trailer.id}`}>
 		                      	    <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
 		                      	      Ver Trailer
 		                      	    </p>
@@ -455,6 +480,7 @@ export default function VerAnime({params}) {
 		                    </div>
 		                  </Link>
 		                ))}
+		              </Slider>
 								</div>
 							) : (
 								<Spinner className="mt-3" />

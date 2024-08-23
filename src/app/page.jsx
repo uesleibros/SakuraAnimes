@@ -259,7 +259,7 @@ export default function Home() {
               Ainda está procurando algo pra assistir? Confira o nosso anime da casa
             </h3>
             <div className="mx-auto text-center mt-6">
-              <Link href="/assistir/anime/spy-x-family" className="relative border border-blue-500 transition-colors hover:border-blue-600 uppercase font-bold py-2 px-10">
+              <Link href="/assistir/anime/50265" className="relative border border-blue-500 transition-colors hover:border-blue-600 uppercase font-bold py-2 px-10">
                 Ver Anime
               </Link>
             </div>
