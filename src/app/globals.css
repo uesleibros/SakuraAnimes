@@ -29,4 +29,4 @@ body {
   display: none;
 }
 
-& .slick-list { flex: 1; }
+.slick-list { flex: 1; }
