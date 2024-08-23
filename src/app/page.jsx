@@ -15,6 +15,7 @@ export default function Home() {
   const [animesRecentes, setAnimesRecentes] = useState(null);
   const [animesPopulares, setAnimesPopulares] = useState(null);
   const [animesPopularesSaindo, setAnimesPopularesSaindo] = useState(null);
+  const [animesTemporadaAtual, setAnimesTemporadaAtual] = useState(null);
   const settings = {
     infinite: true,
     slidesToShow: 6,
@@ -49,6 +50,13 @@ export default function Home() {
       setAnimesPopulares(data.data);
     }
 
+    async function pegarAnimesTemporadaAtual() {
+      const res = await fetch("/api/populares/animes/myanimelist/temporada");
+      const data = await res.json();
+
+      setAnimesTemporadaAtual(data.data);
+    }
+
     async function pegarAnimesPopularesSaindo() {
       const res = await fetch("/api/populares/animes/myanimelist/saindo");
       const data = await res.json();
@@ -59,6 +67,7 @@ export default function Home() {
     pegarEpisodiosRecemAdicionados();
     pegarAnimesPopulares();
     pegarAnimesPopularesSaindo();
+    pegarAnimesTemporadaAtual();
     return;
   }, []);
 
@@ -225,6 +234,59 @@ export default function Home() {
                       {popularSaindo.trailer.url && (
                         <div className="absolute bottom-0 left-0 w-full">
                           <Link href={`${popularSaindo.trailer.url}`}>
+                            <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
+                              Ver Trailer
+                            </p>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                ))}
+              </Slider>
+            ) : (
+              <div>
+                <Spinner />
+                <p className="text-xs w-[350px] mt-2">
+                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="mt-10">
+          <div>
+            <h2 className="text-xl font-bold">ANIMES DA TEMPORADA</h2>
+          </div>
+          <div className="mt-5">
+            {animesTemporadaAtual ? (
+              <Slider {...settings} className="w-full h-[380px]">
+                {animesTemporadaAtual.map((temporadaAnime, index) => (
+                  <Link key={index} href={`/assistir/anime/${temporadaAnime.mal_id}`} className="w-[240px] h-[max-content] relative group">
+                    <div className="w-full h-[323px] relative">
+                      <div className="w-full h-full">
+                        <CustomImage
+                          className="w-full h-full"
+                          src={`${temporadaAnime.images.jpg.large_image_url}`}
+                          width={1200}
+                          height={1200}
+                          quality={100}
+                          alt={`${temporadaAnime.title}`}
+                        />
+                      </div>
+                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{temporadaAnime.title}</p>
+                    </div>
+                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <p className="font-semibold text-xs">{temporadaAnime.title} <span className="text-[10px]">({temporadaAnime.title_japanese})</span></p>
+                      <p className="font-semibold text-[8px]">{temporadaAnime.title_english}</p>
+
+                      <div className="mt-3">
+                        <p className="font-semibold text-xs text-zinc-400">{temporadaAnime.episodes ? temporadaAnime.episodes : '?'} Episódios</p>
+                        <p className="font-semibold text-xs text-zinc-400 mt-3">{temporadaAnime.airing ? "Não finalizado" : "Finalizado"}</p>
+                      </div>
+                      {temporadaAnime.trailer.url && (
+                        <div className="absolute bottom-0 left-0 w-full">
+                          <Link href={`${temporadaAnime.trailer.url}`}>
                             <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
                               Ver Trailer
                             </p>
