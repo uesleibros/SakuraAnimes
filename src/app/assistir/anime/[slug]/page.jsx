@@ -445,7 +445,7 @@ export default function VerAnime({params}) {
 							{animeRecomendados ? (
 								<div className="mt-5">
 									<Slider {...settings} className="w-full h-[380px]">
-		                {animeRecomendados.relations.edges.map((recomendado, index) => (
+		                {animeRecomendados.recommendations.edges.map((recomendado, index) => (
 		                  <Link key={index} href={`/assistir/anime/${recomendado.node.mediaRecommendation.idMal}`} className="w-[240px] h-[max-content] relative group flex-shrink-0">
 		                    <div className="w-full h-[323px] relative">
 		                      <div className="w-full h-full">
