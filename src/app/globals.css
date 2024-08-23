@@ -28,3 +28,5 @@ body {
 .slick-slide.slick-cloned {
   display: none;
 }
+
+& .slick-list { flex: 1; }
