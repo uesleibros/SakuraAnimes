@@ -419,7 +419,7 @@ export default function VerAnime({params}) {
 						<div className="mt-3">
 							<h2 className="text-xl font-bold">RELAÇÕES</h2>
 							{animeRelacoes ? (
-								<div className="mt-5 w-full grid grid-cols-1 sm:grid-cols-4 gap-5">
+								<div className="mt-5 w-full flex items-center overflow-x-scroll gap-4">
 		                {animeRelacoes.relations.edges.map((relacao, index) => (
 		                  <Link key={index} href={`/assistir/anime/${relacao.node.idMal}`} className="w-[240px] h-[max-content] relative group">
 		                    <div className="w-full h-[323px] relative">
