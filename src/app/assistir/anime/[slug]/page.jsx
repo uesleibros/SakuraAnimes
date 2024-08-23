@@ -30,8 +30,6 @@ export default function VerAnime({params}) {
 	const settings = {
 	  infinite: false,
 	  speed: 500,
-	  initialSlide: 0,
-	  swipe: false,
 	  slidesToShow: 6,
 	  responsive: [
 	    {
