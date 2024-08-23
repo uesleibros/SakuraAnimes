@@ -31,6 +31,7 @@ export default function VerAnime({params}) {
 	  infinite: true,
 	  speed: 500,
 	  slidesToShow: 6,
+		slidesToScroll: 1,
 	  responsive: [
 	    {
 	      breakpoint: 640,
