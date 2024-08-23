@@ -24,3 +24,7 @@ body {
 #disqus_thread iframe[sandbox] {
   max-height: 0px !important;
 }
+
+.slick-slide.slick-cloned {
+  display: none;
+}
