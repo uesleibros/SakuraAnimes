@@ -70,7 +70,7 @@ export default function VerAnime({params}) {
 			const query = `
 				query ($id: Int) {
 			    Media(idMal: $id, type: ANIME) {
-			      relations {
+			      recommendations {
 			        edges {
 			          node {
 				          mediaRecommendation {
