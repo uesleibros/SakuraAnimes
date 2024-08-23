@@ -9,13 +9,16 @@ import Image from "next/image";
 import Link from "next/link";
 import toTitleCase from "@/utils/toTitleCase";
 import Script from "next/script";
-import generosFormato from "@/utils/generosFormato";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
 	const [animeAnroll, setAnimeAnroll] = useState(null);
 	const [animeStaff, setAnimeStaff] = useState(null);
 	const [animeActors, setAnimeActors] = useState(null);
+	const [animeRelacoes, setAnimeRelacoes] = useState(null);
 	const [page, setPage] = useState(1);
 	const [maisDetalhes, setMaisDetalhes] = useState(false);
 	const [reachTotalPages, setReachTotalPages] = useState(false);
@@ -24,16 +27,87 @@ export default function VerAnime({params}) {
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 	const {slug} = params;
 
+	const settings = {
+	  infinite: true,
+	  speed: 500,
+	  initialSlide: 0,
+	  slidesToShow: 6,
+	  responsive: [
+	    {
+	      breakpoint: 640,
+	      settings: {
+	        slidesToShow: 2,
+	        arrows: false,
+	        autoplay: true,
+	        autoplaySpeed: 2000,
+	        initialSlide: 0
+	      }
+	    },
+	  ]
+	};
+
 	useEffect(() => {
 		async function pegarDadosAnime() {
 			const res = await fetch(`/api/especifico/animes/myanimelist?id=${slug}`);
-			const {data} = await res.json();
 
-			if (Object.keys(data).length > 0) {
-				setAnime(data);
-				await pegarDadosAnimeAnroll(data.title);
-				document.title = data.title;
+			if (res.ok) {
+				const {data} = await res.json();
+
+				if (Object.keys(data).length > 0) {
+					if (data.licensors.length === 0) {
+						data.licensors.push({ name: "*", "url": "/" });
+					}
+
+					setAnime(data);
+					await pegarDadosAnimeAnroll(data.title);
+					await pegarDadosAnimeRelacoes(data.mal_id);
+					document.title = data.title;
+				}
 			}
+		}
+
+		async function pegarDadosAnimeRelacoes(id) {
+			const query = `
+				query ($id: Int) {
+			    Media(idMal: $id, type: ANIME) {
+			      relations {
+			        edges {
+			          node {
+			            idMal
+			            title {
+			              romaji
+			              english
+			              native
+			            }
+			            duration
+                  episodes
+                  status
+			            coverImage {
+			              large
+			              medium
+			            }
+			            trailer {
+			            	id
+			            	site
+			            }
+			          }
+			        }
+			      }
+			    }
+			  }
+			`;
+
+			const variables = {id};
+			const res = await fetch("/api/query/anilist", {
+				method: "POST",
+				body: JSON.stringify({
+			    query: query,
+			    variables: variables
+			  })
+			});
+
+			const {data} = await res.json();
+			setAnimeRelacoes(data.Media);
 		}
 
 		async function pegarDadosAnimeAnroll(title) {
@@ -126,7 +200,7 @@ export default function VerAnime({params}) {
 
 	return (
 		<main className="min-h-screen">
-			{(anime?.type === "Movie") && (
+			{(animeAnroll?.type === "movie") && (
 				<Script 
 				  src="/lib/playerjs.js"
 				  strategy="afterInteractive"
@@ -160,7 +234,7 @@ export default function VerAnime({params}) {
 								/>
 							</div>
 							<div>
-								<div className="flex max-[640px]:flex-col sm:items-center gap-5">
+								<div className="flex max-[640px]:flex-col sm:items-center gap-2">
 									<div>
 										<h2 className="font-bold text-3xl">{anime.title}</h2>
 									</div>
@@ -179,7 +253,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Gêneros</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
 										{anime.genres.map((genre, index) => (
 											<p className="text-xs" key={index}>{genre.name}{(index < anime.genres.length - 1) && ","}</p>
 										))}
@@ -190,7 +264,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Classificação Indicativa</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
 										<p className="text-xs">{anime.rating}</p>
 									</div>
 								</div>
@@ -199,7 +273,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Produtores</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
 										{anime.producers.map((producer, index) => (
 											<p className="text-xs" key={index}>{producer.name}{(index < anime.producers.length - 1) && ","}</p>
 										))}
@@ -210,7 +284,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Licensiadores</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
 										{anime.licensors.map((licensor, index) => (
 											<p className="text-xs" key={index}>{licensor.name}{(index < anime.licensors.length - 1) && ","}</p>
 										))}
@@ -221,7 +295,7 @@ export default function VerAnime({params}) {
 									<div>
 										<h3 className="font-semibold text-sm">Estudios</h3>
 									</div>
-									<div className="flex items-center gap-2 flex-wrap max-w-[300px] sm:max-w-[500px] justify-end">
+									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
 										{anime.studios.map((studio, index) => (
 											<p className="text-xs" key={index}>{studio.name}{(index < anime.studios.length - 1) && ","}</p>
 										))}
@@ -364,6 +438,52 @@ export default function VerAnime({params}) {
 								{maisDetalhes ? "MENOS DETALHES" : "MAIS DETALHES"}
 							</h3>
 						</div>
+						<div className="mt-3">
+							<h2 className="text-xl font-bold">RELAÇÕES</h2>
+							{(animeRelacoes && (animeRelacoes.relations.edges.length > 4)) ? (
+								<div className="mt-5 w-full slider-container">
+									<Slider {...settings} className="w-full h-[380px]">
+		                {animeRelacoes.relations.edges.map((relacao, index) => (
+		                  <Link key={index} href={`/assistir/anime/${relacao.node.idMal}`} className="w-[240px] h-[max-content] relative group">
+		                    <div className="w-full h-[323px] relative">
+		                      <div className="w-full h-full">
+		                        <Image
+		                          className="w-full h-full"
+		                          src={`${relacao.node.coverImage.large}`}
+		                          width={1200}
+		                          height={1200}
+		                          quality={100}
+		                          alt={`${relacao.node.title.romaji}`}
+		                        />
+		                      </div>
+		                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{relacao.node.title.romaji}</p>
+		                    </div>
+		                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+		                      <p className="font-semibold text-xs">{relacao.node.title.romaji} <span className="text-[10px]">({relacao.node.title.native})</span></p>
+		                      <p className="font-semibold text-[8px]">{relacao.node.title.english}</p>
+
+		                      <div className="mt-3">
+		                        <p className="font-semibold text-xs text-zinc-400">{relacao.node.episodes ? relacao.node.episodes : '?'} Episódios</p>
+		                        <p className="font-semibold text-xs text-zinc-400 mt-3">{relacao.node.status !== "FINISHED" ? "Não finalizado" : "Finalizado"}</p>
+		                      </div>
+		                      {relacao.node.trailer && (
+		                      	<div className="absolute bottom-0 left-0 w-full">
+		                      	  <Link href={`https://${relacao.node.trailer.site}/watch?v=${relacao.node.trailer.id}`}>
+		                      	    <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
+		                      	      Ver Trailer
+		                      	    </p>
+		                      	  </Link>
+		                      	</div>
+		                      )}
+		                    </div>
+		                  </Link>
+		                ))}
+		              </Slider>
+								</div>
+							) : (
+								<Spinner className="mt-3" />
+							)}
+						</div>
 						{anime.type === "Movie" && (
 							<div className="mt-10">
 								<div id="player"></div>
@@ -372,7 +492,7 @@ export default function VerAnime({params}) {
 						{episodios.length > 0 && (
 							<div className="mt-10">
 								<div>
-									<h2 className="text-2xl font-bold">EPISÓDIOS</h2>
+									<h2 className="text-xl font-bold">EPISÓDIOS</h2>
 									<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
 										{episodios.map((episodio, index) => (
 										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>

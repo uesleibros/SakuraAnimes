@@ -13,7 +13,7 @@ export default function Footer() {
         </div>
         <h3 className="font-bold text-md -mb-10">Servidores utilizados</h3>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex flex-wrap items-center gap-5">
         <Link href="https://myanimelist.net/">
           <Image
             src="/sites/myanimelist.png"
@@ -23,9 +23,19 @@ export default function Footer() {
             alt="MyAnimeList"
           />
         </Link>
+        <Link href="https://anilist.co/">
+          <Image
+            className="filter brightness-0 invert transition duration-300 hover:filter-none"
+            src="/sites/anilist.svg"
+            width={35}
+            height={35}
+            quality={100}
+            alt="AniList"
+          />
+        </Link>
         <Link href="https://anroll.net/">
           <Image
-            className="filter brightness-0 invert"
+            className="filter brightness-0 invert transition duration-300 hover:filter-none"
             src="/sites/anroll.png"
             width={100}
             height={100}
@@ -35,7 +45,7 @@ export default function Footer() {
         </Link>
         <Link href="https://crunchyroll.com/pt-BR">
           <Image
-            className="filter brightness-0 invert"
+            className="filter brightness-0 invert transition duration-300 hover:filter-none"
             src="/sites/crunchyroll.png"
             width={100}
             height={100}
@@ -45,7 +55,7 @@ export default function Footer() {
         </Link>
         <Link href="https://animefire.plus/">
           <Image
-            className="filter brightness-0 invert"
+            className="filter brightness-0 invert transition duration-300 hover:filter-none"
             src="/sites/animefire.webp"
             width={100}
             height={100}
@@ -60,7 +70,7 @@ export default function Footer() {
           <Link className="transition-colors w-[max-content] hover:text-zinc-300 text-[9px]" href="https://github.com/uesleibros/velvet">GitHub</Link>
           © Velvet — Sem fins lucrativos. 
         </p>
-        <p className="text-xs font-semibold text-zinc-500 w-[600px] max-w-full mt-1">Somos uma plataforma que visa reunir todos os melhores servidores de animes em um só lugar.</p>
+        <p className="text-xs font-semibold text-zinc-500 max-w-full mt-1">Somos uma entidade que reúne os servidores de animes mais seletos em um só lugar. O que você encontra aqui não nos pertence, apenas mostramos o caminho. Não hospedamos nada que possa ser considerado ilegal; apenas apontamos para onde olhar. Aqueles que ousam acessar arquivos protegidos por leis o fazem por sua conta e risco. A responsabilidade é inteiramente sua. Nenhum de nós se compromete com o que você faz ou deixa de fazer. Cuidado, pois o que encontrar aqui é só o começo.</p>
       </div>
     </footer>
   );

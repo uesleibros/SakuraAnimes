@@ -14,11 +14,19 @@ export default function Header() {
   const [listaAnimes, setListaAnimes] = useState(null);
   const router = useRouter();
 
+  async function myanimeListPegar(title) {
+    const res = await fetch(`/api/buscar/animes/myanimelist?q=${title}`);
+    const {data} = await res.json();
+    return data[0].mal_id;
+  }
+
   async function irParaAnimeAleatorio() {
     const res = await fetch("/api/aleatorio/anime/anroll");
     const {data} = await res.json();
 
-    router.push(`/assistir/anime/${data.slug_serie}`);
+    const id = await myanimeListPegar(data.titulo);
+
+    router.push(`/assistir/anime/${id}`);
     setIsMenuOpen(false);
   }
 
@@ -146,7 +154,7 @@ export default function Header() {
           </div>
         )}
       </Navbar>
-      <div className="w-full min-h-[30px] bg-blue-500 p-4 relative">
+      <div className="w-full min-h-[30px] bg-blue-500 p-4 relative z-10">
         <p className="text-tiny font-semibold text-black text-center">Estamos migrando de serviços, anteriormente, usavamos o AnROLL para as buscas de animes e listagens, porém, tendo visto que não era a melhor forma, foi decidido optar por usar o AniList e MyAnimeList especificadamente para o setor de informações do anime. Entenda que como estamos no processo de migração e configuração das rotas, podem ter bugs e coisas sem funcionar.</p>
       </div>
     </>
