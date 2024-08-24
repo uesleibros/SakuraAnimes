@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function AnimeSliderItems({ items, node }) {
 	const settings = {
-	  infinite: true,
+	  infinite: false,
 	  slidesToShow: 6,
 	  speed: 500,
 	  initialSlide: 0,
