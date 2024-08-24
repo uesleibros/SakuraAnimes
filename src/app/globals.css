@@ -10,7 +10,10 @@ body {
 }
 
 .slick-slide {
-  margin-inline: 3px;
+  margin: 0 10px;
+}
+.slick-list {
+  margin: 0 -10px;
 }
 
 .slick-prev:before, .slick-next:before {
