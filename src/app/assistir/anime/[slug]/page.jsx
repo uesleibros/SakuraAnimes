@@ -100,7 +100,7 @@ export default function VerAnime({params}) {
 				const {data} = await res.json();
 
 				if (data && data.length > 0) {
-					if (data[0].title.includes(title))
+					if (data[0].slug.includes(toSlug(title)))
 						setAnimeAnroll(data[0]);
 				}
 			}
