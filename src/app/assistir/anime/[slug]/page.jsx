@@ -95,7 +95,7 @@ export default function VerAnime({params}) {
 		}
 
 		async function pegarDadosAnimeAnroll(title) {
-			const res = await fetch(`/api/buscar/animes/anroll?q=${toSlug(title)}`);
+			const res = await fetch(`/api/buscar/animes/anroll?q=${title}`);
 			if (res.ok) {
 				const {data} = await res.json();
 
