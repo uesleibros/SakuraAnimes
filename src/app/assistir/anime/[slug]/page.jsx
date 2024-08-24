@@ -451,7 +451,7 @@ export default function VerAnime({params}) {
 										<h2 className="text-xl font-bold">EPISÓDIOS</h2>
 										<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
 											{episodios.map((episodio, index) => (
-											  <Episode slug={animeAnroll.slug} episode_id={animeAnroll.gen_id} episode_number={episodio.n_episodio} dub={animeAnroll.extra_data.dub} thumbnail={episodio.thumbnail} key={index} />
+											  <Episode slug={animeAnroll.slug} episode_id={episodio.generate_id} episode_number={episodio.n_episodio} dub={animeAnroll.extra_data.dub} thumbnail={episodio.thumbnail} key={index} />
 											))}
 										</div>
 									</div>
