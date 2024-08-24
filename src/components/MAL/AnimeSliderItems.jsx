@@ -27,7 +27,7 @@ export default function AnimeSliderItems({ items }) {
 	};
 
 	return (
-		<Slider {...settings} className="w-full h-full">
+		<Slider {...settings} className="w-full h-[334px]">
 			{items.map((item, index) => (
 			  <Link key={index} href={`/assistir/anime/${item.mal_id}`} className="!w-[200px] h-[max-content] relative group">
 			    <div className="w-full h-[323px] relative">
