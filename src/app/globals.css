@@ -9,8 +9,13 @@ body {
   color: white;
 }
 
-.slick-list {margin: 0 -5px;}
-.slick-slide {padding: 0 5px;}
+.slick-slide {
+  margin: 0 20px;
+}
+
+.slick-list {
+  margin: 0 -20px;
+}
 
 .slick-prev:before, .slick-next:before {
   line-height: 0 !important;
