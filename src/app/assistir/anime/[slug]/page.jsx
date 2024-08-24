@@ -465,7 +465,7 @@ export default function VerAnime({params}) {
 							<div className="mt-3">
 								<h2 className="text-xl font-bold">RECOMENDADOS</h2>
 								{animeRecomendados ? (
-									<div className="mt-5">
+									<div className="mt-5 overflow-hidden">
 										<AnimeSliderItems items={animeRecomendados.recommendations.edges} node="node.mediaRecommendation" />
 									</div>
 								) : (
