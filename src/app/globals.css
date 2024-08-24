@@ -9,7 +9,7 @@ body {
   color: white;
 }
 
-.slick-slide {
+.slick-slide > div {
   margin-inline: 7px;
 }
 
