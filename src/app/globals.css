@@ -10,7 +10,7 @@ body {
 }
 
 .slick-slide {
-  margin-right: 7px;
+  margin-inline: 3px;
 }
 
 .slick-prev:before, .slick-next:before {
