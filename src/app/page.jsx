@@ -45,7 +45,6 @@ export default function Home() {
       const res = await fetch("/api/populares/animes/myanimelist");
       const data = await res.json();
 
-      await pegarAnimesPopularesSaindo();
       setAnimesPopulares(data.data);
     }
 
@@ -59,13 +58,14 @@ export default function Home() {
     async function pegarAnimesPopularesSaindo() {
       const res = await fetch("/api/populares/animes/myanimelist/saindo");
       const data = await res.json();
-
-      await pegarAnimesTemporadaAtual();
+      
       setAnimesPopularesSaindo(data.data);
     }
 
     pegarEpisodiosRecemAdicionados();
     pegarAnimesPopulares();
+    pegarAnimesTemporadaAtual();
+    pegarAnimesPopularesSaindo();
     return;
   }, []);
 
