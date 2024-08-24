@@ -202,7 +202,7 @@ export default function VerAnime({params}) {
         )}
       </Head>
 			<main className="min-h-screen">
-				{animeAnroll.type === "movie" && (
+				{animeAnroll?.type === "movie" && (
 					<Script 
 					  src="/lib/playerjs.js"
 					  strategy="afterInteractive"
@@ -440,7 +440,7 @@ export default function VerAnime({params}) {
 									{maisDetalhes ? "MENOS DETALHES" : "MAIS DETALHES"}
 								</h3>
 							</div>
-							{animeAnroll.type === "movie" && (
+							{animeAnroll?.type === "movie" && (
 								<div className="mt-10">
 									<div id="player"></div>
 								</div>
