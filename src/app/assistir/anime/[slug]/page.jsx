@@ -235,9 +235,8 @@ export default async function VerAnime({params}) {
 						</div>
 					) : (
 						<div>
-							<Spinner />
 							<p className="text-xs w-[350px] mt-2">
-								Caso demore para carregar o componente, provavelmente o conteúdo que você está tentando acessar não existe.
+								Anime não encontrado.
 							</p>
 						</div>
 					)}
