@@ -1,7 +1,8 @@
 import AnrollAnimeInfos from "@/components/Anime/AnrollAnimeInfos";
 import Image from "next/image";
+import {headers} from "next/headers";
 
-async function pegarDadosAnime(slug) {
+async function pegarDadosAnime(slug, host, protocol) {
 	const query = `
 		query($id: Int) {
 		  Media(idMal: $id, type: ANIME) {
@@ -131,7 +132,8 @@ async function pegarDadosAnime(slug) {
 		id: slug
 	};
 
-	const res = await fetch(`http://localhost:3000/api/query/anilist`, {
+
+	const res = await fetch(`${protocol}://${host}/api/query/anilist`, {
 		method: "POST",
 		body: JSON.stringify({
 	    query: query,
@@ -149,15 +151,17 @@ async function pegarDadosAnime(slug) {
 	return null;
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({params}) {
   const {slug} = params;
   
-  const anime = await pegarDadosAnime(slug);
+  const headersList = headers();
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+  const anime = await pegarDadosAnime(slug, headersList.get("host"), protocol);
 
   if (!anime) {
     return {
-      title: 'Anime não encontrado',
-      description: 'O anime que você está procurando não foi encontrado.',
+      title: "Anime não encontrado",
+      description: "O anime que você está procurando não foi encontrado.",
     };
   }
 
@@ -182,7 +186,9 @@ export async function generateMetadata({ params }) {
 
 export default async function VerAnime({params}) {
 	const {slug} = params;
-	let anime = await pegarDadosAnime(slug);
+	const headersList = headers();
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+  const anime = await pegarDadosAnime(slug, headersList.get("host"), protocol);
 
 	return (
 		<>
