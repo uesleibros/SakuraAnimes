@@ -119,7 +119,7 @@ export default function Home() {
           <div>
             <h2 className="text-xl font-bold">MAIS POPULARES</h2>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 overflow-hidden">
             {animesPopulares ? (
               <AnimeSliderItems items={animesPopulares} />
             ) : (
@@ -136,7 +136,7 @@ export default function Home() {
           <div>
             <h2 className="text-xl font-bold">MAIS POPULARES EM LANÇAMENTO</h2>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 overflow-hidden">
             {animesPopularesSaindo ? (
               <AnimeSliderItems items={animesPopularesSaindo} />
             ) : (
@@ -153,7 +153,7 @@ export default function Home() {
           <div>
             <h2 className="text-xl font-bold">ANIMES DA TEMPORADA</h2>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 overflow-hidden">
             {animesTemporadaAtual ? (
               <AnimeSliderItems items={animesTemporadaAtual} />
             ) : (
