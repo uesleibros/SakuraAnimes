@@ -1,4 +1,5 @@
 import extractData from "@/utils/anroll/extractData";
+import toSlug from "@/utils/toSlug";
 
 async function pegarInformacoesDetalhadasAnime(data) {
 	const res = await fetch(`https://www.anroll.net${data.generic_path}`, {
@@ -30,7 +31,7 @@ export async function GET(request) {
 	if (!data.length)
 		return Response.json({ error: "anime not found." }, { status: 404 });
 
-	data = data.filter(i => i.title.toLowerCase().startsWith(query.toLowerCase()));
+	data = data.filter(i => i.title.toLowerCase().startsWith(query.toLowerCase()) || i.slug.startsWith(toSlug(query.toLowerCase())));
 	
 	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/${i.type === "movie" ? "filmes" : "animes"}/capas/${i.slug}.jpg`);
 	for (let i = 0; i < data.length; i++) {
