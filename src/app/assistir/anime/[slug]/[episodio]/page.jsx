@@ -1,12 +1,12 @@
 "use client";
 
 import {useEffect, useState} from "react";
-import {FaCirclePlay} from "react-icons/fa6";
 import {Spinner} from "@nextui-org/react";
 import {DiscussionEmbed} from "disqus-react";
 import Image from "next/image";
 import Script from "next/script";
 import Link from "next/link";
+import Episode from "@/components/Episode";
 import toTitleCase from "@/utils/toTitleCase";
 
 export default function AssistirEpisodio({params}) {
@@ -74,71 +74,13 @@ export default function AssistirEpisodio({params}) {
 									{Object.keys(episodios.nextEp).length > 0 && (
 										<div>
 											<h2 className="font-semibold text-md">PRÓXIMO EPISÓDIO</h2>
-										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105 mt-2">
-										    <div className="mb-2">
-										      <Link href={`/assistir/anime/${episodios.nextEp.anime.slug_serie}/${episodios.nextEp.generate_id}`}>
-										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
-			                        <Image 
-			                          className="w-full h-full rounded-lg object-cover" 
-			                          src={`https://static.anroll.net/images/animes/screens/${episodios.nextEp.anime.slug_serie}/${episodios.nextEp.n_episodio}.jpg`} 
-			                          width={1200}
-			                          height={1200}
-			                          priority={true}
-			                          quality={100}
-			                          alt={`${episodios.nextEp.anime.titulo}`} 
-			                        />
-			                        <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
-			                          <div>
-			                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
-			                          </div>
-			                        </div>
-										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-										            { anime.extra_data.dub > 0 ? (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
-										            ) : (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
-										            )}
-										            <div className="pointer-events-none bg-opacity-80 font-bold bg-zinc-800 w-[max-content] rounded-lg px-2 text-sm">{episodios.nextEp.n_episodio}</div>
-										          </div>
-										        </div>
-										      </Link>
-										    </div>
-											</div>
+											<Episode slug={episodios.nextEp.anime.slug_serie} episode_id={episodios.nextEp.generate_id} episode_number={episodios.nextEp.n_episodio} dub={anime.extra_data.dub} thumbnail={`https://static.anroll.net/images/animes/screens/${episodios.nextEp.anime.slug_serie}/${episodios.nextEp.n_episodio}.jpg`} />
 										</div>
 									)}
 									{Object.keys(episodios.prevEp).length > 0 && (
 										<div>
 											<h2 className="font-semibold text-md">EPISÓDIO ANTERIOR</h2>
-										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105 mt-2">
-										    <div className="mb-2">
-										      <Link href={`/assistir/anime/${episodios.prevEp.anime.slug_serie}/${episodios.prevEp.generate_id}`}>
-										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
-			                        <Image 
-			                          className="w-full h-full rounded-lg object-cover" 
-			                          src={`https://static.anroll.net/images/animes/screens/${episodios.prevEp.anime.slug_serie}/${episodios.prevEp.n_episodio}.jpg`} 
-			                          width={1200}
-			                          height={1200}
-			                          priority={true}
-			                          quality={100}
-			                          alt={`${episodios.prevEp.anime.titulo}`} 
-			                        />
-			                        <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
-			                          <div>
-			                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
-			                          </div>
-			                        </div>
-										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-										            { anime.extra_data.dub > 0 ? (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
-										            ) : (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
-										            )}
-										            <div className="pointer-events-none bg-opacity-80 font-bold bg-zinc-800 w-[max-content] rounded-lg px-2 text-sm">{episodios.prevEp.n_episodio}</div>
-										          </div>
-										        </div>
-										      </Link>
-										    </div>
-											</div>
+											<Episode slug={episodios.prevEp.anime.slug_serie} episode_id={episodios.prevEp.generate_id} episode_number={episodios.prevEp.n_episodio} dub={anime.extra_data.dub} thumbnail={`https://static.anroll.net/images/animes/screens/${episodios.prevEp.anime.slug_serie}/${episodios.prevEp.n_episodio}.jpg`} />
 										</div>
 									)}
 								</div>

@@ -2,14 +2,12 @@
 
 import {useEffect, useState, useRef } from "react";
 import {Spinner} from "@nextui-org/react";
-import {FaCirclePlay} from "react-icons/fa6";
-import CustomImage from "@/components/CustomImage";
+import Episode from "@/components/Episode";
+import AnimeSliderItems from "@/components/MAL/AnimeSliderItems";
+import Image from "next/image";
 import Link from "next/link";
 import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
 import toSlug from "@/utils/toSlug";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export default function Home() {
   const [animesRecentes, setAnimesRecentes] = useState(null);
@@ -47,6 +45,7 @@ export default function Home() {
       const res = await fetch("/api/populares/animes/myanimelist");
       const data = await res.json();
 
+      await pegarAnimesPopularesSaindo();
       setAnimesPopulares(data.data);
     }
 
@@ -61,13 +60,12 @@ export default function Home() {
       const res = await fetch("/api/populares/animes/myanimelist/saindo");
       const data = await res.json();
 
+      await pegarAnimesTemporadaAtual();
       setAnimesPopularesSaindo(data.data);
     }
 
     pegarEpisodiosRecemAdicionados();
     pegarAnimesPopulares();
-    pegarAnimesPopularesSaindo();
-    pegarAnimesTemporadaAtual();
     return;
   }, []);
 
@@ -76,7 +74,7 @@ export default function Home() {
       <div className="px-[16px] pb-10 mx-auto max-w-[1240px] w-full mt-10">
         <div className="mb-10">
           <Link href="/assistir/anime/54284">
-            <CustomImage
+            <Image
               className="max-[640px]:h-[160px]"
               src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/cr/desktop_large/31752e60-b3f4-415b-95a4-496903d66a68.png"
               width={1200}
@@ -93,38 +91,7 @@ export default function Home() {
           { animesRecentes ? (
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
               {animesRecentes.map((animeRecente, index) => (
-                <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>
-                  <div className="mb-2">
-                    <Link href={`/assistir/anime/${animeRecente.episode.anime.slug_serie}/${animeRecente.episode.generate_id}`}>
-                      <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
-                        <CustomImage 
-                          className="w-full h-full rounded-lg object-cover" 
-                          src={`${animeRecente.episode.thumbnail}`} 
-                          width={1200}
-                          height={1200}
-                          priority={true}
-                          quality={100}
-                          placeholderImage={`${animeRecente.episode.anime.thumbnail}`}
-                          alt={`${animeRecente.episode.anime.titulo}`} 
-                        />
-                        <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
-                          <div>
-                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
-                          </div>
-                        </div>
-                        <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-                          { animeRecente.episode.anime.dub > 0 ? (
-                            <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
-                          ) : (
-                            <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
-                          )}
-                          <div className="pointer-events-none bg-opacity-80 font-bold bg-zinc-800 w-[max-content] rounded-lg px-2 text-sm">{animeRecente.episode.n_episodio}</div>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                  <p className="truncate font-semibold text-[10px] uppercase text-zinc-400 -mt-1 w-full">{animeRecente.episode.anime.titulo}</p>
-                </div>
+                <Episode slug={animeRecente.episode.anime.slug_serie} episode_id={animeRecente.episode.generate_id} episode_number={animeRecente.episode.n_episodio} dub={animeRecente.episode.dub} thumbnail={animeRecente.episode.thumbnail} title={animeRecente.episode.anime.titulo} key={index} />
               ))}
             </div>
           ) : (
@@ -138,7 +105,7 @@ export default function Home() {
         </div>
         <div className="mt-10">
           <Link href="/assistir/anime/57892">
-            <CustomImage
+            <Image
               className="max-[640px]:h-[160px]"
               src="https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=85,width=2700/cr/desktop_large/30033c32-049b-4618-8dcd-0a27d0601135.png"
               width={1200}
@@ -154,43 +121,7 @@ export default function Home() {
           </div>
           <div className="mt-5">
             {animesPopulares ? (
-              <Slider {...settings} className="w-full h-[380px]">
-                {animesPopulares.map((popular, index) => (
-                  <Link key={index} href={`/assistir/anime/${popular.mal_id}`} className="w-[240px] h-[max-content] relative group">
-                    <div className="w-full h-[323px] relative">
-                      <div className="w-full h-full">
-                        <CustomImage
-                          className="w-full h-full"
-                          src={`${popular.images.jpg.large_image_url}`}
-                          width={1200}
-                          height={1200}
-                          quality={100}
-                          alt={`${popular.title}`}
-                        />
-                      </div>
-                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{popular.title}</p>
-                    </div>
-                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="font-semibold text-xs">{popular.title} <span className="text-[10px]">({popular.title_japanese})</span></p>
-                      <p className="font-semibold text-[8px]">{popular.title_english}</p>
-
-                      <div className="mt-3">
-                        <p className="font-semibold text-xs text-zinc-400">{popular.episodes ? popular.episodes : '?'} Episódios</p>
-                        <p className="font-semibold text-xs text-zinc-400 mt-3">{popular.airing ? "Não finalizado" : "Finalizado"}</p>
-                      </div>
-                      {popular.trailer.url && (
-                        <div className="absolute bottom-0 left-0 w-full">
-                          <Link href={`${popular.trailer.url}`}>
-                            <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
-                              Ver Trailer
-                            </p>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </Slider>
+              <AnimeSliderItems items={animesPopulares} />
             ) : (
               <div>
                 <Spinner />
@@ -207,43 +138,7 @@ export default function Home() {
           </div>
           <div className="mt-5">
             {animesPopularesSaindo ? (
-              <Slider {...settings} className="w-full h-[380px]">
-                {animesPopularesSaindo.map((popularSaindo, index) => (
-                  <Link key={index} href={`/assistir/anime/${popularSaindo.mal_id}`} className="w-[240px] h-[max-content] relative group">
-                    <div className="w-full h-[323px] relative">
-                      <div className="w-full h-full">
-                        <CustomImage
-                          className="w-full h-full"
-                          src={`${popularSaindo.images.jpg.large_image_url}`}
-                          width={1200}
-                          height={1200}
-                          quality={100}
-                          alt={`${popularSaindo.title}`}
-                        />
-                      </div>
-                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{popularSaindo.title}</p>
-                    </div>
-                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="font-semibold text-xs">{popularSaindo.title} <span className="text-[10px]">({popularSaindo.title_japanese})</span></p>
-                      <p className="font-semibold text-[8px]">{popularSaindo.title_english}</p>
-
-                      <div className="mt-3">
-                        <p className="font-semibold text-xs text-zinc-400">{popularSaindo.episodes ? popularSaindo.episodes : '?'} Episódios</p>
-                        <p className="font-semibold text-xs text-zinc-400 mt-3">{popularSaindo.airing ? "Não finalizado" : "Finalizado"}</p>
-                      </div>
-                      {popularSaindo.trailer.url && (
-                        <div className="absolute bottom-0 left-0 w-full">
-                          <Link href={`${popularSaindo.trailer.url}`}>
-                            <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
-                              Ver Trailer
-                            </p>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </Slider>
+              <AnimeSliderItems items={animesPopularesSaindo} />
             ) : (
               <div>
                 <Spinner />
@@ -260,43 +155,7 @@ export default function Home() {
           </div>
           <div className="mt-5">
             {animesTemporadaAtual ? (
-              <Slider {...settings} className="w-full h-[380px]">
-                {animesTemporadaAtual.map((temporadaAnime, index) => (
-                  <Link key={index} href={`/assistir/anime/${temporadaAnime.mal_id}`} className="w-[240px] h-[max-content] relative group">
-                    <div className="w-full h-[323px] relative">
-                      <div className="w-full h-full">
-                        <CustomImage
-                          className="w-full h-full"
-                          src={`${temporadaAnime.images.jpg.large_image_url}`}
-                          width={1200}
-                          height={1200}
-                          quality={100}
-                          alt={`${temporadaAnime.title}`}
-                        />
-                      </div>
-                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{temporadaAnime.title}</p>
-                    </div>
-                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="font-semibold text-xs">{temporadaAnime.title} <span className="text-[10px]">({temporadaAnime.title_japanese})</span></p>
-                      <p className="font-semibold text-[8px]">{temporadaAnime.title_english}</p>
-
-                      <div className="mt-3">
-                        <p className="font-semibold text-xs text-zinc-400">{temporadaAnime.episodes ? temporadaAnime.episodes : '?'} Episódios</p>
-                        <p className="font-semibold text-xs text-zinc-400 mt-3">{temporadaAnime.airing ? "Não finalizado" : "Finalizado"}</p>
-                      </div>
-                      {temporadaAnime.trailer.url && (
-                        <div className="absolute bottom-0 left-0 w-full">
-                          <Link href={`${temporadaAnime.trailer.url}`}>
-                            <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
-                              Ver Trailer
-                            </p>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                ))}
-              </Slider>
+              <AnimeSliderItems items={animesTemporadaAtual} />
             ) : (
               <div>
                 <Spinner />
@@ -309,7 +168,7 @@ export default function Home() {
         </div>
         <div className="mt-20 w-full mx-auto">
           <div className="w-full mx-auto">
-            <CustomImage
+            <Image
               className="mx-auto pointer-events-none select-none"
               src="/anya/familia.avif"
               width={300}

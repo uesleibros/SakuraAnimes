@@ -1,17 +1,18 @@
 "use client";
 
 import {useEffect, useState, useCallback} from "react";
-import {FaPlay, FaCirclePlay, FaLink } from "react-icons/fa6";
+import {FaPlay, FaCirclePlay, FaLink} from "react-icons/fa6";
 import {Divider, Spinner} from "@nextui-org/react";
 import {Card, CardHeader, CardBody, CardFooter, Chip} from "@nextui-org/react";
-import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Button} from "@nextui-org/react"
+import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Button} from "@nextui-org/react";
+import AnimeSliderItems from "@/components/AniList/AnimeSliderItems";
+import Episode from "@/components/Episode";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import toSlug from "@/utils/toSlug";
 import toTitleCase from "@/utils/toTitleCase";
 import Script from "next/script";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export default function VerAnime({params}) {
 	const [anime, setAnime] = useState(null);
@@ -26,25 +27,6 @@ export default function VerAnime({params}) {
 	const [episodios, setEpisodios] = useState([]);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 	const {slug} = params;
-
-	const settings = {
-    infinite: true,
-    slidesToShow: 6,
-    speed: 500,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 2,
-          arrows: false,
-          autoplay: true,
-          autoplaySpeed: 2000,
-          initialSlide: 0
-        }
-      },
-    ]
-  };
 
 	useEffect(() => {
 		async function pegarDadosAnime() {
@@ -113,12 +95,13 @@ export default function VerAnime({params}) {
 		}
 
 		async function pegarDadosAnimeAnroll(title) {
-			const res = await fetch(`/api/buscar/animes/anroll?q=${title}`);
+			const res = await fetch(`/api/buscar/animes/anroll?q=${toSlug(title)}`);
 			if (res.ok) {
 				const {data} = await res.json();
 
-				if (data.length > 0 && data[0].title.includes(title)) {
-					setAnimeAnroll(data[0]);
+				if (data && data.length > 0) {
+					if ((data[0].title.includes(title)) || data[0].slug.includes(toSlug(title)))
+						setAnimeAnroll(data[0]);
 				}
 			}
 			await pegarDadosAnimeStaff();
@@ -201,353 +184,305 @@ export default function VerAnime({params}) {
 	}, [animeAnroll, page, isLoadingMore, carregarMaisEpisodios, reachTotalPages]);
 
 	return (
-		<main className="min-h-screen">
-			{(animeAnroll?.type === "movie") && (
-				<Script 
-				  src="/lib/playerjs.js"
-				  strategy="afterInteractive"
-				  onReady={() => {
-				  	var player = new Playerjs({ id:"player", file:`/api/streaming/anroll/${animeAnroll.slug}/media.m3u8` });
-				  }}
-				/>
-			)}
-			<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
-				{anime ? (
-					<div>
-						<div className="absolute left-0 top-0 z-0 w-full inset-0 h-[400px]">
-							<Image
-									className="w-full h-full object-cover blur brightness-50"
-									src={`${anime.images.jpg.large_image_url}`}
-									width={1200}
-									height={1200}
-									quality={100}
-								  alt={`${anime.title}`}
-								/>
-						</div>
-						<div className="flex relative z-10 flex-col gap-4">
-							<div className="max-w-[224.45px] max-h-[323.28px]">
+		<>
+			<Head>
+        {anime && (
+          <>
+            <meta property="og:title" content={anime.title} />
+            <meta property="og:description" content={anime.synopsis} />
+            <meta property="og:image" content={anime.images.jpg.large_image_url} />
+            <meta property="og:url" content={`https://velvetroom.vercel.app/assistir/anime/${slug}`} />
+            <meta property="og:type" content="website" />
+            
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={anime.title} />
+            <meta name="twitter:description" content={anime.synopsis} />
+            <meta name="twitter:image" content={anime.images.jpg.large_image_url} />
+          </>
+        )}
+      </Head>
+			<main className="min-h-screen">
+				{(animeAnroll?.type === "movie") && (
+					<Script 
+					  src="/lib/playerjs.js"
+					  strategy="afterInteractive"
+					  onReady={() => {
+					  	var player = new Playerjs({ id:"player", file:`/api/streaming/anroll/${animeAnroll.slug}/media.m3u8` });
+					  }}
+					/>
+				)}
+				<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
+					{anime ? (
+						<div>
+							<div className="absolute left-0 top-0 z-0 w-full inset-0 h-[400px]">
 								<Image
-									className="rounded w-full h-[323.28px] shadowm-sm"
-									src={`${anime.images.jpg.large_image_url}`}
-									width={1200}
-									height={1200}
-									quality={100}
-									alt={`${anime.title}`}
-								/>
+										className="w-full h-full object-cover blur brightness-50"
+										src={`${anime.images.jpg.large_image_url}`}
+										width={1200}
+										height={1200}
+										quality={100}
+									  alt={`${anime.title}`}
+									/>
 							</div>
-							<div>
-								<div className="flex max-[640px]:flex-col sm:items-center gap-2">
-									<div>
-										<h2 className="font-bold text-3xl">{anime.title}</h2>
-									</div>
-									<div className="text-xs">
-										<p className="font-bold select-none">({anime.aired.prop.from.year ? anime.aired.prop.from.year : "Não lançado"})</p>
-									</div>
+							<div className="flex relative z-10 flex-col gap-4">
+								<div className="max-w-[224.45px] max-h-[323.28px]">
+									<Image
+										className="rounded w-full h-[323.28px] shadowm-sm"
+										src={`${anime.images.jpg.large_image_url}`}
+										width={1200}
+										height={1200}
+										quality={100}
+										alt={`${anime.title}`}
+									/>
 								</div>
-								<div className="mt-3 flex items-center gap-2">
-									<p className="text-sm w-full">{anime.synopsis}</p>
-								</div>
-							</div>
-						</div>
-						{maisDetalhes && (
-							<div className="mt-5 flex flex-col gap-2">
-								<div className="flex justify-between">
-									<div>
-										<h3 className="font-semibold text-sm">Gêneros</h3>
-									</div>
-									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
-										{anime.genres.map((genre, index) => (
-											<p className="text-xs" key={index}>{genre.name}{(index < anime.genres.length - 1) && ","}</p>
-										))}
-									</div>
-								</div>
-								<Divider />
-								<div className="flex justify-between">
-									<div>
-										<h3 className="font-semibold text-sm">Classificação Indicativa</h3>
-									</div>
-									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
-										<p className="text-xs">{anime.rating}</p>
-									</div>
-								</div>
-								<Divider />
-								<div className="flex justify-between">
-									<div>
-										<h3 className="font-semibold text-sm">Produtores</h3>
-									</div>
-									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
-										{anime.producers.map((producer, index) => (
-											<p className="text-xs" key={index}>{producer.name}{(index < anime.producers.length - 1) && ","}</p>
-										))}
-									</div>
-								</div>
-								<Divider />
-								<div className="flex justify-between">
-									<div>
-										<h3 className="font-semibold text-sm">Licensiadores</h3>
-									</div>
-									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
-										{anime.licensors.map((licensor, index) => (
-											<p className="text-xs" key={index}>{licensor.name}{(index < anime.licensors.length - 1) && ","}</p>
-										))}
-									</div>
-								</div>
-								<Divider />
-								<div className="flex justify-between">
-									<div>
-										<h3 className="font-semibold text-sm">Estudios</h3>
-									</div>
-									<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
-										{anime.studios.map((studio, index) => (
-											<p className="text-xs" key={index}>{studio.name}{(index < anime.studios.length - 1) && ","}</p>
-										))}
-									</div>
-								</div>
-								<Divider />
-								<div className="flex flex-col gap-2">
-									{anime.external.map((external, index) => (
-										<Link className="text-sm transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${external.url}`} key={index}>
-											<FaLink />
-											{external.name}
-										</Link>
-									))}
-								</div>
-								<Divider />
 								<div>
-									<h3 className="font-semibold text-sm">Aberturas</h3>
-									<ul className="flex flex-col gap-1 mt-2">
-										{anime.theme.openings.map((opening, index) => (
-											<li className="text-xs" key={index}>{opening}</li>
-										))}
-										{anime.theme.openings.length === 0 && <li className="text-xs">Sem aberturas.</li>}
-									</ul>
+									<div className="flex max-[640px]:flex-col sm:items-center gap-2">
+										<div>
+											<h2 className="font-bold text-3xl">{anime.title}</h2>
+										</div>
+										<div className="text-xs">
+											<p className="font-bold select-none">({anime.aired.prop.from.year ? anime.aired.prop.from.year : "Não lançado"})</p>
+										</div>
+									</div>
+									<div className="mt-3 flex items-center gap-2">
+										<p className="text-sm w-full">{anime.synopsis}</p>
+									</div>
 								</div>
-								<Divider />
-								<div>
-									<h3 className="font-semibold text-sm">Encerramentos</h3>
-									<ul className="flex flex-col gap-1 mt-2">
-										{anime.theme.endings.map((ending, index) => (
-											<li className="text-xs" key={index}>{ending}</li>
-										))}
-										{anime.theme.endings.length === 0 && <li className="text-xs">Sem encerramentos.</li>}
-									</ul>
-								</div>
-								<Divider />
-								<h3 className="font-semibold text-sm">Equipe</h3>
-								{animeStaff ? (
-									<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-										{animeStaff.slice(0, Math.min(animeStaff.length, 12)).map((staff, index) => (
-											<Card className="max-w-[400px] h-full" key={index}>
-									      <CardHeader className="flex gap-3">
-									        <Image
-									        	className="rounded-lg"
-									          alt={`${staff.person.name}`}
-									          height={40}
-									          src={`${staff.person.images.jpg.image_url}`}
-									          width={40}
-									        />
-									        <div className="flex flex-col">
-									          <p className="text-md">{staff.person.name}</p>
-									          <div className="flex flex-wrap gap-2">
-									          	{staff.positions.length > 1 ? (
-		          	                <Dropdown>
-		          	                  <DropdownTrigger>
-		          	                    <Chip className="cursor-pointer" size="sm" variant="solid">
-		          	                      {staff.positions[0]} <span className="text-xs ml-2">(Ver mais)</span>
-		          	                    </Chip>
-		          	                  </DropdownTrigger>
-		          	                  <DropdownMenu aria-label="Cargos adicionais">
-		          	                    {staff.positions.map((position, idx) => (
-		          	                      <DropdownItem isDisabled={true} key={idx}>{position}</DropdownItem>
-		          	                    ))}
-		          	                  </DropdownMenu>
-		          	                </Dropdown>
-		          	              ) : (
-		          	                <Chip size="sm" variant="bordered">{staff.positions[0]}</Chip>
-		          	              )}
-									          </div>
-									        </div>
-									      </CardHeader>
-									      <Divider />
-									      <CardFooter className="mt-auto">
-									        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${staff.person.url}`}>
-														<FaLink />
-														Saiba mais
-													</Link>
-									      </CardFooter>
-									    </Card>
+							</div>
+							{maisDetalhes && (
+								<div className="mt-5 flex flex-col gap-2">
+									<div className="flex justify-between">
+										<div>
+											<h3 className="font-semibold text-sm">Gêneros</h3>
+										</div>
+										<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
+											{anime.genres.map((genre, index) => (
+												<p className="text-xs" key={index}>{genre.name}{(index < anime.genres.length - 1) && ","}</p>
+											))}
+										</div>
+									</div>
+									<Divider />
+									<div className="flex justify-between">
+										<div>
+											<h3 className="font-semibold text-sm">Classificação Indicativa</h3>
+										</div>
+										<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
+											<p className="text-xs">{anime.rating}</p>
+										</div>
+									</div>
+									<Divider />
+									<div className="flex justify-between">
+										<div>
+											<h3 className="font-semibold text-sm">Produtores</h3>
+										</div>
+										<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
+											{anime.producers.map((producer, index) => (
+												<p className="text-xs" key={index}>{producer.name}{(index < anime.producers.length - 1) && ","}</p>
+											))}
+										</div>
+									</div>
+									<Divider />
+									<div className="flex justify-between">
+										<div>
+											<h3 className="font-semibold text-sm">Licensiadores</h3>
+										</div>
+										<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
+											{anime.licensors.map((licensor, index) => (
+												<p className="text-xs" key={index}>{licensor.name}{(index < anime.licensors.length - 1) && ","}</p>
+											))}
+										</div>
+									</div>
+									<Divider />
+									<div className="flex justify-between">
+										<div>
+											<h3 className="font-semibold text-sm">Estudios</h3>
+										</div>
+										<div className="flex items-center gap-2 flex-wrap w-[300px] justify-end">
+											{anime.studios.map((studio, index) => (
+												<p className="text-xs" key={index}>{studio.name}{(index < anime.studios.length - 1) && ","}</p>
+											))}
+										</div>
+									</div>
+									<Divider />
+									<div className="flex flex-col gap-2">
+										{anime.external.map((external, index) => (
+											<Link className="text-sm transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${external.url}`} key={index}>
+												<FaLink />
+												{external.name}
+											</Link>
 										))}
 									</div>
-								) : (
-									<Spinner />
-								)}
-								<Divider />
-								<h3 className="font-semibold text-sm">Personagens Principais</h3>
-								{animeActors ? (
-									<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-										{animeActors
-								      .filter((actor) => actor.role === "Main")
-								      .map((actor, index) => (
-											<Card className="max-w-[400px] h-full" key={index}>
-									      <CardHeader className="flex gap-3">
-									        <Image
-									        	className="rounded-lg"
-									          alt={`${actor.character.name}`}
-									          height={40}
-									          src={`${actor.character.images.jpg.image_url}`}
-									          width={40}
-									        />
-									        <div className="flex flex-col">
-									          <p className="text-md">{actor.character.name}</p>
-									          <div className="flex flex-wrap gap-2">
-									          	{actor.voice_actors.length > 1 ? (
-		          	                <Dropdown>
-		          	                  <DropdownTrigger>
-		          	                    <Chip className="cursor-pointer" size="sm" variant="solid">
-		          	                      {actor.voice_actors[0].person.name} <span className="text-xs ml-2">(Ver mais)</span>
-		          	                    </Chip>
-		          	                  </DropdownTrigger>
-		          	                  <DropdownMenu aria-label="Cargos adicionais">
-		          	                    {actor.voice_actors.slice(0, 6).map((voice_actor, idx) => (
-		          	                      <DropdownItem isDisabled={true} key={idx}>{voice_actor.person.name} - {voice_actor.language}</DropdownItem>
-		          	                    ))}
-		          	                  </DropdownMenu>
-		          	                </Dropdown>
-		          	              ) : (
-		          	                <Chip size="sm" variant="bordered">{actor.voice_actors[0]?.person.name} - {actor.voice_actors[0]?.language}</Chip>
-		          	              )}
-									          </div>
-									        </div>
-									      </CardHeader>
-									      <Divider />
-									      <CardFooter className="mt-auto">
-									        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${actor.character.url}`}>
-														<FaLink />
-														Saiba mais
-													</Link>
-									      </CardFooter>
-									    </Card>
-										))}
+									<Divider />
+									<div>
+										<h3 className="font-semibold text-sm">Aberturas</h3>
+										<ul className="flex flex-col gap-1 mt-2">
+											{anime.theme.openings.map((opening, index) => (
+												<li className="text-xs" key={index}>{opening}</li>
+											))}
+											{anime.theme.openings.length === 0 && <li className="text-xs">Sem aberturas.</li>}
+										</ul>
 									</div>
-								) : (
-									<Spinner />
-								)}
-								<Divider className="mb-2" />
-							</div>
-						)}
-						<div className="mt-2">
-							<h3 className="font-bold transition-colors text-zinc-400 hover:text-white text-xs cursor-pointer w-[max-content]" onClick={handleMaisDetalhes}>
-								{maisDetalhes ? "MENOS DETALHES" : "MAIS DETALHES"}
-							</h3>
-						</div>
-						<div className="mt-3">
-							<h2 className="text-xl font-bold">RECOMENDADOS</h2>
-							{animeRecomendados ? (
-								<div className="mt-5">
-									<Slider {...settings} className="w-full h-[380px]">
-		                {animeRecomendados.recommendations.edges.map((recomendado, index) => (
-		                  <Link key={index} href={`/assistir/anime/${recomendado.node.mediaRecommendation.idMal}`} className="w-[240px] h-[max-content] relative group flex-shrink-0">
-		                    <div className="w-full h-[323px] relative">
-		                      <div className="w-full h-full">
-		                        <Image
-		                          className="w-full h-full"
-		                          src={`${recomendado.node.mediaRecommendation.coverImage.large}`}
-		                          width={1200}
-		                          height={1200}
-		                          quality={100}
-		                          alt={`${recomendado.node.mediaRecommendation.title.romaji}`}
-		                        />
-		                      </div>
-		                      <p className="truncate font-semibold text-xs mt-1 w-full opacity-100 group-hover:opacity-0 transition-opacity duration-300">{recomendado.node.mediaRecommendation.title.romaji}</p>
-		                    </div>
-		                    <div className="absolute z-20 top-0 w-full h-full bg-[#141519] bg-opacity-90 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-		                      <p className="font-semibold text-xs">{recomendado.node.mediaRecommendation.title.romaji} <span className="text-[10px]">({recomendado.node.mediaRecommendation.title.native})</span></p>
-		                      <p className="font-semibold text-[8px]">{recomendado.node.mediaRecommendation.title.english}</p>
-
-		                      <div className="mt-3">
-		                        <p className="font-semibold text-xs text-zinc-400">{recomendado.node.mediaRecommendation.episodes ? recomendado.node.mediaRecommendation.episodes : '?'} Episódios</p>
-		                        <p className="font-semibold text-xs text-zinc-400 mt-3">{recomendado.node.mediaRecommendation.status !== "FINISHED" ? "Não finalizado" : "Finalizado"}</p>
-		                      </div>
-		                      {recomendado.node.mediaRecommendation.trailer && (
-		                      	<div className="absolute bottom-0 left-0 w-full">
-		                      	  <Link href={`https://${recomendado.node.mediaRecommendation.trailer.site}/watch?v=${recomendado.node.mediaRecommendation.trailer.id}`}>
-		                      	    <p className="text-xs w-full p-2 transition-colors duration-300 bg-orange-500 hover:bg-orange-600 text-center text-black font-bold">
-		                      	      Ver Trailer
-		                      	    </p>
-		                      	  </Link>
-		                      	</div>
-		                      )}
-		                    </div>
-		                  </Link>
-		                ))}
-		              </Slider>
-								</div>
-							) : (
-								<Spinner className="mt-3" />
-							)}
-						</div>
-						{anime.type === "Movie" && (
-							<div className="mt-10">
-								<div id="player"></div>
-							</div>
-						)}
-						{episodios.length > 0 && (
-							<div className="mt-10">
-								<div>
-									<h2 className="text-xl font-bold">EPISÓDIOS</h2>
-									<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
-										{episodios.map((episodio, index) => (
-										  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105" key={index}>
-										    <div className="mb-2">
-										      <Link href={`/assistir/anime/${animeAnroll.slug}/${episodio.generate_id}`}>
-										        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
-			                        <Image 
-			                          className="w-full h-full rounded-lg object-cover" 
-			                          src={`${episodio.thumbnail}`} 
-			                          width={1200}
-			                          height={1200}
-			                          priority={true}
-			                          quality={100}
-			                          alt={`${episodio.anime.titulo}`} 
-			                        />
-			                        <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
-			                          <div>
-			                            <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
-			                          </div>
-			                        </div>
-										          <div className="absolute w-full top-0 p-2 flex justify-between items-center">
-										            { animeAnroll.extra_data.dub > 0 ? (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-purple-500 w-[max-content] rounded-lg px-2 text-sm">DUB</div>
-										            ) : (
-										              <div className="pointer-events-none bg-opacity-80 font-bold bg-red-500 w-[max-content] rounded-lg px-2 text-sm">LEG</div>
-										            )}
-										            <div className="pointer-events-none bg-opacity-80 font-bold bg-zinc-800 w-[max-content] rounded-lg px-2 text-sm">{episodio.n_episodio}</div>
+									<Divider />
+									<div>
+										<h3 className="font-semibold text-sm">Encerramentos</h3>
+										<ul className="flex flex-col gap-1 mt-2">
+											{anime.theme.endings.map((ending, index) => (
+												<li className="text-xs" key={index}>{ending}</li>
+											))}
+											{anime.theme.endings.length === 0 && <li className="text-xs">Sem encerramentos.</li>}
+										</ul>
+									</div>
+									<Divider />
+									<h3 className="font-semibold text-sm">Equipe</h3>
+									{animeStaff ? (
+										<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+											{animeStaff.slice(0, Math.min(animeStaff.length, 12)).map((staff, index) => (
+												<Card className="max-w-[400px] h-full" key={index}>
+										      <CardHeader className="flex gap-3">
+										        <Image
+										        	className="rounded-lg"
+										          alt={`${staff.person.name}`}
+										          height={40}
+										          src={`${staff.person.images.jpg.image_url}`}
+										          width={40}
+										        />
+										        <div className="flex flex-col">
+										          <p className="text-md">{staff.person.name}</p>
+										          <div className="flex flex-wrap gap-2">
+										          	{staff.positions.length > 1 ? (
+			          	                <Dropdown>
+			          	                  <DropdownTrigger>
+			          	                    <Chip className="cursor-pointer" size="sm" variant="solid">
+			          	                      {staff.positions[0]} <span className="text-xs ml-2">(Ver mais)</span>
+			          	                    </Chip>
+			          	                  </DropdownTrigger>
+			          	                  <DropdownMenu aria-label="Cargos adicionais">
+			          	                    {staff.positions.map((position, idx) => (
+			          	                      <DropdownItem isDisabled={true} key={idx}>{position}</DropdownItem>
+			          	                    ))}
+			          	                  </DropdownMenu>
+			          	                </Dropdown>
+			          	              ) : (
+			          	                <Chip size="sm" variant="bordered">{staff.positions[0]}</Chip>
+			          	              )}
 										          </div>
 										        </div>
-										      </Link>
-										    </div>
-										    <p className="truncate font-semibold text-[10px] uppercase text-zinc-400 -mt-1 w-full">{episodio.anime.titulo}</p>
-										  </div>
-										))}
+										      </CardHeader>
+										      <Divider />
+										      <CardFooter className="mt-auto">
+										        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${staff.person.url}`}>
+															<FaLink />
+															Saiba mais
+														</Link>
+										      </CardFooter>
+										    </Card>
+											))}
+										</div>
+									) : (
+										<Spinner />
+									)}
+									<Divider />
+									<h3 className="font-semibold text-sm">Personagens Principais</h3>
+									{animeActors ? (
+										<div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+											{animeActors
+									      .filter((actor) => actor.role === "Main")
+									      .map((actor, index) => (
+												<Card className="max-w-[400px] h-full" key={index}>
+										      <CardHeader className="flex gap-3">
+										        <Image
+										        	className="rounded-lg"
+										          alt={`${actor.character.name}`}
+										          height={40}
+										          src={`${actor.character.images.jpg.image_url}`}
+										          width={40}
+										        />
+										        <div className="flex flex-col">
+										          <p className="text-md">{actor.character.name}</p>
+										          <div className="flex flex-wrap gap-2">
+										          	{actor.voice_actors.length > 1 ? (
+			          	                <Dropdown>
+			          	                  <DropdownTrigger>
+			          	                    <Chip className="cursor-pointer" size="sm" variant="solid">
+			          	                      {actor.voice_actors[0].person.name} <span className="text-xs ml-2">(Ver mais)</span>
+			          	                    </Chip>
+			          	                  </DropdownTrigger>
+			          	                  <DropdownMenu aria-label="Cargos adicionais">
+			          	                    {actor.voice_actors.slice(0, 6).map((voice_actor, idx) => (
+			          	                      <DropdownItem isDisabled={true} key={idx}>{voice_actor.person.name} - {voice_actor.language}</DropdownItem>
+			          	                    ))}
+			          	                  </DropdownMenu>
+			          	                </Dropdown>
+			          	              ) : (
+			          	                <Chip size="sm" variant="bordered">{actor.voice_actors[0]?.person.name} - {actor.voice_actors[0]?.language}</Chip>
+			          	              )}
+										          </div>
+										        </div>
+										      </CardHeader>
+										      <Divider />
+										      <CardFooter className="mt-auto">
+										        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${actor.character.url}`}>
+															<FaLink />
+															Saiba mais
+														</Link>
+										      </CardFooter>
+										    </Card>
+											))}
+										</div>
+									) : (
+										<Spinner />
+									)}
+									<Divider className="mb-2" />
+								</div>
+							)}
+							<div className="mt-2">
+								<h3 className="font-bold transition-colors text-zinc-400 hover:text-white text-xs cursor-pointer w-[max-content]" onClick={handleMaisDetalhes}>
+									{maisDetalhes ? "MENOS DETALHES" : "MAIS DETALHES"}
+								</h3>
+							</div>
+							{anime.type === "Movie" && (
+								<div className="mt-10">
+									<div id="player"></div>
+								</div>
+							)}
+							{episodios.length > 0 && (
+								<div className="mt-10">
+									<div>
+										<h2 className="text-xl font-bold">EPISÓDIOS</h2>
+										<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
+											{episodios.map((episodio, index) => (
+											  <Episode slug={animeAnroll.slug} episode_id={animeAnroll.generate_id} episode_number={episodio.n_episodio} dub={animeAnroll.extra_data.dub} thumbnail={episodio.thumbnail} key={index} />
+											))}
+										</div>
 									</div>
 								</div>
+							)}
+							{isLoadingMore && (
+			          <div className="flex items-center justify-center mt-5">
+			            <Spinner size="lg" />
+			          </div>
+			        )}
+							<div className="mt-3">
+								<h2 className="text-xl font-bold">RECOMENDADOS</h2>
+								{animeRecomendados ? (
+									<div className="mt-5">
+										<AnimeSliderItems items={animeRecomendados.recommendations.edges} node="node.mediaRecommendation" />
+									</div>
+								) : (
+									<Spinner className="mt-3" />
+								)}
 							</div>
-						)}
-					</div>
-				) : (
-					<div>
-						<Spinner />
-						<p className="text-xs w-[350px] mt-2">
-							Caso demore para carregar o componente, provavelmente o conteúdo que você está tentando acessar não existe.
-						</p>
-					</div>
-				)}
-				{isLoadingMore && (
-          <div className="flex items-center justify-center mt-5">
-            <Spinner size="lg" />
-          </div>
-        )}
-			</div>
-		</main>
+						</div>
+					) : (
+						<div>
+							<Spinner />
+							<p className="text-xs w-[350px] mt-2">
+								Caso demore para carregar o componente, provavelmente o conteúdo que você está tentando acessar não existe.
+							</p>
+						</div>
+					)}
+				</div>
+			</main>
+		</>
 	);
 }
