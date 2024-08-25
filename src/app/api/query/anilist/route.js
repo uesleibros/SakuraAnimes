@@ -9,9 +9,9 @@ export async function POST(request) {
       }),
 			headers: {
 				"Content-Type": "application/json",
-				Accept: "application/json",
-				cache: "no-store"
-			}
+				Accept: "application/json"
+			},
+			next: { revalidate: 3600 }
 		});
 
 		const {data} = await res.json();
