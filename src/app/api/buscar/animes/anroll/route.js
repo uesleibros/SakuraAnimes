@@ -7,7 +7,7 @@ async function pegarInformacoesDetalhadasAnime(data) {
 			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
 			"Referer": "https://www.anroll.net/"
 		},
-		next: { revalidate: 300 }
+		cache: "no-store"
 	});
 
 	const extraData = extractData(await res.text());
