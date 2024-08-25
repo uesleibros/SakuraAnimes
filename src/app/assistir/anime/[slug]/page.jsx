@@ -13,6 +13,7 @@ async function pegarDadosAnime(slug, host, protocol) {
 		      native
 		      userPreferred
 		    }
+                    synonyms
 		    type
 		    description(asHtml: false)
 		    seasonYear
