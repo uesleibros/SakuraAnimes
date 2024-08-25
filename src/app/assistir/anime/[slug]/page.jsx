@@ -1,6 +1,7 @@
+import {headers} from "next/headers";
 import AnrollAnimeInfos from "@/components/Anime/AnrollAnimeInfos";
 import Image from "next/image";
-import {headers} from "next/headers";
+import traduzir from "@/utils/traduzir";
 
 async function pegarDadosAnime(slug, host, protocol) {
 	const query = `
@@ -144,6 +145,7 @@ async function pegarDadosAnime(slug, host, protocol) {
 	if (res.ok) {
 		const {data} = await res.json();
 		if (data || data.Media) {
+			data.Media.description = await traduzir(data.Media.description);
 			return data.Media;
 		}
 	}
@@ -165,7 +167,8 @@ export async function generateMetadata({params}) {
     };
   }
 
-  const cleanedDescription = anime.description.replace(/<br\s*\/?>/gi, ' ');
+
+  const cleanedDescription = anime.description ? anime.description.replace(/<[^>]*>/g, ' ') : "Sem descrição.";
 
   return {
     title: `${anime.title.romaji}`,
@@ -192,7 +195,7 @@ export default async function VerAnime({params}) {
 
 	return (
 		<>
-			<main className="min-h-screen">
+			<main>
 				<div className="mt-20 pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
 					{anime ? (
 						<div>
@@ -227,7 +230,7 @@ export default async function VerAnime({params}) {
 										</div>
 									</div>
 									<div className="mt-3 flex items-center gap-2">
-										<p className="text-sm w-full">{anime.description.replace(/<br\s*\/?>/gi, ' ')}</p>
+										<p className="text-sm w-full">{anime.description ? anime.description.replace(/<[^>]*>/g, ' ') : "Sem descrição."}</p>
 									</div>
 								</div>
 							</div>
@@ -235,9 +238,10 @@ export default async function VerAnime({params}) {
 						</div>
 					) : (
 						<div>
-							<p className="text-xs w-[350px] mt-2">
-								Anime não encontrado.
-							</p>
+							<div className="flex max-[640px]:flex-col gap-4 items-center justify-between sm:px-20 mt-20">
+								<Image src="/anya/assustada.png" alt="Anime não encontrado." width={300} height={300} />
+								<p className="font-semibold sm:w-[400px] text-center sm:text-right">Não consegui encontrar o anime que você está procurando, minha mãe vai ficar brava comigo.</p>
+							</div>
 						</div>
 					)}
 				</div>

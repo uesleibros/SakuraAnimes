@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function AnimeSliderItems({items, node}) {
+export default function AnimeSliderItems({items, node, dadNode}) {
 	const settings = {
 	  infinite: false,
 	  slidesToShow: 6,
@@ -28,11 +28,15 @@ export default function AnimeSliderItems({items, node}) {
 	};
 
 	function getNestedValue(obj, path) {
+		if (obj && path.length === 0) return obj;
 	  if (!obj || !path) return undefined;
 
 	  const pathArray = path.split('.');
 	  return pathArray.reduce((acc, key) => acc && acc[key], obj);
 	}
+
+	if (dadNode)
+		items = getNestedValue(items, dadNode);
 
 	return (
 		<Slider {...settings} className="w-full h-[345px]">

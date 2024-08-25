@@ -1,73 +1,129 @@
-"use client";
-
-import {useEffect, useState, useRef } from "react";
-import {Spinner} from "@nextui-org/react";
+import {headers} from "next/headers";
 import Episode from "@/components/Episode";
-import AnimeSliderItems from "@/components/MAL/AnimeSliderItems";
+import AnimeSliderItems from "@/components/AniList/AnimeSliderItems";
 import Image from "next/image";
 import Link from "next/link";
-import classificacaoIndicativaCor from "@/utils/classificacaoIndicativaCor";
-import toSlug from "@/utils/toSlug";
 
-export default function Home() {
-  const [animesRecentes, setAnimesRecentes] = useState(null);
-  const [animesPopulares, setAnimesPopulares] = useState(null);
-  const [animesPopularesSaindo, setAnimesPopularesSaindo] = useState(null);
-  const [animesTemporadaAtual, setAnimesTemporadaAtual] = useState(null);
-  const settings = {
-    infinite: true,
-    slidesToShow: 6,
-    speed: 500,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 2,
-          arrows: false,
-          autoplay: true,
-          autoplaySpeed: 2000,
-          initialSlide: 0
+export default async function Home() {
+  const headersList = headers();
+  const protocol = headersList.get("x-forwarded-proto") || "http";
+  const host = headersList.get("host");
+
+  async function pegarTopicosAnimes() {
+    const query = `
+      query ($season: MediaSeason, $seasonYear: Int) {
+        trending: Page(page: 1, perPage: 12) {
+          media(sort: TRENDING_DESC, type: ANIME, isAdult: false) {
+            ...media
+          }
         }
-      },
-    ]
-  };
+        season: Page(page: 1, perPage: 12) {
+          media(season: $season, seasonYear: $seasonYear, sort: POPULARITY_DESC, type: ANIME, isAdult: false) {
+            ...media
+          }
+        }
+        popular: Page(page: 1, perPage: 12) {
+          media(sort: POPULARITY_DESC, type: ANIME, isAdult: false) {
+            ...media
+          }
+        }
+      }
 
-  useEffect(() => {
-    async function pegarEpisodiosRecemAdicionados() {
-      const res = await fetch("/api/recentes/animes/anroll");
-      const data = await res.json();
-
-      setAnimesRecentes(data.data.data_releases);
+      fragment media on Media {
+        idMal
+        title {
+          romaji
+          native
+          english
+          userPreferred
+        }
+        coverImage {
+          extraLarge
+          large
+          color
+        }
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        bannerImage
+        season
+        seasonYear
+        description
+        type
+        format
+        status(version: 2)
+        episodes
+        duration
+        chapters
+        volumes
+        genres
+        isAdult
+        averageScore
+        popularity
+        mediaListEntry {
+          id
+          status
+        }
+        nextAiringEpisode {
+          airingAt
+          timeUntilAiring
+          episode
+        }
+        studios(isMain: true) {
+          edges {
+            isMain
+            node {
+              id
+              name
+            }
+          }
+        }
+      }
+    `;
+    const variables = {
+      "type": "ANIME",
+      "season": "SUMMER",
+      "seasonYear": 2024
     }
 
-    async function pegarAnimesPopulares() {
-      const res = await fetch("/api/populares/animes/myanimelist");
-      const data = await res.json();
+    const res = await fetch(`${protocol}://${host}/api/query/anilist`, {
+      method: "POST",
+      body: JSON.stringify({
+        query: query,
+        variables: variables
+      })
+    });
 
-      setAnimesPopulares(data.data);
+    if (res.ok) {
+      const {data} = await res.json();
+      if (data) {
+        return data;
+      }
     }
 
-    async function pegarAnimesTemporadaAtual() {
-      const res = await fetch("/api/populares/animes/myanimelist/temporada");
-      const data = await res.json();
+    return null;
+  }
 
-      setAnimesTemporadaAtual(data.data);
+  async function pegarAnimesRecentes() {
+    const res = await fetch(`${protocol}://${host}/api/recentes/animes/anroll`);
+    const {data} = await res.json();
+
+    if (data?.data_releases.length > 0) {
+      return data.data_releases;
     }
 
-    async function pegarAnimesPopularesSaindo() {
-      const res = await fetch("/api/populares/animes/myanimelist/saindo");
-      const data = await res.json();
-      
-      setAnimesPopularesSaindo(data.data);
-    }
+    return null
+  }
 
-    pegarEpisodiosRecemAdicionados();
-    pegarAnimesPopulares();
-    pegarAnimesTemporadaAtual();
-    pegarAnimesPopularesSaindo();
-    return;
-  }, []);
+  const trending = await pegarTopicosAnimes();
+  const animesRecentes = await pegarAnimesRecentes();
 
   return (
     <main>
@@ -88,20 +144,11 @@ export default function Home() {
           <div>
             <h2 className="text-xl font-bold">ÚLTIMOS LANÇAMENTOS</h2>
           </div>
-          { animesRecentes ? (
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
-              {animesRecentes.map((animeRecente, index) => (
-                <Episode slug={animeRecente.episode.anime.slug_serie} episode_id={animeRecente.episode.generate_id} episode_number={animeRecente.episode.n_episodio} dub={animeRecente.episode.dub} thumbnail={animeRecente.episode.thumbnail} title={animeRecente.episode.anime.titulo} key={index} />
-              ))}
-            </div>
-          ) : (
-            <div className="mt-5">
-              <Spinner />
-              <p className="text-xs w-[350px] mt-2">
-                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
-                </p>
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
+            {animesRecentes.map((animeRecente, index) => (
+              <Episode slug={animeRecente.episode.anime.slug_serie} episode_id={animeRecente.episode.generate_id} episode_number={animeRecente.episode.n_episodio} dub={animeRecente.episode.dub} thumbnail={animeRecente.episode.thumbnail} title={animeRecente.episode.anime.titulo} key={index} />
+            ))}
+          </div>
         </div>
         <div className="mt-10">
           <Link href="/assistir/anime/57892">
@@ -120,50 +167,23 @@ export default function Home() {
             <h2 className="text-xl font-bold">MAIS POPULARES</h2>
           </div>
           <div className="mt-5">
-            {animesPopulares ? (
-              <AnimeSliderItems items={animesPopulares} />
-            ) : (
-              <div>
-                <Spinner />
-                <p className="text-xs w-[350px] mt-2">
-                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
-                </p>
-              </div>
-            )}
+            <AnimeSliderItems items={trending.trending} node='' dadNode="media" />
           </div>
         </div>
         <div className="mt-10">
           <div>
-            <h2 className="text-xl font-bold">MAIS POPULARES EM LANÇAMENTO</h2>
+            <h2 className="text-xl font-bold">MAIS POPULARES DE TODOS OS TEMPOS</h2>
           </div>
           <div className="mt-5">
-            {animesPopularesSaindo ? (
-              <AnimeSliderItems items={animesPopularesSaindo} />
-            ) : (
-              <div>
-                <Spinner />
-                <p className="text-xs w-[350px] mt-2">
-                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
-                </p>
-              </div>
-            )}
+            <AnimeSliderItems items={trending.popular} node='' dadNode="media" />
           </div>
         </div>
         <div className="mt-10">
           <div>
-            <h2 className="text-xl font-bold">ANIMES DA TEMPORADA</h2>
+            <h2 className="text-xl font-bold">MAIS POPULARES DA TEMPORADA</h2>
           </div>
           <div className="mt-5">
-            {animesTemporadaAtual ? (
-              <AnimeSliderItems items={animesTemporadaAtual} />
-            ) : (
-              <div>
-                <Spinner />
-                <p className="text-xs w-[350px] mt-2">
-                  Caso demore para carregar o componente, provavelmente pode ter ocorrido algum interno com um dos servidores, nesse caso reinicie a página.
-                </p>
-              </div>
-            )}
+            <AnimeSliderItems items={trending.season} node='' dadNode="media" />
           </div>
         </div>
         <div className="mt-20 w-full mx-auto">

@@ -28,13 +28,14 @@ export default function AnrollAnimeInfos({anime}) {
 
 	useEffect(() => {
 		async function pegarDadosAnimeAnroll(title) {
-			const res = await fetch(`/api/buscar/animes/anroll?q=${title}`);
+			console.log(title.replace('×', 'x'))
+			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
 			if (res.ok) {
 				const {data} = await res.json();
+				console.log(data)
 
-				if (data && data.length > 0) {
-					if (data[0].slug.includes(toSlug(title)))
-						setAnimeAnroll(data[0]);
+				if (data.length > 0) {
+					setAnimeAnroll(data[0]);
 				}
 			}
 		}

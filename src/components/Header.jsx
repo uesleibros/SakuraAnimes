@@ -6,7 +6,8 @@ import {useState, useEffect, useCallback} from "react";
 import {FaSearch, FaPlay} from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import { RiDiceLine } from "react-icons/ri";
+import traduzir from "@/utils/traduzir";
+import {RiDiceLine} from "react-icons/ri";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -176,7 +177,7 @@ const AnimeList = ({ listaAnimes, onAnimeClick }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-5 p-5">
       {listaAnimes.data.map((anime, index) => (
-        <Link href={`/assistir/anime/${anime.mal_id}`} className="w-full max-w-full transition-colors transition-transform hover:translate-x-4 hover:bg-zinc-700 bg-zinc-800 rounded-lg shadow-sm p-2" key={index} onClick={onAnimeClick}>
+        <Link href={`/assistir/anime/${anime.mal_id}`} className="w-full max-w-full transition-colors transition-transform hover:translate-x-2 hover:bg-zinc-700 bg-zinc-800 rounded-lg shadow-sm p-2" key={index} onClick={onAnimeClick}>
           <div className="flex gap-2">
             <Image
               className="rounded object-cover"
@@ -188,7 +189,6 @@ const AnimeList = ({ listaAnimes, onAnimeClick }) => {
             />
             <div className="max-w-[80%]">
               <p className="text-sm">{anime.title}</p>
-              <p className="text-gray-400 truncate text-sm w-full">{anime.synopsis}</p>
               <div className="mt-3 flex items-center gap-2">
                 <div className="pointer-events-none bg-opacity-80 font-bold bg-blue-600 w-[max-content] rounded-lg px-2 py-1 text-xs">
                   {anime.type}
