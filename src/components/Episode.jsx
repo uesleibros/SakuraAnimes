@@ -7,7 +7,7 @@ import {FaCirclePlay} from "react-icons/fa6";
 export default function Episode({ slug, episode_id, thumbnail, title, episode_number, dub }) {
 	return (
 		<>
-		  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105">
+		  <div className="w-full sm:w-[290px] transition-transform duration-300 hover:scale-105 group">
 		    <div className="mb-2">
 		      <Link href={`/assistir/anime/${slug}/${episode_id}`}>
 		        <div className="relative w-full sm:w-[290px] h-[200px] sm:h-[160.5px]">
@@ -20,8 +20,8 @@ export default function Episode({ slug, episode_id, thumbnail, title, episode_nu
                 quality={100}
                 alt={`${title}`} 
               />
-              <div className="absolute top-0 bg-black bg-opacity-30 w-full h-full">
-                <div>
+              <div className="absolute top-0 transition duration-300 group-hover:bg-black group-hover:bg-opacity-30 w-full h-full">
+                <div className="hidden transition duration-300 group-hover:visible">
                   <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
                 </div>
               </div>
