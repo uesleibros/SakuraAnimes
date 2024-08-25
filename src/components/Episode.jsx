@@ -21,7 +21,7 @@ export default function Episode({ slug, episode_id, thumbnail, title, episode_nu
                 alt={`${title}`} 
               />
               <div className="absolute top-0 transition duration-300 group-hover:bg-black group-hover:bg-opacity-30 w-full h-full">
-                <div className="hidden transition duration-300 group-hover:visible">
+                <div className="invisible transition duration-300 group-hover:visible">
                   <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
                 </div>
               </div>
