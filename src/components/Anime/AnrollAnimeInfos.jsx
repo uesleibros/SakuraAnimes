@@ -40,7 +40,7 @@ export default function AnrollAnimeInfos({anime}) {
 					if (anrollWorks === 2)
 						await pegarDadosAnimeAnroll(toSlug(anime.title.romaji));
 					else if (anrollWorks === 3)
-						await pegarDadosAnimeAnroll(toSlug(anime.title.english));
+						await pegarDadosAnimeAnroll(anime.synonyms[0]));
 					else
 					  await pegarDadosAnimeAnroll(anime.title.english);
 					setAnrollWorks(prev => prev + 1);
