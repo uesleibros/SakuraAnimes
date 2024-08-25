@@ -1,6 +1,7 @@
 import {headers} from "next/headers";
 import Episode from "@/components/Episode";
 import AnimeSliderItems from "@/components/AniList/AnimeSliderItems";
+import getSeason from "@/utils/getSeason";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -89,8 +90,8 @@ export default async function Home() {
     `;
     const variables = {
       "type": "ANIME",
-      "season": "SUMMER",
-      "seasonYear": 2024
+      "season": getSeason(),
+      "seasonYear": new Date().getFullYear()
     }
 
     const res = await fetch(`${protocol}://${host}/api/query/anilist`, {
