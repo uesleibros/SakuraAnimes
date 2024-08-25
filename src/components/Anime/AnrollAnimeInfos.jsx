@@ -36,7 +36,7 @@ export default function AnrollAnimeInfos({anime}) {
 					return data[0];
 				}
 
-				return null
+				return null;
 			}
 		}
 		async function pegarDadosAnimeAnroll(title) {
