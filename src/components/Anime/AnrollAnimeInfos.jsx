@@ -20,6 +20,7 @@ export default function AnrollAnimeInfos({anime}) {
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const [episodios, setEpisodios] = useState([]);
 	const [mounted, setMounted] = useState(false);
+	const [anrollWorks, setAnrollWorks] = useState(0);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 
 	useEffect(() => {
@@ -28,20 +29,22 @@ export default function AnrollAnimeInfos({anime}) {
 
 	useEffect(() => {
 		async function pegarDadosAnimeAnroll(title) {
-			console.log(title.replace('×', 'x'))
+			if (anrollWorks > 1) return;
 			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
 			if (res.ok) {
 				const {data} = await res.json();
-				console.log(data)
 
 				if (data.length > 0) {
 					setAnimeAnroll(data[0]);
+				} else {
+					await pegarDadosAnimeAnroll(anime.title.english);
+					setAnrollWorks(prev => prev + 1);
 				}
 			}
 		}
 
 		pegarDadosAnimeAnroll(anime.title.romaji);
-	}, [anime]);
+	}, [anime, anrollWorks]);
 
 	function handleMaisDetalhes() {
 		setMaisDetalhes(prev => !prev);
