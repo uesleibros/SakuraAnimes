@@ -31,24 +31,7 @@ export async function GET(request) {
 	if (!data.length)
 		return Response.json({ error: "anime not found." }, { status: 404 });
 
-	data = data.filter((i) => {
-  const queryNormalized = query.toLowerCase().replace(/\s+/g, '').replace(/[×]/g, 'x');
-  const titleNormalized = i.title.toLowerCase().replace(/\s+/g, '').replace(/[×]/g, 'x');
-
-  const titleOriginal = i.title.toLowerCase().replace(/[×]/g, 'x');
-  const queryOriginal = query.toLowerCase();
-
-  return (
-    // Verifica se a versão normalizada do título inclui a versão normalizada da query
-    titleNormalized.includes(queryNormalized) ||
-    
-    // Verifica se o slug inclui a versão slugificada da query
-    i.slug.includes(toSlug(queryOriginal)) ||
-    
-    // Verifica se o título original começa com a query original
-    titleOriginal.startsWith(queryOriginal)
-  );
-});
+	data = data.filter((i) => i.title.toLowerCase().startsWith(query.toLowerCase))
 	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/${i.type === "movie" ? "filmes" : "animes"}/capas/${i.slug}.jpg`);
 	for (let i = 0; i < data.length; i++) {
 		data[i].extra_data = await pegarInformacoesDetalhadasAnime(data[i]);
