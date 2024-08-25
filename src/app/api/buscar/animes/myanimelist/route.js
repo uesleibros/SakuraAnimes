@@ -5,7 +5,7 @@ export async function GET(request) {
 		return Response.json({ error: "missing query." }, { status: 401 });
 
 	const res = await fetch(`https://api.jikan.moe/v4/anime?q=${query}`, {
-		cache: "no-store"
+		next: { revalidate: 300 }
 	});
 
 	const {data} = await res.json();
