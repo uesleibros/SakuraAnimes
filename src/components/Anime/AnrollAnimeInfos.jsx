@@ -20,7 +20,6 @@ export default function AnrollAnimeInfos({anime}) {
 	const [isLoadingMore, setIsLoadingMore] = useState(false);
 	const [episodios, setEpisodios] = useState([]);
 	const [mounted, setMounted] = useState(false);
-	const [anrollWorks, setAnrollWorks] = useState(0);
 	const dias = ["Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"];
 
 	useEffect(() => {
@@ -28,6 +27,18 @@ export default function AnrollAnimeInfos({anime}) {
   }, []);
 
 	useEffect(() => {
+		async function tentaPegarDadosAnimeAnroll(title) {
+			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
+			if (res.ok) {
+				const {data} = await res.json();
+
+				if (data.length > 0) {
+					return data[0];
+				}
+
+				return null
+			}
+		}
 		async function pegarDadosAnimeAnroll(title) {
 			if (anrollWorks > 4) return;
 			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
@@ -37,22 +48,23 @@ export default function AnrollAnimeInfos({anime}) {
 				if (data.length > 0) {
 					setAnimeAnroll(data[0]);
 				} else {
-					const sum = anrollWorks + 1;
-					if (sum === 2)
-						await pegarDadosAnimeAnroll(anime.title.romaji);
-					else if (sum === 1 && anime.synonyms.length > 0)
-					  await pegarDadosAnimeAnroll(anime.synonyms[0]);
-					else if (sum === 3)
-						await pegarDadosAnimeAnroll(anime.title.english);
-					else if (sum === 4)
-						await pegarDadosAnimeAnroll(toSlug(anime.title.english));
-					setAnrollWorks(sum);
+					const try1 = await tentaPegarDadosAnimeAnroll(anime.synonyms[0]);
+					const try2 = await tentaPegarDadosAnimeAnroll(anime.title.english);
+					const try3 = await tentaPegarDadosAnimeAnroll(toSlug(anime.title.english));
+
+					if (try1) {
+						setAnimeAnroll(try1);
+					} else if (try2) {
+						setAnimeAnroll(try2)
+					} else if (try3) {
+						setAnimeAnroll(try3);
+					}
 				}
 			}
 		}
 
 		pegarDadosAnimeAnroll(anime.title.romaji);
-	}, [anime, anrollWorks]);
+	}, [anime]);
 
 	function handleMaisDetalhes() {
 		setMaisDetalhes(prev => !prev);
