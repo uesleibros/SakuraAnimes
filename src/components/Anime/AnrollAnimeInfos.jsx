@@ -40,7 +40,6 @@ export default function AnrollAnimeInfos({anime}) {
 			}
 		}
 		async function pegarDadosAnimeAnroll(title) {
-			if (anrollWorks > 4) return;
 			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
 			if (res.ok) {
 				const {data} = await res.json();
