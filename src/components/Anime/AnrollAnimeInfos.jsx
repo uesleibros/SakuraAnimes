@@ -37,15 +37,16 @@ export default function AnrollAnimeInfos({anime}) {
 				if (data.length > 0) {
 					setAnimeAnroll(data[0]);
 				} else {
-					if (anrollWorks === 2)
+					const sum = anrollWorks + 1;
+					if (sum === 2)
 						await pegarDadosAnimeAnroll(anime.title.romaji);
-					else if (anrollWorks === 1 && anime.synonyms.length > 0)
+					else if (sum === 1 && anime.synonyms.length > 0)
 					  await pegarDadosAnimeAnroll(anime.synonyms[0]);
-					else if (anrollWorks === 3)
+					else if (sum === 3)
 						await pegarDadosAnimeAnroll(anime.title.english);
-					else if (anrollWorks === 4)
+					else if (sum === 4)
 						await pegarDadosAnimeAnroll(toSlug(anime.title.english));
-					setAnrollWorks(prev => prev + 1);
+					setAnrollWorks(sum);
 				}
 			}
 		}
