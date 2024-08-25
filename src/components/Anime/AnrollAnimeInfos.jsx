@@ -29,7 +29,7 @@ export default function AnrollAnimeInfos({anime}) {
 
 	useEffect(() => {
 		async function pegarDadosAnimeAnroll(title) {
-			if (anrollWorks > 3) return;
+			if (anrollWorks > 4) return;
 			const res = await fetch(`/api/buscar/animes/anroll?q=${title.replace('×', 'x')}`);
 			if (res.ok) {
 				const {data} = await res.json();
@@ -38,11 +38,13 @@ export default function AnrollAnimeInfos({anime}) {
 					setAnimeAnroll(data[0]);
 				} else {
 					if (anrollWorks === 2)
-						await pegarDadosAnimeAnroll(toSlug(anime.title.romaji));
+						await pegarDadosAnimeAnroll(anime.title.romaji);
 					else if (anrollWorks === 1 && anime.synonyms.length > 0)
 					  await pegarDadosAnimeAnroll(anime.synonyms[0]);
 					else if (anrollWorks === 3)
 						await pegarDadosAnimeAnroll(anime.title.english);
+					else if (anrollWorks === 4)
+						await pegarDadosAnimeAnroll(toSlug(anime.title.english));
 					setAnrollWorks(prev => prev + 1);
 				}
 			}
