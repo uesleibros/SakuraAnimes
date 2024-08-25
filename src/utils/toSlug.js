@@ -4,5 +4,6 @@ export default function toSlug(str) {
     .trim()
     .replace(/[^a-z0-9 -]/g, '')
     .replace(/\s+/g, '-')
+    .replace(/[×]/g, 'x')
     .replace(/-+/g, '-');
 }
