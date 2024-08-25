@@ -142,14 +142,14 @@ export default function Header() {
             />
           </NavbarMenuItem>
           <NavbarMenuItem>
-            {(value.length > 3 && isMenuOpen) && (
+            {(value.length > 0 && isMenuOpen) && (
               <div className="z-[9999] pb-20">
                 <AnimeList listaAnimes={listaAnimes} onAnimeClick={handleAnimeClick} />
               </div>
             )}
           </NavbarMenuItem>
         </NavbarMenu>
-        {value.length > 3 && (
+        {value.length > 0 && (
           <div className="invisible transition ease-in-out delay-150 bottom-[-480px] sm:visible absolute z-[9999] w-[800px] max-w-[800px] max-[640px]:w-0 max-[640px]:max-w-0 left-[7rem] min-h-[30rem] max-h-[30rem] overflow-y-scroll bg-zinc-900 rounded-b shadow-sm">
             <AnimeList listaAnimes={listaAnimes} onAnimeClick={handleAnimeClick} />
           </div>
