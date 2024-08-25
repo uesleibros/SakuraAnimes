@@ -47,7 +47,12 @@ export default function AnrollAnimeInfos({anime}) {
 				if (data.length > 0) {
 					setAnimeAnroll(data[0]);
 				} else {
-					const try1 = await tentaPegarDadosAnimeAnroll(anime.synonyms[0]);
+					let try1 = null;
+					for (let i = 0; i < anime.synonyms.length; i++) {
+						if (try1)
+							break;
+						try1 = await tentaPegarDadosAnimeAnroll(anime.synonyms[i]);
+					}
 					const try2 = await tentaPegarDadosAnimeAnroll(anime.title.english);
 					const try3 = await tentaPegarDadosAnimeAnroll(toSlug(anime.title.english));
 
