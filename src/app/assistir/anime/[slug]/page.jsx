@@ -1,7 +1,6 @@
 import {headers} from "next/headers";
 import AnrollAnimeInfos from "@/components/Anime/AnrollAnimeInfos";
 import Image from "next/image";
-import traduzir from "@/utils/traduzir";
 
 async function pegarDadosAnime(slug, host, protocol) {
 	const query = `
@@ -145,7 +144,6 @@ async function pegarDadosAnime(slug, host, protocol) {
 	if (res.ok) {
 		const {data} = await res.json();
 		if (data || data.Media) {
-			data.Media.description = await traduzir(data.Media.description);
 			return data.Media;
 		}
 	}
@@ -168,7 +166,7 @@ export async function generateMetadata({params}) {
   }
 
 
-  const cleanedDescription = anime.description ? anime.description.replace(/<[^>]*>/g, ' ') : "Sem descrição.";
+  const cleanedDescription = anime.description.replace(/<[^>]*>/g, ' ');
 
   return {
     title: `${anime.title.romaji}`,
@@ -230,7 +228,7 @@ export default async function VerAnime({params}) {
 										</div>
 									</div>
 									<div className="mt-3 flex items-center gap-2">
-										<p className="text-sm w-full">{anime.description ? anime.description.replace(/<[^>]*>/g, ' ') : "Sem descrição."}</p>
+										<p className="text-sm w-full">{anime.description.replace(/<[^>]*>/g, ' ')}</p>
 									</div>
 								</div>
 							</div>
