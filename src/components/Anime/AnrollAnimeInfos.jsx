@@ -52,6 +52,8 @@ export default function AnrollAnimeInfos({anime}) {
 					const try2 = await tentaPegarDadosAnimeAnroll(anime.title.english);
 					const try3 = await tentaPegarDadosAnimeAnroll(toSlug(anime.title.english));
 
+					console.log(try1, try2, try3);
+
 					if (try1) {
 						setAnimeAnroll(try1);
 					} else if (try2) {
