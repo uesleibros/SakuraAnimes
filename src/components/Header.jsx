@@ -57,7 +57,7 @@ export default function Header() {
   const handleChangeValue = (e) => {
     const query = e.target.value;
     setValue(query);
-    if (query.length > 3) {
+    if (query.length > 0) {
       debounceFetchAnimes(query);
     } else {
       setListaAnimes(null);
