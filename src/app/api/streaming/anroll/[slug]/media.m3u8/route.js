@@ -7,7 +7,7 @@ export async function GET(request) {
   if (!slug || pathParts[pathParts.length - 1] !== "media.m3u8")
     return new Response(JSON.stringify({ error: "Invalid URL structure or missing slug." }), { status: 400 });
 
-  const res = await fetch(`https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/movies/${slug}/movie.mp4/media-1/stream.m3u8`, {
+  const res = await fetch(`https://cdn-zenitsu-2-gamabunta.b-cdn.net/cf/hls/movies/${slug}/movie.mp4/media-1/stream.m3u8`, {
     headers: {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
       "Referer": "https://www.anroll.net/"
