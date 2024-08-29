@@ -26,8 +26,7 @@
 - [Anroll](https://anroll.net/)
 - [Animefire](https://animefire.plus/)
 - [MyAnimeList](https://myanimelist.net/)
-- [Anilist](https://anilist.co/)
-- [Aniwave](https://aniwave.to/home)
+- [AniList](https://anilist.co/)
 
 > Todos os créditos para os sites mencionados. Sem eles, este projeto não seria possível.
 
