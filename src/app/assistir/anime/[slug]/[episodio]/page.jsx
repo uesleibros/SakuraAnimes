@@ -50,8 +50,7 @@ export default function AssistirEpisodio({params}) {
 				  strategy="afterInteractive"
 				  onReady={() => {
 				  	var player = new Playerjs({ 
-				  		id:"player", 
-				  		file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`,
+				  		id:"player", file: "https://s2.lightspeedst.net/s2/mp4_temp/2-5-jigen-no-ririsa/1/720p.mp4"
 				  	});
 				  }}
 				/>
