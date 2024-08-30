@@ -50,7 +50,7 @@ export default function AssistirEpisodio({params}) {
 				  strategy="afterInteractive"
 				  onReady={() => {
 				  	var player = new Playerjs({ 
-				  		id:"player", file:`/api/streaming/animefire/${slug}/${episodios.n_episodio}/media.mp4`
+				  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
 				  	});
 				  }}
 				/>
