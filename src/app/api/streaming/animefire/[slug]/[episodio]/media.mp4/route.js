@@ -8,11 +8,20 @@ export async function GET(request) {
   if (!slug || !episodio || pathParts[pathParts.length - 1] !== "media.mp4")
     return new Response(JSON.stringify({ error: "Invalid URL structure or missing slug/episodio." }), { status: 400 });
 
-  const res = await fetch(`https://s2.lightspeedst.net/s2/mp4/megami-no-cafe-terrace-2nd-season/hd/1.mp4`, {
+  const res = await fetch(`https://s2.lightspeedst.net/s2/mp4/hazurewaku-no-joutai-ijou-skill-de-saikyou-ni-natta-ore-ga-subete-wo-juurin-suru-made/sd/8.mp4`, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      "Authority": "s2.lightspeedst.net",
+      "Host": "s2.lightspeedst.net",
+      "Range": "bytes=0-1933312",
+      "Content-Type": "video/mp4",
       "Referer": "https://animefire.plus/",
-      "Server": "nginx"
+      "Sec-Ch-Ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
+      "Sec-Ch-Ua-Mobile": "?0",
+      "Sec-Ch-Ua-Platform": "\"Windows\"",
+      "Sec-Fetch-Dest": "video",
+      "Sec-Fetch-Mode": "no-cors",
+      "Sec-Fetch-Site": "cross-site",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
     },
     cache: "no-store"
   });
