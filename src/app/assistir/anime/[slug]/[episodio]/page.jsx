@@ -45,22 +45,37 @@ export default function AssistirEpisodio({params}) {
 	return (
 		<main className="min-h-screen">
 			{(anime && episodios) && (
-				<Script 
-				  src="/lib/playerjs.js"
-				  strategy="afterInteractive"
-				  onReady={() => {
-				  	var player = new Playerjs({ 
-				  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
-				  	});
-				  }}
-				/>
+				<>
+					{/*<Script 
+					  src="/lib/playerjs.js"
+					  strategy="afterInteractive"
+					  onReady={() => {
+					  	var player = new Playerjs({ 
+					  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
+					  	});
+					  }}
+					/>*/}
+					<Script
+						src="https://vjs.zencdn.net/7.10.2/video.min.js"
+						strategy="afterInteractive"
+						onReady{() => {
+							var player = videojs("player");
+						}}
+					/>
+				</>
 			)}
 
 			<div>
 				{(anime && episodios) ? (
 					<div>
 						<div className="!w-full !h-[510px]">
+							{/*
 							<div className="!h-full !w-full" id="player"></div>
+							*/}
+							<video id="player" class="video-js" controls preload="auto" width="640" height="264"
+							  data-setup='{"fluid": true}'>
+							  <source src="https://s2.lightspeedst.net/s2/mp4_temp/dungeon-no-naka-no-hito/8/720p.mp4" type="video/mp4">
+							</video>
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">
