@@ -56,7 +56,7 @@ export default function AssistirEpisodio({params}) {
 					  }}
 					/>*/}
 					<Script
-						src="https://vjs.zencdn.net/7.10.2/video.min.js"
+						src="https://animefire.plus/js/player/video.js?v=1"
 						strategy="afterInteractive"
 						onReady={() => {
 							var player = videojs("player");
