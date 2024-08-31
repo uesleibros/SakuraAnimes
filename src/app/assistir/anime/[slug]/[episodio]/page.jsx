@@ -72,7 +72,7 @@ export default function AssistirEpisodio({params}) {
 							{/*
 							<div className="!h-full !w-full" id="player"></div>
 							*/}
-							<video id="player" class="vjs-tech" preload="auto" data-setup="{}" data-source="0" data-video-src="https://animefire.plus/video/dungeon-no-naka-no-hito/8?tempsubs=1&amp;1725039709" tabindex="-1" role="application" src="https://s2.lightspeedst.net/s2/mp4_temp/dungeon-no-naka-no-hito/8/480p.mp4">
+							<video id="player" class="vjs-tech" preload="auto" data-setup="{}" data-source="0" tabindex="-1" role="application" src="/api/streaming/animefire/asasas/1/media.mp4">
 							</video>
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">

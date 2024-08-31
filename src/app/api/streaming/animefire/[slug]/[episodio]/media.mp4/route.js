@@ -12,8 +12,8 @@ export async function GET(request) {
     headers: {
       "Authority": "s2.lightspeedst.net",
       "Host": "s2.lightspeedst.net",
-      "Range": "bytes=0-1933312",
       "Content-Type": "video/mp4",
+      "Range": request.headers.get("range"),
       "Referer": "https://animefire.plus/",
       "Sec-Ch-Ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
       "Sec-Ch-Ua-Mobile": "?0",
