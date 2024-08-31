@@ -46,7 +46,7 @@ export default function AssistirEpisodio({params}) {
 		<main className="min-h-screen">
 			{(anime && episodios) && (
 				<>
-					{/*<Script 
+					<Script 
 					  src="/lib/playerjs.js"
 					  strategy="afterInteractive"
 					  onReady={() => {
@@ -54,13 +54,6 @@ export default function AssistirEpisodio({params}) {
 					  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
 					  	});
 					  }}
-					/>*/}
-					<Script
-						src="/lib/video.js"
-						strategy="afterInteractive"
-						onReady={() => {
-							var player = videojs("player");
-						}}
 					/>
 				</>
 			)}
@@ -69,11 +62,7 @@ export default function AssistirEpisodio({params}) {
 				{(anime && episodios) ? (
 					<div>
 						<div className="!w-full !h-[510px]">
-							{/*
 							<div className="!h-full !w-full" id="player"></div>
-							*/}
-							<video id="player" class="vjs-tech" preload="auto" data-setup="{}" data-source="0" tabindex="-1" role="application" src="/api/streaming/animefire/asasas/1/media.mp4">
-							</video>
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">

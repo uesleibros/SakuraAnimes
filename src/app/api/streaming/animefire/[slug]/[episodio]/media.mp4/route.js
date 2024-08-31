@@ -36,7 +36,6 @@ export async function GET(request) {
       "Content-Type": "video/mp4",
       "Content-Disposition": `attachment; filename="${slug}-${episodio}.mp4"`,
       "Content-Length": buffer.byteLength,
-      "Content-Range": "bytes 93978624-94815723/94815724",
       "Cache-Control": "no-store"
     }
   });
