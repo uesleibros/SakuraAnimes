@@ -46,15 +46,7 @@ export default function AssistirEpisodio({params}) {
 		<main className="min-h-screen">
 			{(anime && episodios) && (
 				<>
-					{/*<Script 
-					  src="/lib/playerjs.js"
-					  strategy="afterInteractive"
-					  onReady={() => {
-					  	var player = new Playerjs({ 
-					  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
-					  	});
-					  }}
-					/>*/}
+					
 					<Script
 						src="https://vjs.zencdn.net/7.10.2/video.min.js"
 						strategy="afterInteractive"
