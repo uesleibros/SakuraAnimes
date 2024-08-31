@@ -56,7 +56,7 @@ export default function AssistirEpisodio({params}) {
 					  }}
 					/>*/}
 					<Script
-						src="https://animefire.plus/js/player/video.js?v=1"
+						src="/lib/video.js"
 						strategy="afterInteractive"
 						onReady={() => {
 							var player = videojs("player");
@@ -72,7 +72,9 @@ export default function AssistirEpisodio({params}) {
 							{/*
 							<div className="!h-full !w-full" id="player"></div>
 							*/}
-							<video id="my-player" class="vjs-tech" preload="auto" data-setup="{}" data-source="0" data-video-src="https://animefire.plus/video/dungeon-no-naka-no-hito/8?tempsubs=1&amp;1725039709" tabindex="-1" role="application" src="https://s2.lightspeedst.net/s2/mp4_temp/dungeon-no-naka-no-hito/8/480p.mp4">
+							<video id="player" class="video-js" controls preload="auto" width="640" height="264"
+							  data-setup='{"fluid": true}'>
+							  <source src="https://s2.lightspeedst.net/s2/mp4_temp/dungeon-no-naka-no-hito/8/720p.mp4" type="video/mp4"></source>
 							</video>
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">
