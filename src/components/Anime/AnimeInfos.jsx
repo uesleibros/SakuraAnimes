@@ -75,7 +75,7 @@ export default function AnimeInfos({anime}) {
 			</div>
 			<div className="pb-20 px-[16px] mx-auto max-w-[1240px] w-full">
 				<div>
-					<div className="flex relative z-10 gap-10 max-[640px]:flex-col items-center -mt-[180px] sm:-mt-[90px]">
+					<div className="flex relative z-10 gap-10 max-[640px]:flex-col items-center -mt-[140px] sm:-mt-[90px]">
 						<div className="max-w-[224.45px] max-h-[323.28px] self-start shrink-0">
 							<Image
 								className="rounded w-full h-[323.28px] shadowm-sm select-none pointer-events-none"
