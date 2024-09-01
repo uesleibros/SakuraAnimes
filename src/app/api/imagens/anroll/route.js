@@ -19,6 +19,8 @@ export async function GET(request) {
 		cache: "no-store"
 	});
 
+	console.log(res.headers);
+
 	const imageBuffer = await res.arrayBuffer();
 	const contentLength = imageBuffer.byteLength;
 
