@@ -1,51 +1,9 @@
-"use client";
-
-import {useEffect, useState} from "react";
 import {Divider} from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
   const version = "v1.2.5";
-  const [location, setLocation] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        const response = await fetch("https://cmp.inmobi.com/geoip");
-        if (!response.ok) {
-          throw new Error('Erro ao buscar a localização');
-        }
-        const data = await response.json();
-        setLocation(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const fetchAddress = async () => {
-      try {
-        const response = await fetch("https://ntwkbc21.com/ip");
-        if (!response.ok) {
-          throw new Error('Erro ao buscar o endereço');
-        }
-        const data = await response.text();
-        setAddress(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAddress();
-    fetchLocation();
-  }, []);
   return (
     <footer className="bg-zinc-950 bg-[linear-gradient(180deg,#0000,#213944)] mt-20 p-10 sm:px-40 sm:pt-40 flex flex-col gap-10">
       <div>
@@ -112,17 +70,6 @@ export default function Footer() {
           © Velvet ({ version }): Sem fins lucrativos. 
         </p>
         <p className="text-xs font-semibold text-zinc-500 max-w-full mt-1">Somos uma entidade que reúne os servidores de animes mais seletos em um só lugar. O que você encontra aqui não nos pertence, apenas mostramos o caminho. Não hospedamos nada que possa ser considerado ilegal; apenas apontamos para onde olhar. Aqueles que ousam acessar arquivos protegidos por leis o fazem por sua conta e risco. A responsabilidade é inteiramente sua. Nenhum de nós se compromete com o que você faz ou deixa de fazer. Cuidado, pois o que encontrar aqui é só o começo.</p>
-        {location && (
-          <div className="mt-5">
-            <p className="text-xs font-semibold">Sua cidade: {location.city}</p>
-            <p className="text-xs font-semibold">Seu estado: {location.region}</p>
-          </div>
-        )}
-        {address && (
-          <div className="mt-5">
-            <p className="text-xs font-semibold">Seu ip: {address}</p>
-          </div>
-        )}
       </div>
     </footer>
   );
