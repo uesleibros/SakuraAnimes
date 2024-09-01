@@ -44,9 +44,9 @@ export async function GET(request) {
 			if (item.title.split(' ')[0].includes(query.split(' ')[0]))
 				responses.push(item);
 		}
+		data = responses;
 	}
 
-	data = responses;
 	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/${i.type === "movie" ? "filmes" : "animes"}/capas/${i.slug}.jpg`);
 	for (let i = 0; i < data.length; i++) {
 		data[i].extra_data = await pegarInformacoesDetalhadasAnime(data[i]);
