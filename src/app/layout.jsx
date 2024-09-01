@@ -43,8 +43,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body className={`dark ${font.className} bg-zinc-950`}>
+        <NextTopLoader showSpinner={false} color="orange" zIndex="9999" />
         <NextUIProvider>
-          <NextTopLoader showSpinner={false} color="green" className="z-[10000]" />
           <Header />
           {children}
           <Footer />

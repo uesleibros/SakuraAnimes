@@ -1,3 +1,5 @@
+import config from "@/config";
+
 export async function GET(request) {
   const { pathname } = new URL(request.url);
 
@@ -8,7 +10,7 @@ export async function GET(request) {
   if (!slug || !episodio || pathParts[pathParts.length - 1] !== "media.m3u8")
     return new Response(JSON.stringify({ error: "Invalid URL structure or missing slug/episodio." }), { status: 400 });
 
-  const res = await fetch(`https://cdn-zenitsu-2-gamabunta.b-cdn.net/cf/hls/animes/${slug}/${episodio}.mp4/media-1/stream.m3u8`, {
+  const res = await fetch(`https://${config.anroll.cdn}/cf/hls/animes/${slug}/${episodio}.mp4/media-1/stream.m3u8`, {
     headers: {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
       "Referer": "https://www.anroll.net/"
@@ -19,13 +21,18 @@ export async function GET(request) {
   if (!res.ok)
     return new Response(JSON.stringify({ error: "Failed to fetch the .m3u8 file." }), { status: res.status });
 
-  const buffer = await res.arrayBuffer();
+  const m3u8Text = await res.text();
 
-  return new Response(buffer, {
+  const updatedM3U8Text = m3u8Text.replace(/(https:\/\/[^\s]+)/g, (url) => {
+    const encodedUrl = encodeURIComponent(url);
+    return `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("host")}/api/imagens/anroll?q=${encodedUrl}`;
+  });
+
+  return new Response(updatedM3U8Text, {
     headers: {
       "Content-Type": "application/vnd.apple.mpegurl",
       "Content-Disposition": `attachment; filename="${slug}-${episodio}.m3u8"`,
-      "Content-Length": buffer.byteLength,
+      "Content-Length": Buffer.byteLength(updatedM3U8Text, "utf8"),
       "Cache-Control": "no-store"
     }
   });
