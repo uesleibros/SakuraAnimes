@@ -55,14 +55,11 @@ export default function AnrollAnimeInfos({anime}) {
 						try1 = await tentaPegarDadosAnimeAnroll(anime.synonyms[i]);
 					}
 					const try2 = await tentaPegarDadosAnimeAnroll(anime.title.english);
-					const try3 = await tentaPegarDadosAnimeAnroll(toSlug(anime.title.english));
 
 					if (try1) {
 						setAnimeAnroll(try1);
 					} else if (try2) {
 						setAnimeAnroll(try2)
-					} else if (try3) {
-						setAnimeAnroll(try3);
 					}
 				}
 			}
@@ -246,8 +243,8 @@ export default function AnrollAnimeInfos({anime}) {
 						</h3>
 					</div>
 					{animeAnroll?.type === "movie" && (
-						<div className="mt-10">
-							<div id="player"></div>
+						<div className="mt-10 !w-full !h-[510px]">
+							<div className="!h-full !w-full" id="player"></div>
 						</div>
 					)}
 					{episodios.length > 0 && (
@@ -274,7 +271,7 @@ export default function AnrollAnimeInfos({anime}) {
               </button>
             </div>
 					) : (
-						animeAnroll && (
+						(animeAnroll && animeAnroll?.type === "anime") && (
 							<div>
 								<p className="text-sm font-semibold text-zinc-500 select-none">Sem mais episódios. {anime.nextAiringEpisode && (formatAiringEpisode(anime.nextAiringEpisode))}</p>
 							</div>

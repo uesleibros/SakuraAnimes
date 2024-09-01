@@ -20,13 +20,18 @@ export async function GET(request) {
   if (!res.ok)
     return new Response(JSON.stringify({ error: "Failed to fetch the .m3u8 file." }), { status: res.status });
 
-  const buffer = await res.arrayBuffer();
+  const m3u8Text = await res.text();
 
-  return new Response(buffer, {
+  const updatedM3U8Text = m3u8Text.replace(/(https:\/\/[^\s]+)/g, (url) => {
+    const encodedUrl = encodeURIComponent(url);
+    return `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("host")}/api/imagens/anroll?q=${encodedUrl}`;
+  });
+
+  return new Response(updatedM3U8Text, {
     headers: {
       "Content-Type": "application/vnd.apple.mpegurl",
       "Content-Disposition": `attachment; filename="${slug}.m3u8"`,
-      "Content-Length": buffer.byteLength,
+      "Content-Length": Buffer.byteLength(updatedM3U8Text, "utf8"),
       "Cache-Control": "no-store"
     }
   });

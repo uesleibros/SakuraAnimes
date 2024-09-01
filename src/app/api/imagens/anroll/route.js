@@ -20,7 +20,6 @@ export async function GET(request) {
     status: 200,
     headers: {
       "Content-Type": "image/webp",
-      "Content-Disposition": "inline",
       "Content-Length": contentLength
     },
   });
