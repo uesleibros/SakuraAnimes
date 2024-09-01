@@ -97,8 +97,8 @@ export default function Footer() {
         <p className="text-xs font-semibold text-zinc-500 max-w-full mt-1">Somos uma entidade que reúne os servidores de animes mais seletos em um só lugar. O que você encontra aqui não nos pertence, apenas mostramos o caminho. Não hospedamos nada que possa ser considerado ilegal; apenas apontamos para onde olhar. Aqueles que ousam acessar arquivos protegidos por leis o fazem por sua conta e risco. A responsabilidade é inteiramente sua. Nenhum de nós se compromete com o que você faz ou deixa de fazer. Cuidado, pois o que encontrar aqui é só o começo.</p>
         {location && (
           <div>
-            <p>Sua cidade: {location.city}</p>
-            <p>Seu estado: {location.region}</p>
+            <p className="text-xs font-semibold">Sua cidade: {location.city}</p>
+            <p className="text-xs font-semibold>Seu estado: {location.region}</p>
           </div>
         )}
       </div>
