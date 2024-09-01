@@ -37,11 +37,12 @@ export async function GET(request) {
 		for (let i = 0; i < data.length; i++) {
 			let item = data[i];
 			item.title = item.title.replace('×', 'x').replace(':', '').toLowerCase();
-			console.log(item.title)
 
 			if (item.title.startsWith(query))
 				responses.push(item);
 			if (item.title.split(' ')[0].includes(query.split(' ')[0]))
+				responses.push(item);
+			if (item.slug == toSlug(query))
 				responses.push(item);
 		}
 		data = responses;
