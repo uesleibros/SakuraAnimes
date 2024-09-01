@@ -42,9 +42,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className={`dark ${font.className} min-h-screen bg-zinc-950`}>
-        <NextTopLoader showSpinner={false} color="red" />
+      <body className={`dark ${font.className} bg-zinc-950`}>
         <NextUIProvider>
+          <NextTopLoader showSpinner={false} color="green" />
           <Header />
           {children}
           <Footer />
