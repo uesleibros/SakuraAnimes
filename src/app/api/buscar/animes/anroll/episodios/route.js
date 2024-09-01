@@ -9,10 +9,10 @@ export async function GET(request) {
 		cache: "no-store"
 	});
 
-	const { data } = await res.json();
-	data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`);
-	data.forEach((i) => i.anime.thumbnail = `https://static.anroll.net/images/animes/capas/${i.anime.slug_serie}.jpg`);
-	data.forEach((i) => i.page = page);
+	const data = await res.json();
+	data.data.forEach((i) => i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`);
+	data.data.forEach((i) => i.anime.thumbnail = `https://static.anroll.net/images/animes/capas/${i.anime.slug_serie}.jpg`);
+	data.data.forEach((i) => i.page = page);
 
-	return Response.json({ data });
+	return Response.json(data);
 }

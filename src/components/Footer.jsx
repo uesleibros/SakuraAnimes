@@ -1,10 +1,9 @@
-"use client";
-
 import {Divider} from "@nextui-org/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
+  const version = "v1.2.5";
   return (
     <footer className="bg-zinc-950 bg-[linear-gradient(180deg,#0000,#213944)] mt-20 p-10 sm:px-40 sm:pt-40 flex flex-col gap-10">
       <div>
@@ -68,7 +67,7 @@ export default function Footer() {
       <div>
         <p className="text-sm font-semibold flex flex-col">
           <Link className="transition-colors w-[max-content] hover:text-zinc-300 text-[9px]" href="https://github.com/uesleibros/velvet">GitHub</Link>
-          © Velvet — Sem fins lucrativos. 
+          © Velvet ({ version }): Sem fins lucrativos. 
         </p>
         <p className="text-xs font-semibold text-zinc-500 max-w-full mt-1">Somos uma entidade que reúne os servidores de animes mais seletos em um só lugar. O que você encontra aqui não nos pertence, apenas mostramos o caminho. Não hospedamos nada que possa ser considerado ilegal; apenas apontamos para onde olhar. Aqueles que ousam acessar arquivos protegidos por leis o fazem por sua conta e risco. A responsabilidade é inteiramente sua. Nenhum de nós se compromete com o que você faz ou deixa de fazer. Cuidado, pois o que encontrar aqui é só o começo.</p>
       </div>

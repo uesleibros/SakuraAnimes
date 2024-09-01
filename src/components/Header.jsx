@@ -71,7 +71,7 @@ export default function Header() {
 
   return (
     <>
-      <Navbar position="sticky" className="z-[9999] bg-zinc-800" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+      <Navbar position="sticky" className="z-[9999] bg-zinc-900" isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle />
         </NavbarContent>
@@ -155,9 +155,11 @@ export default function Header() {
           </div>
         )}
       </Navbar>
-      <div className="w-full min-h-[30px] bg-blue-500 p-4 relative z-10">
-        <p className="text-tiny font-semibold text-black text-center">Estamos migrando de serviços, anteriormente, usavamos o AnROLL para as buscas de animes e listagens, porém, tendo visto que não era a melhor forma, foi decidido optar por usar o AniList e MyAnimeList especificadamente para o setor de informações do anime. Entenda que como estamos no processo de migração e configuração das rotas, podem ter bugs e coisas sem funcionar.</p>
-      </div>
+      {/*
+        <div className="w-full min-h-[30px] bg-blue-500 p-4 relative z-10">
+          <p className="text-tiny font-semibold text-black text-center">Estamos migrando de serviços, anteriormente, usavamos o AnROLL para as buscas de animes e listagens, porém, tendo visto que não era a melhor forma, foi decidido optar por usar o AniList e MyAnimeList especificadamente para o setor de informações do anime. Entenda que como estamos no processo de migração e configuração das rotas, podem ter bugs e coisas sem funcionar.</p>
+        </div>
+      */}
     </>
   );
 }

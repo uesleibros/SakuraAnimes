@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import toSlug from "@/utils/toSlug";
+import formatAiringEpisode from "@/utils/formatAiringEpisode";
 
 export default function AnrollAnimeInfos({anime}) {
 	const [animeAnroll, setAnimeAnroll] = useState(null);
@@ -85,14 +86,16 @@ export default function AnrollAnimeInfos({anime}) {
 
 		try {
 			const res = await fetch(`/api/buscar/animes/anroll/episodios?id=${animeAnroll.id}&page=${pageId}`);
-			const {data} = await res.json();
+			const data = await res.json();
 
-			if (res.ok && data.length > 0) {
-				setEpisodios((prevEpisodios) => [...prevEpisodios, ...data]);
+			if (res.ok && data.data.length > 0) {
+				setEpisodios((prevEpisodios) => [...prevEpisodios, ...data.data]);
 				setPage(pageId + 1);
-			} else {
-				setReachTotalPages(true);
 			}
+
+			if (!data.meta.hasNextPage)
+				setReachTotalPages(true);
+
 		} catch (error) {
 			console.error("Erro ao carregar mais episódios:", error);
 		} finally {
@@ -237,7 +240,7 @@ export default function AnrollAnimeInfos({anime}) {
 							<Divider className="mb-2" />
 						</div>
 					)}
-					<div className="mt-2">
+					<div className="mt-5">
 						<h3 className="font-bold transition-colors text-zinc-400 hover:text-white text-xs cursor-pointer w-[max-content]" onClick={handleMaisDetalhes}>
 							{maisDetalhes ? "MENOS DETALHES" : "MAIS DETALHES"}
 						</h3>
@@ -251,7 +254,7 @@ export default function AnrollAnimeInfos({anime}) {
 						<div className="mt-10">
 							<div>
 								<h2 className="text-xl font-bold">EPISÓDIOS</h2>
-								<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-10">
+								<div className="grid grid-cols-1 sm:grid-cols-4 gap-10 mt-5">
 									{episodios.map((episodio, index) => (
 									  <Episode slug={animeAnroll.slug} episode_id={episodio.generate_id} episode_number={episodio.n_episodio} dub={animeAnroll.extra_data.dub} thumbnail={episodio.thumbnail} key={index} />
 									))}
@@ -264,12 +267,18 @@ export default function AnrollAnimeInfos({anime}) {
 		          <Spinner size="lg" />
 		        </div>
 		      )}
-					{(animeAnroll?.type === "anime" && !reachTotalPages) && (
+					{(animeAnroll?.type === "anime" && !reachTotalPages) ? (
 						<div className="mx-auto text-center mt-6">
               <button onClick={() => carregarMaisEpisodios(page)} className="relative border border-blue-500 transition-colors hover:border-blue-600 uppercase font-bold py-2 w-full">
                 Carregar mais episódios
               </button>
             </div>
+					) : (
+						animeAnroll && (
+							<div>
+								<p className="text-sm font-semibold text-zinc-500 select-none">Sem mais episódios. {anime.nextAiringEpisode && (formatAiringEpisode(anime.nextAiringEpisode))}</p>
+							</div>
+						)
 					)}
 					<div className="mt-3">
 						<h2 className="text-xl font-bold">RECOMENDADOS</h2>

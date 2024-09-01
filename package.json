@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.6",
+    "chart.js": "^2.9.3",
     "disqus-react": "^1.1.5",
     "framer-motion": "^11.3.28",
     "next": "14.2.5",
