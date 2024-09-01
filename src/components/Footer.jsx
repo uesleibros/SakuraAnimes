@@ -98,7 +98,7 @@ export default function Footer() {
         {location && (
           <div>
             <p className="text-xs font-semibold">Sua cidade: {location.city}</p>
-            <p className="text-xs font-semibold>Seu estado: {location.region}</p>
+            <p className="text-xs font-semibold">Seu estado: {location.region}</p>
           </div>
         )}
       </div>
