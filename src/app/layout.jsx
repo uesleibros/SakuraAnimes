@@ -1,5 +1,6 @@
 import {Montserrat} from "next/font/google";
 import {NextUIProvider} from "@nextui-org/react";
+import NextTopLoader from "nextjs-toploader";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body className={`dark ${font.className} min-h-screen bg-zinc-950`}>
+        <NextTopLoader />
         <NextUIProvider>
           <Header />
           {children}
