@@ -43,9 +43,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body className={`dark ${font.className} min-h-screen bg-zinc-950`}>
-        <NextTopLoader />
         <NextUIProvider>
           <Header />
+          <NextTopLoader />
           {children}
           <Footer />
         </NextUIProvider>
