@@ -42,8 +42,8 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <NextTopLoader />
       <body className={`dark ${font.className} min-h-screen bg-zinc-950`}>
+        <NextTopLoader showSpinner={false} color="red" />
         <NextUIProvider>
           <Header />
           {children}
