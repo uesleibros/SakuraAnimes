@@ -1,4 +1,5 @@
 import {headers} from "next/headers";
+import Image from "next/image";
 import AnimeInfos from "@/components/Anime/AnimeInfos";
 
 async function pegarDadosAnime(slug, host, protocol) {
