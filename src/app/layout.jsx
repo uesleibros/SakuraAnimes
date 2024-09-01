@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <body className={`dark ${font.className} bg-zinc-950`}>
         <NextUIProvider>
-          <NextTopLoader showSpinner={false} color="green" className="z-[9999]" />
+          <NextTopLoader showSpinner={false} color="green" className="z-[10000]" />
           <Header />
           {children}
           <Footer />
