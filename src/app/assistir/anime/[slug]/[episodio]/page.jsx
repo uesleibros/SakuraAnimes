@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import {Spinner} from "@nextui-org/react";
 import {DiscussionEmbed} from "disqus-react";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import Script from "next/script";
 import Link from "next/link";
 import Episode from "@/components/Episode";
 import toTitleCase from "@/utils/toTitleCase";
+import VideoJS from "@/components/VideoJS";
 
 export default function AssistirEpisodio({params}) {
 	const [anime, setAnime] = useState(null);
@@ -46,15 +47,6 @@ export default function AssistirEpisodio({params}) {
 		<main className="min-h-screen">
 			{(anime && episodios) && (
 				<>
-					<Script 
-					  src="/lib/playerjs.js"
-					  strategy="afterInteractive"
-					  onReady={() => {
-					  	var player = new Playerjs({ 
-					  		id:"player", file:`/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`
-					  	});
-					  }}
-					/>
 				</>
 			)}
 
@@ -62,7 +54,48 @@ export default function AssistirEpisodio({params}) {
 				{(anime && episodios) ? (
 					<div>
 						<div className="!w-full !h-[510px]">
-							<div className="!h-full !w-full" id="player"></div>
+							<VideoJS options={
+								{ 
+									responsive: true, 
+									controls: true, 
+									sources: [{ src: `/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`, type: "application/x-mpegURL" }],
+									controlBar: {
+								    skipButtons: {
+								      forward: 10,
+								      backward: 10
+								    }
+								  },
+								  enableSmoothSeeking: true,
+								  userActions: {
+								  	hotkeys: function (event) {
+								  		event.preventDefault();
+
+								  		if (event.which === 39)
+								  			this.currentTime(this.currentTime() + 10);
+								  		if (event.which === 37)
+								  			this.currentTime(this.currentTime() - 10);
+
+								  		if (event.which === 76)
+								  			this.currentTime(this.currentTime() + 90);
+								  		if (event.which === 74)
+								  			this.currentTime(this.currentTime() - 90);
+
+								  		if (event.which === 70) {
+								  			if (this.isFullscreen()) {
+						  			      this.exitFullscreen();
+						  			    } else {
+						  			      this.requestFullscreen();
+						  			    }
+								  		}
+
+								  		if (event.which === 75 || event.which === 32)
+								  			this.pause();
+								  	}
+								  },
+							    preferFullWindow: true,
+							    nativeControlsForTouch: true
+								}
+							} />
 						</div>
 						<div className="mx-auto max-w-[1240px] w-full mt-2 sm:-mt-3">
 							<div className="flex max-[640px]:flex-col sm:justify-between gap-10 sm:gap-2 w-full p-[16px] sm:p-[60px]">

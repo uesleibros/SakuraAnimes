@@ -22,3 +22,15 @@ body {
 #disqus_thread iframe[sandbox] {
   max-height: 0px !important;
 }
+
+.video-js {
+  position: relative !important;
+  width: 100%;
+  height: 100%;
+}
+
+.vjs-tech {
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+}
