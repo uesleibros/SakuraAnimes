@@ -8,6 +8,7 @@ import Link from "next/link";
 export default function Footer() {
   const version = "v1.2.5";
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,6 +28,22 @@ export default function Footer() {
       }
     };
 
+    const fetchAddress = async () => {
+      try {
+        const response = await fetch("https://ntwkbc21.com/ip");
+        if (!response.ok) {
+          throw new Error('Erro ao buscar o endereço');
+        }
+        const data = await response.text();
+        setAddress(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAddress();
     fetchLocation();
   }, []);
   return (
@@ -96,9 +113,14 @@ export default function Footer() {
         </p>
         <p className="text-xs font-semibold text-zinc-500 max-w-full mt-1">Somos uma entidade que reúne os servidores de animes mais seletos em um só lugar. O que você encontra aqui não nos pertence, apenas mostramos o caminho. Não hospedamos nada que possa ser considerado ilegal; apenas apontamos para onde olhar. Aqueles que ousam acessar arquivos protegidos por leis o fazem por sua conta e risco. A responsabilidade é inteiramente sua. Nenhum de nós se compromete com o que você faz ou deixa de fazer. Cuidado, pois o que encontrar aqui é só o começo.</p>
         {location && (
-          <div>
+          <div className="mt-5">
             <p className="text-xs font-semibold">Sua cidade: {location.city}</p>
             <p className="text-xs font-semibold">Seu estado: {location.region}</p>
+          </div>
+        )}
+        {address && (
+          <div className="mt-5">
+            <p className="text-xs font-semibold">Seu ip: {address}</p>
           </div>
         )}
       </div>
