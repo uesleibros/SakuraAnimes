@@ -58,7 +58,7 @@ export default function AssistirEpisodio({params}) {
 								{ 
 									responsive: true, 
 									controls: true, 
-									sources: [{ src: `/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`, type: "application/x-mpegURL" }],
+									sources: [{ src: `https://lightspeedst.net/s3/mp4/naruto/sd/1.mp4`, type: "video/mp4" }],
 									controlBar: {
 								    skipButtons: {
 								      forward: 10,
