@@ -1,9 +1,6 @@
 import fetch from "node-fetch";
 import { HttpsProxyAgent } from "https-proxy-agent";
 
-const proxy = "http://118.68.249.51:1005";
-const agent = new HttpsProxyAgent(proxy);
-
 export async function GET(request) {
   const query = request.nextUrl.searchParams.get("q");
 
@@ -14,6 +11,8 @@ export async function GET(request) {
     );
 
   try {
+    const proxy = "http://27.70.197.16:8080";
+    const agent = new HttpsProxyAgent(proxy);
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
       agent,
