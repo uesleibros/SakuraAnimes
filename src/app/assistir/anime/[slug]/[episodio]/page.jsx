@@ -58,7 +58,7 @@ export default function AssistirEpisodio({params}) {
 								{ 
 									responsive: true, 
 									controls: true, 
-									sources: [{ src: `https://lightspeedst.net/s3/mp4/naruto/sd/1.mp4`, type: "video/mp4" }],
+									sources: [{ src: `/api/streaming/anroll/${slug}/${episodios.n_episodio}/media.m3u8`, type: "application/x-mpegURL" }],
 									controlBar: {
 								    skipButtons: {
 								      forward: 10,
@@ -88,8 +88,12 @@ export default function AssistirEpisodio({params}) {
 						  			    }
 								  		}
 
-								  		if (event.which === 75 || event.which === 32)
-								  			this.pause();
+								  		if (event.which === 75 || event.which === 32) {
+								  			if (this.paused())
+								  				this.play();
+								  			else
+								  				this.pause();
+								  		}
 								  	}
 								  },
 							    preferFullWindow: true,
