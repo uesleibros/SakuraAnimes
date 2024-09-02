@@ -14,9 +14,10 @@ export async function GET(request) {
 	});
 
 
-	console.log(res.status);
 	const imageBuffer = await res.arrayBuffer();
 	const contentLength = imageBuffer.byteLength;
+
+	return new Response(res.status);
 
   return new Response(imageBuffer, {
     status: 200,
