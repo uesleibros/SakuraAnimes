@@ -29,7 +29,7 @@ export async function GET(request) {
     return `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("host")}/api/imagens/anroll?q=${encodedUrl}`;
   });
 
-  return new Response(updatedM3U8Text, {
+  return new Response(Buffer.from(updatedM3U8Text, "utf8"), {
     headers: {
       "Content-Type": "application/vnd.apple.mpegurl",
       "Content-Disposition": `attachment; filename="${slug}-${episodio}.m3u8"`,
