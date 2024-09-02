@@ -7,6 +7,7 @@ export async function GET(request) {
 	const res = await fetch(decodeURIComponent(query), {
 		headers: {
 			"Authority": decodeURIComponent(query).replace("https://").split('/')[0],
+			"Host": "www.anroll.net",
 			"Origin": "https://www.anroll.net",
 			"Referer": "https://www.anroll.net/",
 			"Cf-Ray": "8bc942b6981b5210-GRU",
