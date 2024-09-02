@@ -11,9 +11,6 @@ export async function GET(request) {
 			"Sec-Ch-Ua": "\"Chromium\";v=\"128\", \"Not;A=Brand\";v=\"24\", \"Google Chrome\";v=\"128\"",
 			"Sec-Ch-Ua-Mobile": "?0",
 			"Sec-Ch-Ua-Platform": "\"Windows\"",
-			"Sec-Fetch-Dest": "empty",
-			"Sec-Fetch-Mode": "cors",
-			"Sec-Fetch-Site": "cross-site",
 			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 		},
 		cache: "no-store"

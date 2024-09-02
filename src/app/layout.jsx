@@ -10,7 +10,6 @@ const font = Montserrat({ subsets: ["latin"] });
 export const metadata = {
   title: "Velvet",
   description: "Está cansado de ter que entrar em sites com anúncios e de qualidade baixa? Então largue tudo e venha conhecer nossa plataforma n° 1 de streaming.",
-  referrer: "origin-when-cross-origin",
   keywords: ["Velvet", "Animes", "Assistir Animes", "Ver Animes", "Animes sem anúncios"],
   robots: {
     index: false,
