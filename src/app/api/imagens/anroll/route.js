@@ -13,7 +13,7 @@ export async function GET(request) {
     const proxyUrl = "http://27.64.18.8:10004"
     const agent = new HttpsProxyAgent(proxyUrl);
     const url = decodeURIComponent(query);
-    const res = await fetch(url, {
+    const res = await fetch(`${url}&__cf_chl_rt_tk=mkrdVHTBzhTDAR0lA4vkagRNKH2MOHkFhCo0068kn_4-1725379337-0.0.1.1-7316`, {
       agent,
       headers: {
         "Authority": "vidroll.cloud",
@@ -26,7 +26,7 @@ export async function GET(request) {
         "Pragma": "no-cache",
         "Priority": "u=0, i",
         "Upgrade-Insecure-Requests": '1',
-        "Cookie": "cf_clearance=mpWDXxOaS410.7OyUd4YSeSQbAyb16Y8Lna8Zy7q6Eo-1725375052-1.2.1.1-1jLYbFLglg..lVrh6sRoCX.6Ri897NOeS6jnHmBH71qheqChlB1buuK9WAOKtcJQk4WjzxWLsckCd9mgKgUg1MmmRwsWwnOdvzbFiKaPwnSr8GFTlQR1HLKOWABF5EvIbz6ygP.PKZ1rHMXuKQLx34dTgzrYWmphazwbmminzoTPZ_vxmhDzUwgItcK07J4Hb2mynj3h6XSFIrY3Hz6hrP31R98_.iT.w1bEIUr0oLVOOZqAUfotV0pNwl35bznjPbWwpKTs7lZJSakt6FasQltHfNgiba2.rd3lzy57ruxCIjMY6pnmRRiXKLJiMmMJGjhVIwdty6rXEms9c330n6ie5hc8PlosxvlOG4A_Iy68p1mgYEIjI7An_DgmmWAUMmhA.H6YANvBdEsBSjcuV4zH9dXEqplcEErfVl94PAIETCZ._EPoLzVGZiL1iut_",
+        "Cookie": "cf_clearance=sn64to8rx_RtsuIE8gYRmHaSRVvdPj5IBEwDRVxK1qM-1725381127-1.2.1.1-fLBtKZNM003d3L1H6M0pqtRDTW77mRi5c8NfOYAs3sk.RMWJwqu2P1Y4GAKQ1Tbb38cXLFHQRBEdsrvTlKHMwO_4TddJt0pkvwrhSWH44fe4W2MtuV4Wh5rVzHDGM75QYgqHKI0gz558XAE69KU5b6JhGHz.zdaO9xUp7xTsh5J22iBerMXIswP0EBvHtrqqUzoek1XEEv9Btee2k2y3jWR9e7Bufx.yeBZUEt1AtCZ5igE_R60wLZew7HBAtf8fqLWBbWQWAl83fuHlw.zogKVqAhcULdJ9IQgF3BK1KjB5UvhDEwrJYPq_krzMMrcVtlPWVLRCC1Z7DWyRJyub7Ulud5QZWoUS8vahaWwUdpuwhOPLQqwJL9DoaM3Epnwhl5IlMNIe1HkOB9C9ElWOa4EiBVcUYSzqUu17SQ2EIjbDaEQ7VHYutDa1hWW9S6ji",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
       },
       cache: "no-store",
