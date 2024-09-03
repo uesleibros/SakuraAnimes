@@ -1,6 +1,6 @@
 import VerEpisodio from "@/components/VerEpisodio";
 
-export default function AssistirEpisodio({params}) {
+export default async function AssistirEpisodio({params}) {
 	const {slug, episodio} = params;
 	
 	return (
