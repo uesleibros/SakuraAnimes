@@ -16,10 +16,7 @@ export default function DebugPage() {
 
       let options = {
         method: jsonBody ? "POST" : "GET", // Define o método com base no campo JSON
-        headers: {
-          "Content-Type": "application/json",
-          ...parsedHeaders,
-        },
+        headers: parsedHeaders
       };
 
       if (jsonBody) {
@@ -50,7 +47,7 @@ export default function DebugPage() {
           value={headers}
           onChange={(e) => setHeaders(e.target.value)}
           placeholder="Headers (JSON format)"
-          className="border p-2 w-full mb-2 h-24"
+          className="border p-2 w-full mb-2 h-[700px]"
         />
         <textarea
           value={jsonBody}
@@ -69,7 +66,7 @@ export default function DebugPage() {
       {response && (
         <div className="mt-4">
           <h2 className="text-lg mb-2">Response:</h2>
-          <pre className="bg-gray-100 p-2">{JSON.stringify(response, null, 2)}</pre>
+          <pre className="bg-gray-100 p-2 text-black">{JSON.stringify(response, null, 2)}</pre>
         </div>
       )}
     </div>
