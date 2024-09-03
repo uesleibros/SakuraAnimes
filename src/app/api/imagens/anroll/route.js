@@ -10,7 +10,7 @@ export async function GET(request) {
     );
 
   try {
-    const proxyUrl = "https://27.64.18.8:10004"
+    const proxyUrl = "http://27.64.18.8:10004"
     const agent = new HttpsProxyAgent(proxyUrl);
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
@@ -19,6 +19,7 @@ export async function GET(request) {
         "Authority": "vidroll.cloud",
         "Referer": url,
         "Host": "www.anroll.net",
+        "Origin": "http://27.64.18.8",
         "X-Forwarded-For": "172.67.177.146",
         "CF-Connecting-IP": "172.67.177.146",
         "Origin": `https://${new URL(url).host}`,
