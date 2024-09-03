@@ -18,6 +18,8 @@ export async function GET(request) {
       cache: "no-store",
     });
 
+    console.log(res.status);
+
     if (!res.ok) {
       return new Response(
         JSON.stringify({ error: "Failed to fetch the image." }),
