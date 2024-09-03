@@ -11,8 +11,10 @@ export async function GET(request) {
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
       headers: {
-        "Authority": new URL(url).host,
-        "Referer": "https://www.anroll.net/",
+        "Referer": url,
+        "Origin": `https://${new URL(url).host}`,
+        "Pragma": "no-cache",
+        "Priority": "u=0, i",
         "Sec-Ch-Ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
         "Sec-Ch-Ua-Arch": '"x86"',
         "Sec-Ch-Ua-Bitness": '"64"',
@@ -27,7 +29,9 @@ export async function GET(request) {
         "Sec-Fetch-Site": "same-origin",
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": '1',
-        "Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X"
+        "Set-Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X; Path=/; Expires=Wed, 03-Sep-25 14:20:01 GMT; Domain=.vidroll.cloud; HttpOnly; Secure; SameSite=None; Partitioned",
+        "Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
       },
       cache: "no-store",
     });
