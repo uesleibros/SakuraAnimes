@@ -105,7 +105,6 @@ export default function Header() {
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
-              startContent={}
             />
           </NavbarItem>
         </NavbarContent>
@@ -135,7 +134,6 @@ export default function Header() {
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
-              startContent={}
             />
           </NavbarMenuItem>
           <NavbarMenuItem>
