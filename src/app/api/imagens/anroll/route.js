@@ -10,7 +10,7 @@ export async function GET(request) {
     );
 
   try {
-    const proxyUrl = "http://27.64.18.8:10004"
+    const proxyUrl = "https://27.64.18.8:10004"
     const agent = new HttpsProxyAgent(proxyUrl);
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
