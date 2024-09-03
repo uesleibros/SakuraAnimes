@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {FaCirclePlay} from "react-icons/fa6";
 
 export default function Episode({ slug, episode_id, thumbnail, title, episode_number, dub }) {
 	return (
@@ -22,7 +21,7 @@ export default function Episode({ slug, episode_id, thumbnail, title, episode_nu
               />
               <div className="absolute top-0 transition duration-300 group-hover:bg-black group-hover:bg-opacity-30 w-full h-full">
                 <div className="invisible transition duration-300 group-hover:visible">
-                  <FaCirclePlay size={40} className="text-white mx-auto mt-[22%]" />
+                  <p className="text-white text-xl mx-auto mt-[22%]">Plau</p>
                 </div>
               </div>
 		          <div className="absolute w-full top-0 p-2 flex justify-between items-center">

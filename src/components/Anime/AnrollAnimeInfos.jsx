@@ -4,7 +4,6 @@ import {useEffect, useState, useCallback} from "react";
 import {Card, CardHeader, CardBody, CardFooter, Chip} from "@nextui-org/react";
 import {Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Button} from "@nextui-org/react";
 import {Divider, Spinner} from "@nextui-org/react";
-import {FaPlay, FaCirclePlay, FaLink} from "react-icons/fa6";
 import Episode from "@/components/Episode";
 import AnimeSliderItems from "@/components/AniList/AnimeSliderItems";
 import Image from "next/image";
@@ -151,7 +150,6 @@ export default function AnrollAnimeInfos({anime}) {
 							<div className="flex flex-col gap-2">
 								{anime.externalLinks.map((external, index) => (
 									<Link className="text-sm transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${external.url}`} key={index}>
-										<FaLink />
 										{external.icon && (
 											<Image src={`${external.icon}`} width={10} height={10} alt={`${external.site}`} />
 										)}
@@ -197,7 +195,6 @@ export default function AnrollAnimeInfos({anime}) {
 							      <Divider />
 							      <CardFooter className="mt-auto">
 							        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${staff.node.siteUrl}`}>
-												<FaLink />
 												Saiba mais
 											</Link>
 							      </CardFooter>

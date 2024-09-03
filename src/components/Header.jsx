@@ -3,11 +3,9 @@
 import {useRouter} from "next/navigation";
 import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Input, Spinner} from "@nextui-org/react";
 import {useState, useEffect, useCallback} from "react";
-import {FaSearch, FaPlay} from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import traduzir from "@/utils/traduzir";
-import {RiDiceLine} from "react-icons/ri";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -107,7 +105,7 @@ export default function Header() {
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
-              startContent={<FaSearch className="text-zinc-500" />}
+              startContent={}
             />
           </NavbarItem>
         </NavbarContent>
@@ -115,7 +113,7 @@ export default function Header() {
         <NavbarContent className="hidden sm:flex gap-4" justify="end">
           <NavbarItem>
             <div>
-              <RiDiceLine onClick={irParaAnimeAleatorio} className="transition-colors cursor-pointer text-zinc-400 hover:text-white" size={30} />
+              <p onClick={irParaAnimeAleatorio} className="transition-colors text-xl cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
             </div>
           </NavbarItem>
         </NavbarContent>
@@ -124,8 +122,7 @@ export default function Header() {
           <NavbarMenuItem>
             <NavbarItem className="mb-3">
               <div onClick={irParaAnimeAleatorio} className="cursor-pointer group flex items-center gap-2">
-                <RiDiceLine className="transition-colors text-zinc-400 group-hover:text-white" size={30} />
-                <p className="transition-colors text-zinc-400 group-hover:text-white">Anime aleatório</p>
+                <p onClick={irParaAnimeAleatorio} className="transition-colors text-xl cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
               </div>
             </NavbarItem>
           </NavbarMenuItem>
@@ -138,7 +135,7 @@ export default function Header() {
               variant="underlined"
               onChange={handleChangeValue}
               value={value}
-              startContent={<FaSearch className="text-zinc-500" />}
+              startContent={}
             />
           </NavbarMenuItem>
           <NavbarMenuItem>
@@ -198,11 +195,6 @@ const AnimeList = ({ listaAnimes, onAnimeClick }) => {
                 <div className="pointer-events-none bg-opacity-80 font-bold bg-green-600 w-[max-content] rounded-lg px-2 py-1 text-xs">
                   {anime.aired.prop.from.year ? anime.aired.prop.from.year : "Não lançado"}
                 </div>
-                {(anime.type !== "Movie" && anime.episodes) && (
-                  <div className="pointer-events-none bg-opacity-80 font-bold bg-black w-[max-content] rounded-lg px-2 py-1 text-xs flex items-center gap-2">
-                    <FaPlay /> {anime.episodes}
-                  </div>
-                )}
               </div>
             </div>
           </div>
