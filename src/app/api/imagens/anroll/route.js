@@ -12,6 +12,13 @@ export async function GET(request) {
     const res = await fetch(url, {
       headers: {
         "Referer": url,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Content-Type": "image/webp,*/*",
+        "Host": "www.anroll.net",
+        "X-Forwarded-For": "172.67.177.146",
+        "CF-Connecting-IP": "172.67.177.146",
+        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
         "Origin": `https://${new URL(url).host}`,
         "Pragma": "no-cache",
         "Priority": "u=0, i",
@@ -29,8 +36,7 @@ export async function GET(request) {
         "Sec-Fetch-Site": "same-origin",
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": '1',
-        "Set-Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X; Path=/; Expires=Wed, 03-Sep-25 14:20:01 GMT; Domain=.vidroll.cloud; HttpOnly; Secure; SameSite=None; Partitioned",
-        "Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X",
+        "Cookie": "cf_clearance=mpWDXxOaS410.7OyUd4YSeSQbAyb16Y8Lna8Zy7q6Eo-1725375052-1.2.1.1-1jLYbFLglg..lVrh6sRoCX.6Ri897NOeS6jnHmBH71qheqChlB1buuK9WAOKtcJQk4WjzxWLsckCd9mgKgUg1MmmRwsWwnOdvzbFiKaPwnSr8GFTlQR1HLKOWABF5EvIbz6ygP.PKZ1rHMXuKQLx34dTgzrYWmphazwbmminzoTPZ_vxmhDzUwgItcK07J4Hb2mynj3h6XSFIrY3Hz6hrP31R98_.iT.w1bEIUr0oLVOOZqAUfotV0pNwl35bznjPbWwpKTs7lZJSakt6FasQltHfNgiba2.rd3lzy57ruxCIjMY6pnmRRiXKLJiMmMJGjhVIwdty6rXEms9c330n6ie5hc8PlosxvlOG4A_Iy68p1mgYEIjI7An_DgmmWAUMmhA.H6YANvBdEsBSjcuV4zH9dXEqplcEErfVl94PAIETCZ._EPoLzVGZiL1iut_",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
       },
       cache: "no-store",
