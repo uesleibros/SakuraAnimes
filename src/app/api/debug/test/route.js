@@ -1,7 +1,7 @@
 export async function POST(request) {
   const body = await request.json();
   const res = await fetch(body.url, {
-    body.headers,
+    headers: body.headers,
     cache: "no-store"
   });
 
