@@ -11,9 +11,13 @@ export async function GET(request) {
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
       headers: {
+        "Authority": new URL(url).host,
+        "Host": "www.anroll.net",
         "Referer": "https://www.anroll.net/",
+        "Origin": "https://www.anroll.net/",
         "Cookie": "cf_chl_rc_i=1; cf_clearance=EaQkfDtHavnIrHAsjDWCmX7uFruyw4MSFABs3V.CR.c-1725330835-1.2.1.1-xMEsj3zV6l3D7gTlIKTKNYP5W54OulGZ4AygD9nR0g9S_ti13CpOLntsFKM9fKLAIa5.ehqJPa1hhtKANBpLShiLfciHB6Em8QKu3JJgl1q9bpMAMt.yPKwhXDXQ_oCxrWKzmEvCaBSc9J9jTZ0ldSDfgGW.w8VAvI1Dj4i3sCg4QPmT26sKdZZvJbcyiyk.NhgPmCcIFYxN7EnLj7DRjcy4f75RLHeMeMzfVP9HPv6f7_Rxbtgovp.R4y4f0c4dnzfT5ATMjsNss55Yg.rOGzFXjM7Xw5UozRQaUUdWNuzUVc0Sbr3uz6Yi16xy0bHVbHFgmPWqXOixNkZQjjzduHKOdKilUuktUaF0INf6sw5Y6ApirZBt08dh_ljBcmNOGhYhsVgJOhjK24qpm6zNStBIKp13ADf7poThmb2WNAg",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        "Access-Control-Allow-Origin": '*'
       },
       cache: "no-store",
     });
