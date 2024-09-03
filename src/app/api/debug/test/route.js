@@ -6,10 +6,6 @@ export async function POST(request) {
     cache: "no-store"
   });
 
-  const headers = {};
-  res.headers.forEach((value, key) => {
-    headers[key] = value;
-  });
-
-  return Response.json(headers);
+  const data = await res.text();
+  return Response.json(data);
 }
