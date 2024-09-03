@@ -18,7 +18,7 @@ export async function GET(request) {
       cache: "no-store",
     });
 
-    console.log(res.status);
+    console.log(await res.text());
 
     if (!res.ok) {
       return new Response(
