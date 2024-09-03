@@ -24,7 +24,7 @@ export default function DebugPage() {
       }
 
       const res = await fetch(url, options);
-      const data = await res.headers;
+      const data = res.headers;
       setResponse(data);
     
   };
