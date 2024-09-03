@@ -1,3 +1,5 @@
+import {HttpsProxyAgent} from "https-proxy-agent";
+
 export async function GET(request) {
   const query = request.nextUrl.searchParams.get("q");
 
@@ -8,8 +10,11 @@ export async function GET(request) {
     );
 
   try {
+    const proxyUrl = "http://27.64.18.8:10004"
+    const agent = new HttpsProxyAgent(proxyUrl);
     const url = decodeURIComponent(query);
     const res = await fetch(url, {
+      agent,
       headers: {
         "Authority": "vidroll.cloud",
         "Referer": url,
