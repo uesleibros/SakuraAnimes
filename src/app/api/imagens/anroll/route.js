@@ -9,7 +9,7 @@ export async function GET(request) {
 
   try {
     const url = decodeURIComponent(query);
-    console.log(await fetch(url, {
+    const testt = await fetch(url, {
       method: "HEAD",
       headers: {
         "Authority": new URL(url).host,
@@ -26,10 +26,11 @@ export async function GET(request) {
         "X-Originating-IP": "172.67.177.146",
         "X-Remote-Addr": "172.67.177.146",
         "Cluster-Client-IP": "172.67.177.146",
-        "X-HTTP-Method-Override": "GET",
+        "X-HTTP-Method-Override": "HEAD",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
       }
-    }).headers);
+    });
+    console.log(testt.headers);
     const res = await fetch(url, {
       headers: {
         "Authority": new URL(url).host,
