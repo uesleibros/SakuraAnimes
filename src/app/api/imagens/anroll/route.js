@@ -12,21 +12,22 @@ export async function GET(request) {
     const res = await fetch(url, {
       headers: {
         "Authority": new URL(url).host,
-        "Host": "www.anroll.net",
         "Referer": "https://www.anroll.net/",
-        "Origin": "https://www.anroll.net/",
-        "Sec-Ch-Ua": "\"Chromium\";v=\"110\", \"Not A(Brand\";v=\"24\", \"Google Chrome\";v=\"110\"",
+        "Sec-Ch-Ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+        "Sec-Ch-Ua-Arch": '"x86"',
+        "Sec-Ch-Ua-Bitness": '"64"',
+        "Sec-Ch-Ua-Full-Version": '"128.0.6613.117"',
+        "Sec-Ch-Ua-Full-Version-List": '"Chromium";v="128.0.6613.117", "Not;A=Brand";v="24.0.0.0", "Google Chrome";v="128.0.6613.117"',
         "Sec-Ch-Ua-Mobile": "?0",
-        "Sec-Ch-Ua-Platform": "\"Windows\"",
+        "Sec-Ch-Ua-Model": '',
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "Sec-Ch-Ua-Platform-Version": '"10.0.0"',
         "Sec-Fetch-Dest": "document",
         "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-Site": "same-origin",
         "Sec-Fetch-User": "?1",
-        "Service-Worker-Navigation-Preload": "true",
         "Upgrade-Insecure-Requests": '1',
-        "Cookie": "cf_chl_rc_i=1; cf_clearance=EaQkfDtHavnIrHAsjDWCmX7uFruyw4MSFABs3V.CR.c-1725330835-1.2.1.1-xMEsj3zV6l3D7gTlIKTKNYP5W54OulGZ4AygD9nR0g9S_ti13CpOLntsFKM9fKLAIa5.ehqJPa1hhtKANBpLShiLfciHB6Em8QKu3JJgl1q9bpMAMt.yPKwhXDXQ_oCxrWKzmEvCaBSc9J9jTZ0ldSDfgGW.w8VAvI1Dj4i3sCg4QPmT26sKdZZvJbcyiyk.NhgPmCcIFYxN7EnLj7DRjcy4f75RLHeMeMzfVP9HPv6f7_Rxbtgovp.R4y4f0c4dnzfT5ATMjsNss55Yg.rOGzFXjM7Xw5UozRQaUUdWNuzUVc0Sbr3uz6Yi16xy0bHVbHFgmPWqXOixNkZQjjzduHKOdKilUuktUaF0INf6sw5Y6ApirZBt08dh_ljBcmNOGhYhsVgJOhjK24qpm6zNStBIKp13ADf7poThmb2WNAg",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Access-Control-Allow-Origin": '*'
+        "Cookie": "cf_clearance=aps_Cj0Sv1XwmpyF.N0tfBd43f01XrqGW.MPoHJKqL0-1725373149-1.2.1.1-yyroorvlZjFxXf0dHLHU1N8XsO3Ld3BhNFahDDgzSl8qUBUkHHTMDtxKf6nGYQMpjLohC5fhZpvfNdwO9GsArFEdtgeBPonuYPoNzFV5vvlxFQTyO9TrD0YTj9SO9uOWCmxsUmFKId62ccO0dqydwqvzRzSQRXFTxUa.9BGLfuT8SRxY17QTwBmVugHuMzq8MviXnRirlzGaxAYrG.YrZ8h4C5bdEgGyClCDMZOnC0uVZ8S4EP8Z_tili8bMXqiq5XflngGfP.26eDFmJzDLGGLTvOf4nfPa7nCxOg7SuLKjfObyEq245Y5scusBhREqqppBpYN1RvHSOO3JhUib2USyZ40h6ccoTTOOWyfjVtKgry6Pw6PAXclWELWuHRYTUYwrZ_1p.i2Lr9ckiQEIGTYhCxrx_6xwdWcOW2QgfAzEjlzQzQjTsZ0kZHgcRr1X"
       },
       cache: "no-store",
     });
