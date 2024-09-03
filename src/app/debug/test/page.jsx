@@ -10,7 +10,7 @@ export default function DebugPage() {
   const [response, setResponse] = useState(null);
 
   const handleRequest = async () => {
-    try {
+    
       setResponse(null);
       const parsedHeaders = headers ? JSON.parse(headers) : {}; // Parse headers JSON
 
@@ -26,10 +26,7 @@ export default function DebugPage() {
       const res = await fetch(url, options);
       const data = await res.headers;
       setResponse(data);
-    } catch (error) {
-      console.error("Erro ao enviar requisição:", error);
-      setResponse(error.toString());
-    }
+    
   };
 
   return (
