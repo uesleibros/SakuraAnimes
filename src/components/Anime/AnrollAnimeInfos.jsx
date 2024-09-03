@@ -224,7 +224,6 @@ export default function AnrollAnimeInfos({anime}) {
 							      <Divider />
 							      <CardFooter className="mt-auto">
 							        <Link className="transition-colors text-blue-500 hover:text-white flex items-center gap-2 w-[max-content]" href={`${character.node.siteUrl}`}>
-												<FaLink />
 												Saiba mais
 											</Link>
 							      </CardFooter>
