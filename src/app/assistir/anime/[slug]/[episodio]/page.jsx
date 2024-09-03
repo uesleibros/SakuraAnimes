@@ -1,4 +1,4 @@
-import VerEpisodio from "@/components/VerEpisodio";
+import VerEpisodio from "@/components/Anime/VerEpisodio";
 
 export default async function AssistirEpisodio({params}) {
 	const {slug, episodio} = params;
