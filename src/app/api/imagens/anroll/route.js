@@ -19,15 +19,9 @@ export async function GET(request) {
         "Authority": "vidroll.cloud",
         "Referer": url,
         "Host": "www.anroll.net",
-        "Origin": "http://27.64.18.8",
-        "X-Forwarded-For": "172.67.177.146",
-        "CF-Connecting-IP": "172.67.177.146",
         "Origin": `https://${new URL(url).host}`,
-        "Pragma": "no-cache",
-        "Priority": "u=0, i",
-        "Upgrade-Insecure-Requests": '1',
-        "Cookie": "cf_clearance=sn64to8rx_RtsuIE8gYRmHaSRVvdPj5IBEwDRVxK1qM-1725381127-1.2.1.1-fLBtKZNM003d3L1H6M0pqtRDTW77mRi5c8NfOYAs3sk.RMWJwqu2P1Y4GAKQ1Tbb38cXLFHQRBEdsrvTlKHMwO_4TddJt0pkvwrhSWH44fe4W2MtuV4Wh5rVzHDGM75QYgqHKI0gz558XAE69KU5b6JhGHz.zdaO9xUp7xTsh5J22iBerMXIswP0EBvHtrqqUzoek1XEEv9Btee2k2y3jWR9e7Bufx.yeBZUEt1AtCZ5igE_R60wLZew7HBAtf8fqLWBbWQWAl83fuHlw.zogKVqAhcULdJ9IQgF3BK1KjB5UvhDEwrJYPq_krzMMrcVtlPWVLRCC1Z7DWyRJyub7Ulud5QZWoUS8vahaWwUdpuwhOPLQqwJL9DoaM3Epnwhl5IlMNIe1HkOB9C9ElWOa4EiBVcUYSzqUu17SQ2EIjbDaEQ7VHYutDa1hWW9S6ji",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+        "Cookie": "cf_chl_rc_i=14; cf_clearance=sn64to8rx_RtsuIE8gYRmHaSRVvdPj5IBEwDRVxK1qM-1725381127-1.2.1.1-fLBtKZNM003d3L1H6M0pqtRDTW77mRi5c8NfOYAs3sk.RMWJwqu2P1Y4GAKQ1Tbb38cXLFHQRBEdsrvTlKHMwO_4TddJt0pkvwrhSWH44fe4W2MtuV4Wh5rVzHDGM75QYgqHKI0gz558XAE69KU5b6JhGHz.zdaO9xUp7xTsh5J22iBerMXIswP0EBvHtrqqUzoek1XEEv9Btee2k2y3jWR9e7Bufx.yeBZUEt1AtCZ5igE_R60wLZew7HBAtf8fqLWBbWQWAl83fuHlw.zogKVqAhcULdJ9IQgF3BK1KjB5UvhDEwrJYPq_krzMMrcVtlPWVLRCC1Z7DWyRJyub7Ulud5QZWoUS8vahaWwUdpuwhOPLQqwJL9DoaM3Epnwhl5IlMNIe1HkOB9C9ElWOa4EiBVcUYSzqUu17SQ2EIjbDaEQ7VHYutDa1hWW9S6ji",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
       },
       cache: "no-store",
     });
