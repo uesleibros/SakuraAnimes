@@ -116,11 +116,7 @@ export default async function Home() {
     const res = await fetch(`${protocol}://${host}/api/recentes/animes/anroll`);
     const {data} = await res.json();
 
-    if (data?.data_releases.length > 0) {
-      return data.data_releases;
-    }
-
-    return null
+    return data;
   }
 
   const trending = await pegarTopicosAnimes();

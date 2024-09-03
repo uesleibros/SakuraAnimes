@@ -112,7 +112,7 @@ export default function Header() {
         <NavbarContent className="hidden sm:flex gap-4" justify="end">
           <NavbarItem>
             <div>
-              <p onClick={irParaAnimeAleatorio} className="transition-colors text-xl cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
+              <p onClick={irParaAnimeAleatorio} className="transition-colors text-sm cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
             </div>
           </NavbarItem>
         </NavbarContent>
@@ -121,7 +121,7 @@ export default function Header() {
           <NavbarMenuItem>
             <NavbarItem className="mb-3">
               <div onClick={irParaAnimeAleatorio} className="cursor-pointer group flex items-center gap-2">
-                <p onClick={irParaAnimeAleatorio} className="transition-colors text-xl cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
+                <p onClick={irParaAnimeAleatorio} className="transition-colors text-sm cursor-pointer text-zinc-400 hover:text-white">Randomizar</p>
               </div>
             </NavbarItem>
           </NavbarMenuItem>
