@@ -14,7 +14,8 @@ export async function GET(request) {
     headers: {
       "Origin": "https://www.anroll.net",
       "Referer": "https://www.anroll.net/",
-      "Host": "http://localhost:3000",
+      "Host": "localhost:3000",
+      "X-Real-IP": "127.0.0.1",
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
     },
     cache: "no-store"
