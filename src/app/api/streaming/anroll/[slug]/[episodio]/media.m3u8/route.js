@@ -10,13 +10,11 @@ export async function GET(request) {
   if (!slug || !episodio || pathParts[pathParts.length - 1] !== "media.m3u8")
     return new Response(JSON.stringify({ error: "Invalid URL structure or missing slug/episodio." }), { status: 400 });
 
-  const res = await fetch(`https://${config.anroll.cdn}/cf/hls/animes/${slug}/${episodio}.mp4/media-1/stream.m3u8`, {
+  const url = `https://${config.anroll.cdn}/cf/hls/animes/${slug}/${episodio}.mp4/media-1/stream.m3u8`;
+  const apikey = "ed59bacd6da711d678cf8baa6966aba6350d364a";
+  const res = await fetch(`https://api.zenrows.com/v1?apikey=${apikey}&original_status=true&custom_headers=true&url=${url}`, {
     headers: {
-      "Origin": "https://www.anroll.net",
-      "Referer": "https://www.anroll.net/",
-      "Host": "localhost:3000",
-      "X-Real-IP": "127.0.0.1",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+      "Referer": "https://www.anroll.net/"
     },
     cache: "no-store"
   });
