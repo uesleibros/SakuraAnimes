@@ -1,4 +1,4 @@
-import axios from "axios":
+import axios from "axios";
 
 export async function GET(request) {
   const query = request.nextUrl.searchParams.get("q");
